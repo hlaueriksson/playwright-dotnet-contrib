@@ -1,34 +1,25 @@
 ﻿using System;
 using System.Threading.Tasks;
-using PlaywrightSharp.Chromium;
-using PlaywrightSharp.Firefox;
 using Xunit;
 
 namespace PlaywrightSharp.Documentation
 {
     public class Examples
     {
-        private readonly IBrowserType _browserType;
-
-        public Examples()
-        {
-            _browserType = new ChromiumBrowserType();
-            //_browserType = new FirefoxBrowserType();
-        }
-
         [Fact]
-        public async Task download_Browser()
+        public async Task install()
         {
-            await _browserType.CreateBrowserFetcher().DownloadAsync();
+            await Playwright.InstallAsync();
         }
 
         [Fact]
         public async Task<IBrowser> Browser()
         {
-            var browser = await _browserType.LaunchAsync(new LaunchOptions
-            {
-                Headless = true
-            });
+            var playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(headless: true);
+
+            // IBrowserType
+            _ = new[] { playwright.Chromium, playwright.Firefox, playwright.Webkit };
 
             return browser;
         }
@@ -44,8 +35,8 @@ namespace PlaywrightSharp.Documentation
         [Fact]
         public async Task using_Browser()
         {
-            var options = new LaunchOptions { Headless = true };
-            await using var browser = await _browserType.LaunchAsync(options);
+            using var playwright = await Playwright.CreateAsync();
+            await using var browser = await playwright.Chromium.LaunchAsync(headless: true);
 
             // ...
         }
@@ -54,7 +45,7 @@ namespace PlaywrightSharp.Documentation
         public async Task<IPage> Page()
         {
             var browser = await Browser();
-            var page = await browser.DefaultContext.NewPageAsync();
+            var page = await browser.NewPageAsync();
 
             return page;
         }
@@ -86,12 +77,11 @@ namespace PlaywrightSharp.Documentation
             var timeout = TimeSpan.FromSeconds(30).Milliseconds; // default value
             page.DefaultNavigationTimeout = timeout;
             page.DefaultTimeout = timeout;
-            var options = new GoToOptions { Timeout = timeout };
 
-            await page.GoToAsync("https://github.com/hardkoded/playwright-sharp", options);
-            await page.GoBackAsync(options);
-            await page.GoForwardAsync(options);
-            await page.ReloadAsync(options);
+            await page.GoToAsync("https://github.com/hardkoded/playwright-sharp", timeout: timeout);
+            await page.GoBackAsync(timeout);
+            await page.GoForwardAsync(timeout);
+            await page.ReloadAsync(timeout);
         }
 
         [Fact]
@@ -100,31 +90,28 @@ namespace PlaywrightSharp.Documentation
             var page = await Page();
             var timeout = TimeSpan.FromSeconds(3).Milliseconds;
 
-            var requestTask = page.WaitForRequestAsync("https://github.com/hardkoded/playwright-sharp", new WaitForOptions { Timeout = timeout });
-            var responseTask = page.WaitForResponseAsync("https://github.com/hardkoded/playwright-sharp", new WaitForOptions { Timeout = timeout });
+            var requestTask = page.WaitForRequestAsync("https://github.com/hardkoded/playwright-sharp", timeout);
+            var responseTask = page.WaitForResponseAsync("https://github.com/hardkoded/playwright-sharp", timeout);
             await page.GoToAsync("https://github.com/hardkoded/playwright-sharp");
             await Task.WhenAll(requestTask, responseTask);
 
-            var eventTask = page.WaitForEvent(PageEvent.Response, new WaitForEventOptions<ResponseEventArgs> { Predicate = e => e.Response.Url == "https://github.com/hardkoded/playwright-sharp" });
-            var loadStateTask = page.WaitForLoadStateAsync(new NavigationOptions { Timeout = timeout });
+            var eventTask = page.WaitForEvent<ResponseEventArgs>(PageEvent.Response, e => e.Response.Url == "https://github.com/hardkoded/playwright-sharp");
+            var loadStateTask = page.WaitForLoadStateAsync(timeout: timeout);
             await page.GoToAsync("https://github.com/hardkoded/playwright-sharp");
             await Task.WhenAll(eventTask, loadStateTask);
 
             await page.ClickAsync("h1 > strong > a");
-            await page.WaitForNavigationAsync(new WaitForNavigationOptions { Timeout = timeout });
+            await page.WaitForNavigationAsync(timeout: timeout);
 
-            await page.WaitForFunctionAsync("() => window.location.href === 'https://github.com/hardkoded/playwright-sharp'", new WaitForFunctionOptions { Timeout = timeout });
-            await page.WaitForSelectorAsync("#readme", new WaitForSelectorOptions { Timeout = timeout });
+            await page.WaitForFunctionAsync("() => window.location.href === 'https://github.com/hardkoded/playwright-sharp'", timeout);
+            await page.WaitForSelectorAsync("#readme", timeout: timeout);
             await page.WaitForTimeoutAsync(timeout);
 
-            // WaitUntilNavigation
-            new NavigationOptions().WaitUntil = new[]
-            {
-                WaitUntilNavigation.Load,
-                WaitUntilNavigation.DOMContentLoaded,
-                WaitUntilNavigation.Networkidle0,
-                WaitUntilNavigation.Networkidle2
-            };
+            // LifecycleEvent
+            _ = new[] { LifecycleEvent.Load, LifecycleEvent.DOMContentLoaded, LifecycleEvent.Networkidle };
+
+            // WaitForState
+            _ = new[] { WaitForState.Attached, WaitForState.Detached, WaitForState.Visible, WaitForState.Hidden };
         }
 
         [Fact]
@@ -143,6 +130,8 @@ namespace PlaywrightSharp.Documentation
             var page = await Page();
             await page.GoToAsync("https://www.techlistic.com/p/selenium-practice-form.html");
 
+            await page.SetViewportSizeAsync(1024, 1024); // fix
+
             // input / text
             await page.TypeAsync("input[name='firstname']", "Playwright");
 
@@ -150,10 +139,10 @@ namespace PlaywrightSharp.Documentation
             await page.ClickAsync("#exp-6");
 
             // input / checkbox
-            await page.ClickAsync("#profession-1");
+            await page.CheckAsync("#profession-1");
 
             // select / option
-            await page.SelectAsync("#continents", "Europe");
+            await page.SelectOptionAsync("#continents", "Europe");
 
             // input / file
             var file = await page.QuerySelectorAsync("#photo");
