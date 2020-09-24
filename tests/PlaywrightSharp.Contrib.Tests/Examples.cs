@@ -74,7 +74,7 @@ namespace PlaywrightSharp.Documentation
         {
             var page = await Page();
 
-            var timeout = TimeSpan.FromSeconds(30).Milliseconds; // default value
+            var timeout = (int) TimeSpan.FromSeconds(30).TotalMilliseconds; // default value
             page.DefaultNavigationTimeout = timeout;
             page.DefaultTimeout = timeout;
 
@@ -88,7 +88,7 @@ namespace PlaywrightSharp.Documentation
         public async Task wait()
         {
             var page = await Page();
-            var timeout = TimeSpan.FromSeconds(3).Milliseconds;
+            var timeout = (int) TimeSpan.FromSeconds(3).TotalMilliseconds;
 
             var requestTask = page.WaitForRequestAsync("https://github.com/hardkoded/playwright-sharp", timeout);
             var responseTask = page.WaitForResponseAsync("https://github.com/hardkoded/playwright-sharp", timeout);
