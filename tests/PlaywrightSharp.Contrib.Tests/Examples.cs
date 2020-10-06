@@ -63,7 +63,7 @@ namespace PlaywrightSharp.Documentation
         {
             var page = await Page();
 
-            await page.GoToAsync("https://github.com/hardkoded/playwright-sharp");
+            await page.GoToAsync("https://github.com/microsoft/playwright-sharp");
             await page.GoBackAsync();
             await page.GoForwardAsync();
             await page.ReloadAsync();
@@ -78,7 +78,7 @@ namespace PlaywrightSharp.Documentation
             page.DefaultNavigationTimeout = timeout;
             page.DefaultTimeout = timeout;
 
-            await page.GoToAsync("https://github.com/hardkoded/playwright-sharp", timeout: timeout);
+            await page.GoToAsync("https://github.com/microsoft/playwright-sharp", timeout: timeout);
             await page.GoBackAsync(timeout);
             await page.GoForwardAsync(timeout);
             await page.ReloadAsync(timeout);
@@ -90,20 +90,20 @@ namespace PlaywrightSharp.Documentation
             var page = await Page();
             var timeout = (int) TimeSpan.FromSeconds(3).TotalMilliseconds;
 
-            var requestTask = page.WaitForRequestAsync("https://github.com/hardkoded/playwright-sharp", timeout);
-            var responseTask = page.WaitForResponseAsync("https://github.com/hardkoded/playwright-sharp", timeout);
-            await page.GoToAsync("https://github.com/hardkoded/playwright-sharp");
+            var requestTask = page.WaitForRequestAsync("https://github.com/microsoft/playwright-sharp", timeout);
+            var responseTask = page.WaitForResponseAsync("https://github.com/microsoft/playwright-sharp", timeout);
+            await page.GoToAsync("https://github.com/microsoft/playwright-sharp");
             await Task.WhenAll(requestTask, responseTask);
 
-            var eventTask = page.WaitForEvent<ResponseEventArgs>(PageEvent.Response, e => e.Response.Url == "https://github.com/hardkoded/playwright-sharp");
+            var eventTask = page.WaitForEvent<ResponseEventArgs>(PageEvent.Response, e => e.Response.Url == "https://github.com/microsoft/playwright-sharp");
             var loadStateTask = page.WaitForLoadStateAsync(timeout: timeout);
-            await page.GoToAsync("https://github.com/hardkoded/playwright-sharp");
+            await page.GoToAsync("https://github.com/microsoft/playwright-sharp");
             await Task.WhenAll(eventTask, loadStateTask);
 
             await page.ClickAsync("h1 > strong > a");
             await page.WaitForNavigationAsync(timeout: timeout);
 
-            await page.WaitForFunctionAsync("() => window.location.href === 'https://github.com/hardkoded/playwright-sharp'", timeout);
+            await page.WaitForFunctionAsync("() => window.location.href === 'https://github.com/microsoft/playwright-sharp'", timeout);
             await page.WaitForSelectorAsync("#readme", timeout: timeout);
             await page.WaitForTimeoutAsync(timeout);
 
@@ -146,7 +146,7 @@ namespace PlaywrightSharp.Documentation
 
             // input / file
             var file = await page.QuerySelectorAsync("#photo");
-            await file.SetInputFilesAsync(@"c:\temp\test.jpg");
+            await file.SetInputFilesAsync(@"c:\temp\test.png");
 
             // button
             await page.ClickAsync("#submit");
@@ -156,51 +156,64 @@ namespace PlaywrightSharp.Documentation
         public async Task query()
         {
             var page = await Page();
-            await page.GoToAsync("https://github.com/hardkoded/playwright-sharp");
+            await page.GoToAsync("https://github.com/microsoft/playwright-sharp");
 
-            var element = await page.QuerySelectorAsync("h1 > strong > a");
-            var elements = await page.QuerySelectorAllAsync("a");
+            var element = await page.QuerySelectorAsync("div#readme");
+            var elements = await page.QuerySelectorAllAsync("div");
             Assert.NotNull(element);
             Assert.NotEmpty(elements);
 
-            var missingElement = await page.QuerySelectorAsync("a#missing-link");
-            var missingElements = await page.QuerySelectorAllAsync("a.missing-link");
+            var missingElement = await page.QuerySelectorAsync("div#missing");
+            var missingElements = await page.QuerySelectorAllAsync("div.missing");
             Assert.Null(missingElement);
             Assert.Empty(missingElements);
+
+            var elementInElement = await element.QuerySelectorAsync("h1");
+            var elementsInElement = await element.QuerySelectorAllAsync("h1");
+            Assert.NotNull(elementInElement);
+            Assert.NotEmpty(elementsInElement);
+        }
+
+        [Fact]
+        public async Task evaluate()
+        {
+            var page = await Page();
+            await page.GoToAsync("https://github.com/microsoft/playwright-sharp");
+            var element = await page.QuerySelectorAsync("h1 > strong > a");
 
             var outerHtml = await element.EvaluateAsync<string>("e => e.outerHTML");
             var innerText = await element.EvaluateAsync<string>("e => e.innerText");
             var url = await element.EvaluateAsync<string>("e => e.getAttribute('href')");
             var hasContent = await element.EvaluateAsync<bool>("(e, value) => e.textContent.includes(value)", "playwright-sharp");
-            Assert.Equal("<a data-pjax=\"#js-repo-pjax-container\" href=\"/hardkoded/playwright-sharp\">playwright-sharp</a>", outerHtml);
+            Assert.Equal("<a data-pjax=\"#js-repo-pjax-container\" class=\"\" href=\"/microsoft/playwright-sharp\">playwright-sharp</a>", outerHtml);
             Assert.Equal("playwright-sharp", innerText);
-            Assert.Equal("/hardkoded/playwright-sharp", url);
+            Assert.Equal("/microsoft/playwright-sharp", url);
             Assert.True(hasContent);
 
-            outerHtml = await page.QuerySelectorEvaluateAsync<string>("h1 > strong > a", "e => e.outerHTML");
-            innerText = await page.QuerySelectorEvaluateAsync<string>("h1 > strong > a", "e => e.innerText");
-            url = await page.QuerySelectorEvaluateAsync<string>("h1 > strong > a", "e => e.getAttribute('href')");
-            hasContent = await page.QuerySelectorEvaluateAsync<bool>("h1 > strong > a", "(e, value) => e.textContent.includes(value)", "playwright-sharp");
-            Assert.Equal("<a data-pjax=\"#js-repo-pjax-container\" href=\"/hardkoded/playwright-sharp\">playwright-sharp</a>", outerHtml);
+            outerHtml = await page.EvalOnSelectorAsync<string>("h1 > strong > a", "e => e.outerHTML");
+            innerText = await page.EvalOnSelectorAsync<string>("h1 > strong > a", "e => e.innerText");
+            url = await page.EvalOnSelectorAsync<string>("h1 > strong > a", "e => e.getAttribute('href')");
+            hasContent = await page.EvalOnSelectorAsync<bool>("h1 > strong > a", "(e, value) => e.textContent.includes(value)", "playwright-sharp");
+            Assert.Equal("<a data-pjax=\"#js-repo-pjax-container\" class=\"\" href=\"/microsoft/playwright-sharp\">playwright-sharp</a>", outerHtml);
             Assert.Equal("playwright-sharp", innerText);
-            Assert.Equal("/hardkoded/playwright-sharp", url);
+            Assert.Equal("/microsoft/playwright-sharp", url);
             Assert.True(hasContent);
 
             outerHtml = await page.EvaluateAsync<string>("e => e.outerHTML", element);
             innerText = await page.EvaluateAsync<string>("e => e.innerText", element);
-            url = await page.QuerySelectorEvaluateAsync<string>("h1 > strong > a", "e => e.getAttribute('href')");
-            hasContent = await page.QuerySelectorEvaluateAsync<bool>("h1 > strong > a", "(e, value) => e.textContent.includes(value)", "playwright-sharp");
-            Assert.Equal("<a data-pjax=\"#js-repo-pjax-container\" href=\"/hardkoded/playwright-sharp\">playwright-sharp</a>", outerHtml);
+            url = await page.EvaluateAsync<string>("e => e.getAttribute('href')", element);
+            hasContent = await page.EvaluateAsync<bool>($"e => e.textContent.includes({"'playwright-sharp'"})", element);
+            Assert.Equal("<a data-pjax=\"#js-repo-pjax-container\" class=\"\" href=\"/microsoft/playwright-sharp\">playwright-sharp</a>", outerHtml);
             Assert.Equal("playwright-sharp", innerText);
-            Assert.Equal("/hardkoded/playwright-sharp", url);
+            Assert.Equal("/microsoft/playwright-sharp", url);
             Assert.True(hasContent);
 
             outerHtml = await (await element.GetPropertyAsync("outerHTML")).GetJsonValueAsync<string>();
             innerText = await (await element.GetPropertyAsync("innerText")).GetJsonValueAsync<string>();
             url = await (await element.GetPropertyAsync("href")).GetJsonValueAsync<string>();
-            Assert.Equal("<a data-pjax=\"#js-repo-pjax-container\" href=\"/hardkoded/playwright-sharp\">playwright-sharp</a>", outerHtml);
+            Assert.Equal("<a data-pjax=\"#js-repo-pjax-container\" class=\"\" href=\"/microsoft/playwright-sharp\">playwright-sharp</a>", outerHtml);
             Assert.Equal("playwright-sharp", innerText);
-            Assert.Equal("https://github.com/hardkoded/playwright-sharp", url);
+            Assert.Equal("https://github.com/microsoft/playwright-sharp", url);
         }
     }
 }
