@@ -7,12 +7,6 @@ namespace PlaywrightSharp.Documentation
     public class Examples
     {
         [Fact]
-        public async Task install()
-        {
-            await Playwright.InstallAsync();
-        }
-
-        [Fact]
         public async Task<IBrowser> Browser()
         {
             var playwright = await Playwright.CreateAsync();
@@ -95,7 +89,7 @@ namespace PlaywrightSharp.Documentation
             await page.GoToAsync("https://github.com/microsoft/playwright-sharp");
             await Task.WhenAll(requestTask, responseTask);
 
-            var eventTask = page.WaitForEvent<ResponseEventArgs>(PageEvent.Response, e => e.Response.Url == "https://github.com/microsoft/playwright-sharp");
+            var eventTask = page.WaitForEventAsync(PageEvent.Response, e => e.Response.Url == "https://github.com/microsoft/playwright-sharp");
             var loadStateTask = page.WaitForLoadStateAsync(timeout: timeout);
             await page.GoToAsync("https://github.com/microsoft/playwright-sharp");
             await Task.WhenAll(eventTask, loadStateTask);
