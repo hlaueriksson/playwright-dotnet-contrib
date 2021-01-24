@@ -68,7 +68,7 @@ namespace PlaywrightSharp.Documentation
         {
             var page = await Page();
 
-            var timeout = (int) TimeSpan.FromSeconds(30).TotalMilliseconds; // default value
+            var timeout = (int)TimeSpan.FromSeconds(30).TotalMilliseconds; // default value
             page.DefaultNavigationTimeout = timeout;
             page.DefaultTimeout = timeout;
 
@@ -82,7 +82,7 @@ namespace PlaywrightSharp.Documentation
         public async Task wait()
         {
             var page = await Page();
-            var timeout = (int) TimeSpan.FromSeconds(3).TotalMilliseconds;
+            var timeout = (int)TimeSpan.FromSeconds(3).TotalMilliseconds;
 
             var requestTask = page.WaitForRequestAsync("https://github.com/microsoft/playwright-sharp", timeout);
             var responseTask = page.WaitForResponseAsync("https://github.com/microsoft/playwright-sharp", timeout);
@@ -208,6 +208,27 @@ namespace PlaywrightSharp.Documentation
             Assert.Equal("<a data-pjax=\"#js-repo-pjax-container\" class=\"\" href=\"/microsoft/playwright-sharp\">playwright-sharp</a>", outerHtml);
             Assert.Equal("playwright-sharp", innerText);
             Assert.Equal("https://github.com/microsoft/playwright-sharp", url);
+        }
+
+        [Fact]
+        public async Task is_()
+        {
+            var page = await Page();
+            await page.GoToAsync("https://github.com/microsoft/playwright-sharp");
+            await Assert.ThrowsAsync<PlaywrightSharpException>(() => page.IsCheckedAsync("input[name='q']")); // Not a checkbox or radio button
+            Assert.False(await page.IsDisabledAsync("input[name='q']"));
+            Assert.True(await page.IsEditableAsync("input[name='q']"));
+            Assert.True(await page.IsEnabledAsync("input[name='q']"));
+            Assert.False(await page.IsHiddenAsync("input[name='q']"));
+            Assert.True(await page.IsVisibleAsync("input[name='q']"));
+
+            var element = await page.QuerySelectorAsync("input[name='q']");
+            await Assert.ThrowsAsync<PlaywrightSharpException>(() => element.IsCheckedAsync()); // Not a checkbox or radio button
+            Assert.False(await element.IsDisabledAsync());
+            Assert.True(await element.IsEditableAsync());
+            Assert.True(await element.IsEnabledAsync());
+            Assert.False(await element.IsHiddenAsync());
+            Assert.True(await element.IsVisibleAsync());
         }
     }
 }
