@@ -179,7 +179,7 @@ namespace PlaywrightSharp.Documentation
             var innerText = await element.EvaluateAsync<string>("e => e.innerText");
             var url = await element.EvaluateAsync<string>("e => e.getAttribute('href')");
             var hasContent = await element.EvaluateAsync<bool>("(e, value) => e.textContent.includes(value)", "playwright-sharp");
-            Assert.Equal("<a data-pjax=\"#js-repo-pjax-container\" class=\"\" href=\"/microsoft/playwright-sharp\">playwright-sharp</a>", outerHtml);
+            Assert.Equal("<a data-pjax=\"#js-repo-pjax-container\" href=\"/microsoft/playwright-sharp\">playwright-sharp</a>", outerHtml);
             Assert.Equal("playwright-sharp", innerText);
             Assert.Equal("/microsoft/playwright-sharp", url);
             Assert.True(hasContent);
@@ -188,7 +188,7 @@ namespace PlaywrightSharp.Documentation
             innerText = await page.EvalOnSelectorAsync<string>("h1 > strong > a", "e => e.innerText");
             url = await page.EvalOnSelectorAsync<string>("h1 > strong > a", "e => e.getAttribute('href')");
             hasContent = await page.EvalOnSelectorAsync<bool>("h1 > strong > a", "(e, value) => e.textContent.includes(value)", "playwright-sharp");
-            Assert.Equal("<a data-pjax=\"#js-repo-pjax-container\" class=\"\" href=\"/microsoft/playwright-sharp\">playwright-sharp</a>", outerHtml);
+            Assert.Equal("<a data-pjax=\"#js-repo-pjax-container\" href=\"/microsoft/playwright-sharp\">playwright-sharp</a>", outerHtml);
             Assert.Equal("playwright-sharp", innerText);
             Assert.Equal("/microsoft/playwright-sharp", url);
             Assert.True(hasContent);
@@ -197,7 +197,7 @@ namespace PlaywrightSharp.Documentation
             innerText = await page.EvaluateAsync<string>("e => e.innerText", element);
             url = await page.EvaluateAsync<string>("e => e.getAttribute('href')", element);
             hasContent = await page.EvaluateAsync<bool>($"e => e.textContent.includes({"'playwright-sharp'"})", element);
-            Assert.Equal("<a data-pjax=\"#js-repo-pjax-container\" class=\"\" href=\"/microsoft/playwright-sharp\">playwright-sharp</a>", outerHtml);
+            Assert.Equal("<a data-pjax=\"#js-repo-pjax-container\" href=\"/microsoft/playwright-sharp\">playwright-sharp</a>", outerHtml);
             Assert.Equal("playwright-sharp", innerText);
             Assert.Equal("/microsoft/playwright-sharp", url);
             Assert.True(hasContent);
@@ -205,7 +205,7 @@ namespace PlaywrightSharp.Documentation
             outerHtml = await (await element.GetPropertyAsync("outerHTML")).GetJsonValueAsync<string>();
             innerText = await (await element.GetPropertyAsync("innerText")).GetJsonValueAsync<string>();
             url = await (await element.GetPropertyAsync("href")).GetJsonValueAsync<string>();
-            Assert.Equal("<a data-pjax=\"#js-repo-pjax-container\" class=\"\" href=\"/microsoft/playwright-sharp\">playwright-sharp</a>", outerHtml);
+            Assert.Equal("<a data-pjax=\"#js-repo-pjax-container\" href=\"/microsoft/playwright-sharp\">playwright-sharp</a>", outerHtml);
             Assert.Equal("playwright-sharp", innerText);
             Assert.Equal("https://github.com/microsoft/playwright-sharp", url);
         }
