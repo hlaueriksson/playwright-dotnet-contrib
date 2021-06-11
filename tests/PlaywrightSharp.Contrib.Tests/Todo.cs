@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.Playwright;
 using Xunit;
 
 namespace PlaywrightSharp.Contrib.Tests
@@ -8,9 +9,8 @@ namespace PlaywrightSharp.Contrib.Tests
         [Fact]
         public async Task<IPage> Page()
         {
-            await Playwright.InstallAsync();
             var playwright = await Playwright.CreateAsync();
-            var browser = await playwright.Chromium.LaunchAsync(headless: true);
+            var browser = await playwright.Chromium.LaunchAsync();
 
             return await browser.NewPageAsync();
 
