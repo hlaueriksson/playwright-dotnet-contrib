@@ -3,14 +3,14 @@ using System.Threading.Tasks;
 using Microsoft.Playwright;
 using Xunit;
 
-namespace PlaywrightSharp.Documentation
+namespace Playwright.Contrib.Tests
 {
     public class Examples
     {
         [Fact]
         public async Task<IBrowser> Browser()
         {
-            var playwright = await Playwright.CreateAsync();
+            var playwright = await Microsoft.Playwright.Playwright.CreateAsync();
             var browser = await playwright.Chromium.LaunchAsync();
 
             // IBrowserType
@@ -30,7 +30,7 @@ namespace PlaywrightSharp.Documentation
         [Fact]
         public async Task using_Browser()
         {
-            using var playwright = await Playwright.CreateAsync();
+            using var playwright = await Microsoft.Playwright.Playwright.CreateAsync();
             await using var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
 
             // ...

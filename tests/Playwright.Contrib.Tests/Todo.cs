@@ -2,14 +2,14 @@
 using Microsoft.Playwright;
 using Xunit;
 
-namespace PlaywrightSharp.Contrib.Tests
+namespace Playwright.Contrib.Tests
 {
     public class Todo
     {
         [Fact]
         public async Task<IPage> Page()
         {
-            var playwright = await Playwright.CreateAsync();
+            var playwright = await Microsoft.Playwright.Playwright.CreateAsync();
             var browser = await playwright.Chromium.LaunchAsync();
 
             return await browser.NewPageAsync();

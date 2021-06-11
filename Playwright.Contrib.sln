@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30128.74
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlaywrightSharp.Contrib.Extensions", "src\PlaywrightSharp.Contrib.Extensions\PlaywrightSharp.Contrib.Extensions.csproj", "{87C02714-39A9-4C58-86E8-F536F63C862C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Playwright.Contrib.Extensions", "src\Playwright.Contrib.Extensions\Playwright.Contrib.Extensions.csproj", "{87C02714-39A9-4C58-86E8-F536F63C862C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{455D6917-22A5-4E50-8F69-DEC5A73B92B9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{77108BDD-C142-46DA-8872-26FE9ABC2424}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlaywrightSharp.Contrib.Tests", "tests\PlaywrightSharp.Contrib.Tests\PlaywrightSharp.Contrib.Tests.csproj", "{008F0268-3F9B-40D1-88FA-0B4F66083B56}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Playwright.Contrib.Tests", "tests\Playwright.Contrib.Tests\Playwright.Contrib.Tests.csproj", "{008F0268-3F9B-40D1-88FA-0B4F66083B56}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
