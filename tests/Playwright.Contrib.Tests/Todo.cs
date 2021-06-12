@@ -1,12 +1,11 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.Playwright;
-using Xunit;
+using NUnit.Framework;
 
 namespace Playwright.Contrib.Tests
 {
     public class Todo
     {
-        [Fact]
         public async Task<IPage> Page()
         {
             var playwright = await Microsoft.Playwright.Playwright.CreateAsync();
@@ -21,7 +20,7 @@ namespace Playwright.Contrib.Tests
             //page.QueryObjectsAsync()
         }
 
-        [Fact]
+        [Test]
         public async Task Assert()
         {
             var page = await Page();
@@ -63,7 +62,7 @@ namespace Playwright.Contrib.Tests
             //Assert.False(() => element().IsSelect);
         }
 
-        [Fact]
+        [Test]
         public async Task FluentSyntax()
         {
             var page = await Page();
@@ -76,7 +75,7 @@ namespace Playwright.Contrib.Tests
             //    .Value(6).In(".liveExample td.quantity input:eq(0)");
         }
 
-        [Fact]
+        [Test]
         public async Task Convenience()
         {
             var page = await Page();

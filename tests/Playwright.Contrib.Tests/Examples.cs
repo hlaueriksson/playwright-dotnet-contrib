@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.Playwright;
-using Xunit;
+using NUnit.Framework;
 
-namespace Playwright.Contrib.Tests
+namespace Microsoft.Playwright.Documentation
 {
     public class Examples
     {
-        [Fact]
-        public async Task<IBrowser> Browser()
+        async Task<IBrowser> Browser()
         {
-            var playwright = await Microsoft.Playwright.Playwright.CreateAsync();
+            var playwright = await Playwright.CreateAsync();
             var browser = await playwright.Chromium.LaunchAsync();
 
             // IBrowserType
@@ -19,7 +18,7 @@ namespace Playwright.Contrib.Tests
             return browser;
         }
 
-        [Fact]
+        [Test]
         public async Task close_Browser()
         {
             var browser = await Browser();
@@ -27,17 +26,16 @@ namespace Playwright.Contrib.Tests
             await browser.CloseAsync();
         }
 
-        [Fact]
+        [Test]
         public async Task using_Browser()
         {
-            using var playwright = await Microsoft.Playwright.Playwright.CreateAsync();
+            using var playwright = await Playwright.CreateAsync();
             await using var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
 
             // ...
         }
 
-        [Fact]
-        public async Task<IPage> Page()
+        async Task<IPage> Page()
         {
             var browser = await Browser();
             var page = await browser.NewPageAsync();
@@ -45,7 +43,7 @@ namespace Playwright.Contrib.Tests
             return page;
         }
 
-        [Fact]
+        [Test]
         public async Task close_Page()
         {
             var page = await Page();
@@ -53,7 +51,7 @@ namespace Playwright.Contrib.Tests
             await page.CloseAsync();
         }
 
-        [Fact]
+        [Test]
         public async Task navigation()
         {
             var page = await Page();
@@ -64,7 +62,7 @@ namespace Playwright.Contrib.Tests
             await page.ReloadAsync();
         }
 
-        [Fact]
+        [Test]
         public async Task timeout()
         {
             var page = await Page();
@@ -80,7 +78,7 @@ namespace Playwright.Contrib.Tests
 
         }
 
-        [Fact]
+        [Test]
         public async Task wait()
         {
             var page = await Page();
@@ -110,7 +108,7 @@ namespace Playwright.Contrib.Tests
             _ = new[] { WaitForSelectorState.Attached, WaitForSelectorState.Detached, WaitForSelectorState.Visible, WaitForSelectorState.Hidden };
         }
 
-        [Fact]
+        [Test]
         public async Task values_from_Page()
         {
             var page = await Page();
@@ -125,7 +123,7 @@ namespace Playwright.Contrib.Tests
             var attribute = await page.GetAttributeAsync("#readme h1:nth-child(1) a", "href");
         }
 
-        [Fact]
+        [Test]
         public async Task form()
         {
             var page = await Page();
@@ -153,7 +151,7 @@ namespace Playwright.Contrib.Tests
             await page.ClickAsync("#submit");
         }
 
-        [Fact]
+        [Test]
         public async Task query()
         {
             var page = await Page();
@@ -162,20 +160,20 @@ namespace Playwright.Contrib.Tests
             var element = await page.QuerySelectorAsync("div#readme");
             var elements = await page.QuerySelectorAllAsync("div");
             Assert.NotNull(element);
-            Assert.NotEmpty(elements);
+            Assert.IsNotEmpty(elements);
 
             var missingElement = await page.QuerySelectorAsync("div#missing");
             var missingElements = await page.QuerySelectorAllAsync("div.missing");
             Assert.Null(missingElement);
-            Assert.Empty(missingElements);
+            Assert.IsEmpty(missingElements);
 
             var elementInElement = await element.QuerySelectorAsync("h1");
             var elementsInElement = await element.QuerySelectorAllAsync("h1");
             Assert.NotNull(elementInElement);
-            Assert.NotEmpty(elementsInElement);
+            Assert.IsNotEmpty(elementsInElement);
         }
 
-        [Fact]
+        [Test]
         public async Task evaluate()
         {
             var page = await Page();
@@ -186,43 +184,43 @@ namespace Playwright.Contrib.Tests
             var innerText = await element.EvaluateAsync<string>("e => e.innerText");
             var url = await element.EvaluateAsync<string>("e => e.getAttribute('href')");
             var hasContent = await element.EvaluateAsync<bool>("(e, value) => e.textContent.includes(value)", "playwright-dotnet");
-            Assert.Equal("<a data-pjax=\"#js-repo-pjax-container\" href=\"/microsoft/playwright-dotnet\">playwright-dotnet</a>", outerHtml);
-            Assert.Equal("playwright-dotnet", innerText);
-            Assert.Equal("/microsoft/playwright-dotnet", url);
+            Assert.AreEqual("<a data-pjax=\"#js-repo-pjax-container\" href=\"/microsoft/playwright-dotnet\">playwright-dotnet</a>", outerHtml);
+            Assert.AreEqual("playwright-dotnet", innerText);
+            Assert.AreEqual("/microsoft/playwright-dotnet", url);
             Assert.True(hasContent);
 
             outerHtml = await page.EvalOnSelectorAsync<string>("h1 > strong > a", "e => e.outerHTML");
             innerText = await page.EvalOnSelectorAsync<string>("h1 > strong > a", "e => e.innerText");
             url = await page.EvalOnSelectorAsync<string>("h1 > strong > a", "e => e.getAttribute('href')");
             hasContent = await page.EvalOnSelectorAsync<bool>("h1 > strong > a", "(e, value) => e.textContent.includes(value)", "playwright-dotnet");
-            Assert.Equal("<a data-pjax=\"#js-repo-pjax-container\" href=\"/microsoft/playwright-dotnet\">playwright-dotnet</a>", outerHtml);
-            Assert.Equal("playwright-dotnet", innerText);
-            Assert.Equal("/microsoft/playwright-dotnet", url);
+            Assert.AreEqual("<a data-pjax=\"#js-repo-pjax-container\" href=\"/microsoft/playwright-dotnet\">playwright-dotnet</a>", outerHtml);
+            Assert.AreEqual("playwright-dotnet", innerText);
+            Assert.AreEqual("/microsoft/playwright-dotnet", url);
             Assert.True(hasContent);
 
             outerHtml = await page.EvaluateAsync<string>("e => e.outerHTML", element);
             innerText = await page.EvaluateAsync<string>("e => e.innerText", element);
             url = await page.EvaluateAsync<string>("e => e.getAttribute('href')", element);
             hasContent = await page.EvaluateAsync<bool>($"e => e.textContent.includes({"'playwright-dotnet'"})", element);
-            Assert.Equal("<a data-pjax=\"#js-repo-pjax-container\" href=\"/microsoft/playwright-dotnet\">playwright-dotnet</a>", outerHtml);
-            Assert.Equal("playwright-dotnet", innerText);
-            Assert.Equal("/microsoft/playwright-dotnet", url);
+            Assert.AreEqual("<a data-pjax=\"#js-repo-pjax-container\" href=\"/microsoft/playwright-dotnet\">playwright-dotnet</a>", outerHtml);
+            Assert.AreEqual("playwright-dotnet", innerText);
+            Assert.AreEqual("/microsoft/playwright-dotnet", url);
             Assert.True(hasContent);
 
             outerHtml = await (await element.GetPropertyAsync("outerHTML")).JsonValueAsync<string>();
             innerText = await (await element.GetPropertyAsync("innerText")).JsonValueAsync<string>();
             url = await (await element.GetPropertyAsync("href")).JsonValueAsync<string>();
-            Assert.Equal("<a data-pjax=\"#js-repo-pjax-container\" href=\"/microsoft/playwright-dotnet\">playwright-dotnet</a>", outerHtml);
-            Assert.Equal("playwright-dotnet", innerText);
-            Assert.Equal("https://github.com/microsoft/playwright-dotnet", url);
+            Assert.AreEqual("<a data-pjax=\"#js-repo-pjax-container\" href=\"/microsoft/playwright-dotnet\">playwright-dotnet</a>", outerHtml);
+            Assert.AreEqual("playwright-dotnet", innerText);
+            Assert.AreEqual("https://github.com/microsoft/playwright-dotnet", url);
         }
 
-        [Fact]
+        [Test]
         public async Task is_()
         {
             var page = await Page();
             await page.GotoAsync("https://github.com/microsoft/playwright-dotnet");
-            await Assert.ThrowsAsync<PlaywrightException>(() => page.IsCheckedAsync("input[name='q']")); // Not a checkbox or radio button
+            Assert.ThrowsAsync<PlaywrightException>(async () => await page.IsCheckedAsync("input[name='q']")); // Not a checkbox or radio button
             Assert.False(await page.IsDisabledAsync("input[name='q']"));
             Assert.True(await page.IsEditableAsync("input[name='q']"));
             Assert.True(await page.IsEnabledAsync("input[name='q']"));
@@ -230,7 +228,7 @@ namespace Playwright.Contrib.Tests
             Assert.True(await page.IsVisibleAsync("input[name='q']"));
 
             var element = await page.QuerySelectorAsync("input[name='q']");
-            await Assert.ThrowsAsync<PlaywrightException>(() => element.IsCheckedAsync()); // Not a checkbox or radio button
+            Assert.ThrowsAsync<PlaywrightException>(async () => await element.IsCheckedAsync()); // Not a checkbox or radio button
             Assert.False(await element.IsDisabledAsync());
             Assert.True(await element.IsEditableAsync());
             Assert.True(await element.IsEnabledAsync());
