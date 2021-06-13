@@ -77,10 +77,10 @@ namespace Playwright.Contrib.Tests.Extensions
         public async Task OuterHtmlAsync_should_return_the_outer_html_of_the_element()
         {
             var like = await Page.QuerySelectorAsync(".like");
-            Assert.AreEqual("<div class=\"like\">100</div>", await like.OuterHtmlAsync());
+            Assert.AreEqual("<div class=\"like\">100</div>", await like.OuterHTMLAsync());
 
             var missing = await Page.QuerySelectorAsync(".missing");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.OuterHtmlAsync());
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.OuterHTMLAsync());
         }
 
         [Test, Timeout(TestConstants.DefaultTestTimeout)]

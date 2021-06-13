@@ -117,7 +117,7 @@ namespace Playwright.Contrib.Sample
             Assert.True(await html.HasContentAsync("Foo"));
 
             var div = await Page.QuerySelectorAsync("div");
-            Assert.AreEqual("<div>\n      Foo\n      <span>Bar</span>\n    </div>", await div.OuterHtmlAsync());
+            Assert.AreEqual("<div>\n      Foo\n      <span>Bar</span>\n    </div>", await div.OuterHTMLAsync());
         }
 
         [Test]

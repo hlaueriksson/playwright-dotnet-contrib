@@ -64,12 +64,12 @@ namespace Playwright.Contrib.Extensions
             elementHandle != null;
 
         /// <summary>
-        /// OuterHtml of the element.
+        /// OuterHTML of the element.
         /// </summary>
         /// <param name="elementHandle">An <see cref="IElementHandle"/>.</param>
         /// <returns>The element's <c>outerHTML</c>.</returns>
         /// <seealso href="https://developer.mozilla.org/en-US/docs/Web/API/Element/outerHTML"/>
-        public static async Task<string> OuterHtmlAsync(this IElementHandle elementHandle) =>
+        public static async Task<string> OuterHTMLAsync(this IElementHandle elementHandle) =>
             await elementHandle.GetPropertyValueAsync("outerHTML").ConfigureAwait(false);
 
         /// <summary>
