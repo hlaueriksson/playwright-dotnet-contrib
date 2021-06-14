@@ -40,21 +40,6 @@ namespace Microsoft.Playwright.Contrib.Tests.Extensions
         }
 
         [Test, Timeout(TestConstants.DefaultTestTimeout)]
-        public async Task ValueAsync_should_return_the_value_of_the_element()
-        {
-            await Page.SetContentAsync("<html><body><input value='input' /><button value='button' /></body></html>");
-
-            var input = await Page.QuerySelectorAsync("input");
-            Assert.AreEqual("input", await input.ValueAsync());
-
-            var body = await Page.QuerySelectorAsync("body");
-            Assert.Null(await body.ValueAsync());
-
-            var missing = await Page.QuerySelectorAsync(".missing");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.ValueAsync());
-        }
-
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
         public async Task HrefAsync_should_return_the_href_of_the_element()
         {
             await Page.SetContentAsync("<html><body><a href='file.html'></a><link href='file.css' /></body></html>");
@@ -85,21 +70,18 @@ namespace Microsoft.Playwright.Contrib.Tests.Extensions
         }
 
         [Test, Timeout(TestConstants.DefaultTestTimeout)]
-        public async Task HasAttributeAsync_should_return_true_if_element_has_the_attribute()
+        public async Task ValueAsync_should_return_the_value_of_the_element()
         {
-            await Page.SetContentAsync("<html><body><div class='class' data-foo='bar' /></body></html>");
+            await Page.SetContentAsync("<html><body><input value='input' /><button value='button' /></body></html>");
 
-            var div = await Page.QuerySelectorAsync("div");
-            Assert.True(await div.HasAttributeAsync("class"));
-
-            div = await Page.QuerySelectorAsync("div");
-            Assert.False(await div.HasAttributeAsync("id"));
+            var input = await Page.QuerySelectorAsync("input");
+            Assert.AreEqual("input", await input.ValueAsync());
 
             var body = await Page.QuerySelectorAsync("body");
-            Assert.False(await body.HasAttributeAsync(null));
+            Assert.Null(await body.ValueAsync());
 
             var missing = await Page.QuerySelectorAsync(".missing");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.HasAttributeAsync(""));
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.ValueAsync());
         }
 
         [Test, Timeout(TestConstants.DefaultTestTimeout)]

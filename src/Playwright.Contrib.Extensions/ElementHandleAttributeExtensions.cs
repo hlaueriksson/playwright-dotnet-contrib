@@ -27,15 +27,6 @@ namespace Microsoft.Playwright.Contrib.Extensions
             await elementHandle.GuardFromNull().GetAttributeOrDefaultAsync("name").ConfigureAwait(false);
 
         /// <summary>
-        /// Value of the element.
-        /// </summary>
-        /// <param name="elementHandle">An <see cref="IElementHandle"/>.</param>
-        /// <returns>The element's <c>value</c>, or <c>null</c> if the attribute is missing.</returns>
-        /// <remarks><![CDATA[Elements: <button>, <option>, <input>, <li>, <meter>, <progress>, <param>]]></remarks>
-        public static async Task<string> ValueAsync(this IElementHandle elementHandle) =>
-            await elementHandle.GuardFromNull().GetAttributeOrDefaultAsync("value").ConfigureAwait(false);
-
-        /// <summary>
         /// Href of the element.
         /// </summary>
         /// <param name="elementHandle">An <see cref="IElementHandle"/>.</param>
@@ -54,14 +45,13 @@ namespace Microsoft.Playwright.Contrib.Extensions
             await elementHandle.GuardFromNull().GetAttributeOrDefaultAsync("src").ConfigureAwait(false);
 
         /// <summary>
-        /// Indicates whether the element has the specified attribute or not.
+        /// Value of the element.
         /// </summary>
         /// <param name="elementHandle">An <see cref="IElementHandle"/>.</param>
-        /// <param name="name">The attribute name.</param>
-        /// <returns><c>true</c> if the element has the specified attribute.</returns>
-        /// <seealso href="https://developer.mozilla.org/en-US/docs/Web/API/Element/hasAttribute"/>
-        public static async Task<bool> HasAttributeAsync(this IElementHandle elementHandle, string name) =>
-            await elementHandle.GuardFromNull().EvaluateAsync<bool>("(element, name) => element.hasAttribute(name)", name).ConfigureAwait(false);
+        /// <returns>The element's <c>value</c>, or <c>null</c> if the attribute is missing.</returns>
+        /// <remarks><![CDATA[Elements: <button>, <option>, <input>, <li>, <meter>, <progress>, <param>]]></remarks>
+        public static async Task<string> ValueAsync(this IElementHandle elementHandle) =>
+            await elementHandle.GuardFromNull().GetAttributeOrDefaultAsync("value").ConfigureAwait(false);
 
         /// <summary>
         /// The value of a specified attribute on the element, or a default value if no attribute is found.

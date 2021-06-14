@@ -74,13 +74,36 @@ namespace Microsoft.Playwright.Contrib.Tests.Extensions
         }
 
         [Test, Timeout(TestConstants.DefaultTestTimeout)]
-        public async Task OuterHtmlAsync_should_return_the_outer_html_of_the_element()
+        public async Task HasAttributeAsync_should_return_true_if_element_has_the_attribute()
         {
-            var like = await Page.QuerySelectorAsync(".like");
-            Assert.AreEqual("<div class=\"like\">100</div>", await like.OuterHTMLAsync());
+            await Page.SetContentAsync("<html><body><div class='class' data-foo='bar' /></body></html>");
+
+            var div = await Page.QuerySelectorAsync("div");
+            Assert.True(await div.HasAttributeAsync("class"));
+
+            div = await Page.QuerySelectorAsync("div");
+            Assert.False(await div.HasAttributeAsync("id"));
+
+            var body = await Page.QuerySelectorAsync("body");
+            Assert.False(await body.HasAttributeAsync(null));
 
             var missing = await Page.QuerySelectorAsync(".missing");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.OuterHTMLAsync());
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.HasAttributeAsync(""));
+        }
+
+        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        public async Task HasClassAsync_should_return_true_if_the_element_has_the_class()
+        {
+            await Page.SetContentAsync("<html><body><div class='foo bar' /></body></html>");
+
+            var div = await Page.QuerySelectorAsync("div");
+            Assert.True(await div.HasClassAsync("foo"));
+
+            var body = await Page.QuerySelectorAsync("body");
+            Assert.False(await body.HasClassAsync(""));
+
+            var missing = await Page.QuerySelectorAsync(".missing");
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.HasClassAsync(""));
         }
 
         [Test, Timeout(TestConstants.DefaultTestTimeout)]
@@ -107,67 +130,22 @@ namespace Microsoft.Playwright.Contrib.Tests.Extensions
         }
 
         [Test, Timeout(TestConstants.DefaultTestTimeout)]
-        public async Task ClassNameAsync_should_return_the_class_of_the_element()
+        public async Task HasFocusAsync_should_return_true_if_the_element_has_focus()
         {
-            await Page.SetContentAsync("<html><body><div class='foo bar' /></body></html>");
+            await Page.SetContentAsync("<html><body><input id='foo' autofocus><input id='bar'><input id='baz'></body></html>");
 
-            var div = await Page.QuerySelectorAsync("div");
-            Assert.AreEqual("foo bar", await div.ClassNameAsync());
+            var input = await Page.QuerySelectorAsync("#foo");
+            Assert.True(await input.HasFocusAsync());
 
-            var body = await Page.QuerySelectorAsync("body");
-            Assert.IsEmpty(await body.ClassNameAsync());
+            await Page.FocusAsync("#bar");
+            input = await Page.QuerySelectorAsync("#bar");
+            Assert.True(await input.HasFocusAsync());
+
+            input = await Page.QuerySelectorAsync("#baz");
+            Assert.False(await input.HasFocusAsync());
 
             var missing = await Page.QuerySelectorAsync(".missing");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.ClassNameAsync());
-        }
-
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
-        public async Task ClassListAsync_should_return_an_array_of_classes_of_the_element()
-        {
-            await Page.SetContentAsync("<html><body><div class='foo bar' /></body></html>");
-
-            var div = await Page.QuerySelectorAsync("div");
-            Assert.AreEqual(new[] { "foo", "bar" }, await div.ClassListAsync());
-
-            var body = await Page.QuerySelectorAsync("body");
-            Assert.IsEmpty(await body.ClassListAsync());
-
-            var missing = await Page.QuerySelectorAsync(".missing");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.ClassListAsync());
-        }
-
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
-        public async Task HasClassAsync_should_return_true_if_the_element_has_the_class()
-        {
-            await Page.SetContentAsync("<html><body><div class='foo bar' /></body></html>");
-
-            var div = await Page.QuerySelectorAsync("div");
-            Assert.True(await div.HasClassAsync("foo"));
-
-            var body = await Page.QuerySelectorAsync("body");
-            Assert.False(await body.HasClassAsync(""));
-
-            var missing = await Page.QuerySelectorAsync(".missing");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.HasClassAsync(""));
-        }
-
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
-        public async Task IsSelectedAsync_should_return_true_if_the_element_is_selected()
-        {
-            await Page.SetContentAsync("<html><body><select><option id='foo'>Foo</option><option id='bar'>Bar</option><option id='baz'>Baz</option></select></body></html>");
-
-            var option = await Page.QuerySelectorAsync("#foo");
-            Assert.True(await option.IsSelectedAsync());
-
-            await Page.SelectOptionAsync("select", "Bar");
-            option = await Page.QuerySelectorAsync("#bar");
-            Assert.True(await option.IsSelectedAsync());
-
-            option = await Page.QuerySelectorAsync("#baz");
-            Assert.False(await option.IsSelectedAsync());
-
-            var missing = await Page.QuerySelectorAsync(".missing");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.IsSelectedAsync());
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.HasFocusAsync());
         }
 
         [Test, Timeout(TestConstants.DefaultTestTimeout)]
@@ -209,22 +187,62 @@ namespace Microsoft.Playwright.Contrib.Tests.Extensions
         }
 
         [Test, Timeout(TestConstants.DefaultTestTimeout)]
-        public async Task HasFocusAsync_should_return_true_if_the_element_has_focus()
+        public async Task IsSelectedAsync_should_return_true_if_the_element_is_selected()
         {
-            await Page.SetContentAsync("<html><body><input id='foo' autofocus><input id='bar'><input id='baz'></body></html>");
+            await Page.SetContentAsync("<html><body><select><option id='foo'>Foo</option><option id='bar'>Bar</option><option id='baz'>Baz</option></select></body></html>");
 
-            var input = await Page.QuerySelectorAsync("#foo");
-            Assert.True(await input.HasFocusAsync());
+            var option = await Page.QuerySelectorAsync("#foo");
+            Assert.True(await option.IsSelectedAsync());
 
-            await Page.FocusAsync("#bar");
-            input = await Page.QuerySelectorAsync("#bar");
-            Assert.True(await input.HasFocusAsync());
+            await Page.SelectOptionAsync("select", "Bar");
+            option = await Page.QuerySelectorAsync("#bar");
+            Assert.True(await option.IsSelectedAsync());
 
-            input = await Page.QuerySelectorAsync("#baz");
-            Assert.False(await input.HasFocusAsync());
+            option = await Page.QuerySelectorAsync("#baz");
+            Assert.False(await option.IsSelectedAsync());
 
             var missing = await Page.QuerySelectorAsync(".missing");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.HasFocusAsync());
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.IsSelectedAsync());
+        }
+
+        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        public async Task ClassNameAsync_should_return_the_class_of_the_element()
+        {
+            await Page.SetContentAsync("<html><body><div class='foo bar' /></body></html>");
+
+            var div = await Page.QuerySelectorAsync("div");
+            Assert.AreEqual("foo bar", await div.ClassNameAsync());
+
+            var body = await Page.QuerySelectorAsync("body");
+            Assert.IsEmpty(await body.ClassNameAsync());
+
+            var missing = await Page.QuerySelectorAsync(".missing");
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.ClassNameAsync());
+        }
+
+        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        public async Task ClassListAsync_should_return_an_array_of_classes_of_the_element()
+        {
+            await Page.SetContentAsync("<html><body><div class='foo bar' /></body></html>");
+
+            var div = await Page.QuerySelectorAsync("div");
+            Assert.AreEqual(new[] { "foo", "bar" }, await div.ClassListAsync());
+
+            var body = await Page.QuerySelectorAsync("body");
+            Assert.IsEmpty(await body.ClassListAsync());
+
+            var missing = await Page.QuerySelectorAsync(".missing");
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.ClassListAsync());
+        }
+
+        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        public async Task OuterHtmlAsync_should_return_the_outer_html_of_the_element()
+        {
+            var like = await Page.QuerySelectorAsync(".like");
+            Assert.AreEqual("<div class=\"like\">100</div>", await like.OuterHTMLAsync());
+
+            var missing = await Page.QuerySelectorAsync(".missing");
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.OuterHTMLAsync());
         }
     }
 }

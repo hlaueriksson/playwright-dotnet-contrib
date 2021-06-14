@@ -15,7 +15,7 @@ namespace Microsoft.Playwright.Contrib.Extensions
         /// <param name="selector">A selector to query page for.</param>
         /// <param name="regex">A regular expression to test against <c>element.textContent</c>.</param>
         /// <param name="flags">A set of flags for the regular expression.</param>
-        /// <returns>Task which resolves to <see cref="ElementHandle"/> pointing to the frame element.</returns>
+        /// <returns>Task which resolves to <see cref="IElementHandle"/> pointing to the frame element.</returns>
         /// <seealso href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp"/>
         public static async Task<IElementHandle> QuerySelectorWithContentAsync(this IPage page, string selector, string regex, string flags = "") =>
             await page.GuardFromNull().EvaluateHandleAsync(

@@ -63,13 +63,23 @@ namespace Microsoft.Playwright.Contrib.Extensions
             elementHandle != null;
 
         /// <summary>
-        /// OuterHTML of the element.
+        /// Indicates whether the element has the specified attribute or not.
         /// </summary>
         /// <param name="elementHandle">An <see cref="IElementHandle"/>.</param>
-        /// <returns>The element's <c>outerHTML</c>.</returns>
-        /// <seealso href="https://developer.mozilla.org/en-US/docs/Web/API/Element/outerHTML"/>
-        public static async Task<string> OuterHTMLAsync(this IElementHandle elementHandle) =>
-            await elementHandle.GetPropertyValueAsync("outerHTML").ConfigureAwait(false);
+        /// <param name="name">The attribute name.</param>
+        /// <returns><c>true</c> if the element has the specified attribute.</returns>
+        /// <seealso href="https://developer.mozilla.org/en-US/docs/Web/API/Element/hasAttribute"/>
+        public static async Task<bool> HasAttributeAsync(this IElementHandle elementHandle, string name) =>
+            await elementHandle.GuardFromNull().EvaluateAsync<bool>("(element, name) => element.hasAttribute(name)", name).ConfigureAwait(false);
+
+        /// <summary>
+        /// Indicates whether the element has the specified class or not.
+        /// </summary>
+        /// <param name="elementHandle">An <see cref="IElementHandle"/>.</param>
+        /// <param name="className">The class name.</param>
+        /// <returns><c>true</c> if the element has the specified class.</returns>
+        public static async Task<bool> HasClassAsync(this IElementHandle elementHandle, string className) =>
+            await elementHandle.GuardFromNull().EvaluateAsync<bool>("(element, className) => element.classList.contains(className)", className).ConfigureAwait(false);
 
         /// <summary>
         /// Indicates whether the element has the specified content or not.
@@ -81,6 +91,43 @@ namespace Microsoft.Playwright.Contrib.Extensions
         /// <seealso href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp"/>
         public static async Task<bool> HasContentAsync(this IElementHandle elementHandle, string regex, string flags = "") =>
             await elementHandle.GuardFromNull().EvaluateAsync<bool>("(element, [regex, flags]) => RegExp(regex, flags).test(element.textContent)", new object[] { regex, flags }).ConfigureAwait(false);
+
+        /// <summary>
+        /// Indicates whether the element has focus or not.
+        /// </summary>
+        /// <param name="elementHandle">An <see cref="IElementHandle"/>.</param>
+        /// <returns><c>true</c> if the element has focus.</returns>
+        /// <remarks><![CDATA[Elements: <button>, <input>, <keygen>, <select>, <textarea>]]></remarks>
+        /// <seealso href="https://developer.mozilla.org/en-US/docs/Web/API/DocumentOrShadowRoot/activeElement"/>
+        public static async Task<bool> HasFocusAsync(this IElementHandle elementHandle) =>
+            await elementHandle.GuardFromNull().EvaluateAsync<bool>("element => element === document.activeElement").ConfigureAwait(false);
+
+        /// <summary>
+        /// Indicates whether the element is read-only or not.
+        /// </summary>
+        /// <param name="elementHandle">An <see cref="IElementHandle"/>.</param>
+        /// <returns><c>true</c> if the element is read-only.</returns>
+        /// <remarks><![CDATA[Elements: <input>, <textarea>]]></remarks>
+        public static async Task<bool> IsReadOnlyAsync(this IElementHandle elementHandle) =>
+            await elementHandle.GuardFromNull().EvaluateAsync<bool>("element => element.readOnly").ConfigureAwait(false);
+
+        /// <summary>
+        /// Indicates whether the element is required or not.
+        /// </summary>
+        /// <param name="elementHandle">An <see cref="IElementHandle"/>.</param>
+        /// <returns><c>true</c> if the element is required.</returns>
+        /// <remarks><![CDATA[Elements: <input>, <select>, <textarea>]]></remarks>
+        public static async Task<bool> IsRequiredAsync(this IElementHandle elementHandle) =>
+            await elementHandle.GuardFromNull().EvaluateAsync<bool>("element => element.required").ConfigureAwait(false);
+
+        /// <summary>
+        /// Indicates whether the element is selected or not.
+        /// </summary>
+        /// <param name="elementHandle">An <see cref="IElementHandle"/>.</param>
+        /// <returns><c>true</c> if the element is selected.</returns>
+        /// <remarks><![CDATA[Elements: <option>]]></remarks>
+        public static async Task<bool> IsSelectedAsync(this IElementHandle elementHandle) =>
+            await elementHandle.GuardFromNull().EvaluateAsync<bool>("element => element.selected").ConfigureAwait(false);
 
         /// <summary>
         /// ClassName of the element.
@@ -104,50 +151,13 @@ namespace Microsoft.Playwright.Contrib.Extensions
         }
 
         /// <summary>
-        /// Indicates whether the element has the specified class or not.
+        /// OuterHTML of the element.
         /// </summary>
         /// <param name="elementHandle">An <see cref="IElementHandle"/>.</param>
-        /// <param name="className">The class name.</param>
-        /// <returns><c>true</c> if the element has the specified class.</returns>
-        public static async Task<bool> HasClassAsync(this IElementHandle elementHandle, string className) =>
-            await elementHandle.GuardFromNull().EvaluateAsync<bool>("(element, className) => element.classList.contains(className)", className).ConfigureAwait(false);
-
-        /// <summary>
-        /// Indicates whether the element is selected or not.
-        /// </summary>
-        /// <param name="elementHandle">An <see cref="IElementHandle"/>.</param>
-        /// <returns><c>true</c> if the element is selected.</returns>
-        /// <remarks><![CDATA[Elements: <option>]]></remarks>
-        public static async Task<bool> IsSelectedAsync(this IElementHandle elementHandle) =>
-            await elementHandle.GuardFromNull().EvaluateAsync<bool>("element => element.selected").ConfigureAwait(false);
-
-        /// <summary>
-        /// Indicates whether the element is read-only or not.
-        /// </summary>
-        /// <param name="elementHandle">An <see cref="IElementHandle"/>.</param>
-        /// <returns><c>true</c> if the element is read-only.</returns>
-        /// <remarks><![CDATA[Elements: <input>, <textarea>]]></remarks>
-        public static async Task<bool> IsReadOnlyAsync(this IElementHandle elementHandle) =>
-            await elementHandle.GuardFromNull().EvaluateAsync<bool>("element => element.readOnly").ConfigureAwait(false);
-
-        /// <summary>
-        /// Indicates whether the element is required or not.
-        /// </summary>
-        /// <param name="elementHandle">An <see cref="IElementHandle"/>.</param>
-        /// <returns><c>true</c> if the element is required.</returns>
-        /// <remarks><![CDATA[Elements: <input>, <select>, <textarea>]]></remarks>
-        public static async Task<bool> IsRequiredAsync(this IElementHandle elementHandle) =>
-            await elementHandle.GuardFromNull().EvaluateAsync<bool>("element => element.required").ConfigureAwait(false);
-
-        /// <summary>
-        /// Indicates whether the element has focus or not.
-        /// </summary>
-        /// <param name="elementHandle">An <see cref="IElementHandle"/>.</param>
-        /// <returns><c>true</c> if the element has focus.</returns>
-        /// <remarks><![CDATA[Elements: <button>, <input>, <keygen>, <select>, <textarea>]]></remarks>
-        /// <seealso href="https://developer.mozilla.org/en-US/docs/Web/API/DocumentOrShadowRoot/activeElement"/>
-        public static async Task<bool> HasFocusAsync(this IElementHandle elementHandle) =>
-            await elementHandle.GuardFromNull().EvaluateAsync<bool>("element => element === document.activeElement").ConfigureAwait(false);
+        /// <returns>The element's <c>outerHTML</c>.</returns>
+        /// <seealso href="https://developer.mozilla.org/en-US/docs/Web/API/Element/outerHTML"/>
+        public static async Task<string> OuterHTMLAsync(this IElementHandle elementHandle) =>
+            await elementHandle.GetPropertyValueAsync("outerHTML").ConfigureAwait(false);
 
         private static async Task<string> GetPropertyValueAsync(this IElementHandle elementHandle, string propertyName)
         {
