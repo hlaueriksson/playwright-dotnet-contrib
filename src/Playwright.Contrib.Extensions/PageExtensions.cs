@@ -1,8 +1,7 @@
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Playwright;
 
-namespace Playwright.Contrib.Extensions
+namespace Microsoft.Playwright.Contrib.Extensions
 {
     /// <summary>
     /// Extension methods for <see cref="IPage"/>.

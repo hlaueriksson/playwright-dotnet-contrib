@@ -1,10 +1,9 @@
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Playwright;
+using Microsoft.Playwright.Contrib.Extensions;
 using NUnit.Framework;
-using Playwright.Contrib.Extensions;
 
-namespace Playwright.Contrib.Sample
+namespace Microsoft.Playwright.Contrib.Sample
 {
     public class ExtensionsTests
     {
@@ -14,7 +13,7 @@ namespace Playwright.Contrib.Sample
         [SetUp]
         public async Task SetUp()
         {
-            var playwright = await Microsoft.Playwright.Playwright.CreateAsync(); // TODO: why FQN
+            var playwright = await Playwright.CreateAsync();
             Browser = await playwright.Chromium.LaunchAsync();
             Page = await Browser.NewPageAsync();
         }

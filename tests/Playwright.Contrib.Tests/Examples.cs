@@ -1,9 +1,8 @@
 using System;
 using System.Threading.Tasks;
-using Microsoft.Playwright;
 using NUnit.Framework;
 
-namespace Microsoft.Playwright.Documentation
+namespace Microsoft.Playwright.Contrib.Tests
 {
     public class Examples
     {

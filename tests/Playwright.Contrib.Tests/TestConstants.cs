@@ -1,4 +1,4 @@
-namespace Playwright.Contrib.Tests
+namespace Microsoft.Playwright.Contrib.Tests
 {
     internal static class TestConstants
     {

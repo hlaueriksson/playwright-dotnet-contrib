@@ -1,14 +1,13 @@
 using System.Threading.Tasks;
-using Microsoft.Playwright;
 using NUnit.Framework;
 
-namespace Playwright.Contrib.Tests
+namespace Microsoft.Playwright.Contrib.Tests
 {
     public class Todo
     {
         public async Task<IPage> Page()
         {
-            var playwright = await Microsoft.Playwright.Playwright.CreateAsync();
+            var playwright = await Playwright.CreateAsync();
             var browser = await playwright.Chromium.LaunchAsync();
 
             return await browser.NewPageAsync();

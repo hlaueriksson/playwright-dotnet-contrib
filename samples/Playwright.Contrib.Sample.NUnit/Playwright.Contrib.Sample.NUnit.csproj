@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <RootNamespace>Playwright.Contrib.Sample</RootNamespace>
+    <RootNamespace>Microsoft.Playwright.Contrib.Sample</RootNamespace>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
