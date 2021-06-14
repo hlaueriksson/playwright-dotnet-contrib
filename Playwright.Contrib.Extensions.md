@@ -1,3 +1,80 @@
+# Playwright.Contrib.Extensions
+
+`Playwright.Contrib.Extensions` is a library with convenient extension methods for writing browser tests with the Playwright API.
+
+## Content
+
+- [Playwright.Contrib.Extensions](#playwrightcontribextensions)
+  - [Content](#content)
+  - [Installation](#installation)
+  - [Extensions for `IPage`](#extensions-for-ipage)
+  - [Extensions for `IElementHandle`](#extensions-for-ielementhandle)
+  - [Samples](#samples)
+
+## Installation
+
+| NuGet            |       | [![Playwright.Contrib.Extensions][1]][2]                                       |
+| :--------------- | ----: | :----------------------------------------------------------------------------- |
+| Package Manager  | `PM>` | `Install-Package Playwright.Contrib.Extensions -Version 1.0.0`                 |
+| .NET CLI         | `>`   | `dotnet add package Playwright.Contrib.Extensions --version 1.0.0`             |
+| PackageReference |       | `<PackageReference Include="Playwright.Contrib.Extensions" Version="1.0.0" />` |
+| Paket CLI        | `>`   | `paket add Playwright.Contrib.Extensions --version 1.0.0`                      |
+
+[1]: https://img.shields.io/nuget/v/Playwright.Contrib.Extensions.svg?label=Playwright.Contrib.Extensions
+[2]: https://www.nuget.org/packages/Playwright.Contrib.Extensions
+
+## Extensions for `IPage`
+
+Query:
+
+* `QuerySelectorWithContentAsync`
+* `QuerySelectorAllWithContentAsync`
+
+Evaluation:
+
+* `HasContentAsync`
+* `HasTitleAsync`
+
+## Extensions for `IElementHandle`
+
+Attributes:
+
+* `ClassListAsync`
+* `ClassNameAsync`
+* `GetAttributeOrDefaultAsync`
+* `HrefAsync`
+* `IdAsync`
+* `NameAsync`
+* `SrcAsync`
+* `ValueAsync`
+
+Content:
+
+* `OuterHTMLAsync`
+
+Evaluation:
+
+* `Exists`
+* `HasAttributeAsync`
+* `HasClassAsync`
+* `HasContentAsync`
+* `HasFocusAsync`
+* `IsReadOnlyAsync`
+* `IsRequiredAsync`
+* `IsSelectedAsync`
+
+Query:
+
+* `QuerySelectorWithContentAsync`
+* `QuerySelectorAllWithContentAsync`
+
+## Samples
+
+Sample projects are located in the [`samples`](/samples/) folder.
+
+This is an example with `NUnit`:
+
+```csharp
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Playwright.Contrib.Extensions;
@@ -147,3 +224,4 @@ namespace Microsoft.Playwright.Contrib.Sample
         }
     }
 }
+```
