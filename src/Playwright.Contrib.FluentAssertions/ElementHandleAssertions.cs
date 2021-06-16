@@ -500,5 +500,43 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
 
             return new AndConstraint<ElementHandleAssertions>(this);
         }
+
+        // Editable
+
+        /// <summary>
+        /// Asserts that the element is editable.
+        /// </summary>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <returns>An <see cref="AndConstraint{ElementHandleAssertions}"/> which can be used to chain assertions.</returns>
+        public async Task<AndConstraint<ElementHandleAssertions>> BeEditableAsync(string because = "", params object[] becauseArgs)
+        {
+            var result = await Subject.GuardFromNull().IsEditableAsync().ConfigureAwait(false);
+
+            Execute.Assertion
+                .ForCondition(result)
+                .BecauseOf(because, becauseArgs)
+                .FailWith("Expected {context:element} to be editable{reason}.");
+
+            return new AndConstraint<ElementHandleAssertions>(this);
+        }
+
+        /// <summary>
+        /// Asserts that the element is not editable.
+        /// </summary>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <returns>An <see cref="AndConstraint{ElementHandleAssertions}"/> which can be used to chain assertions.</returns>
+        public async Task<AndConstraint<ElementHandleAssertions>> NotBeEditableAsync(string because = "", params object[] becauseArgs)
+        {
+            var result = await Subject.GuardFromNull().IsEditableAsync().ConfigureAwait(false);
+
+            Execute.Assertion
+                .ForCondition(!result)
+                .BecauseOf(because, becauseArgs)
+                .FailWith("Expected {context:element} not to be editable{reason}.");
+
+            return new AndConstraint<ElementHandleAssertions>(this);
+        }
     }
 }
