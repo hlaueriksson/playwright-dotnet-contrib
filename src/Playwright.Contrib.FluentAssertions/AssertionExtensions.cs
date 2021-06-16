@@ -14,5 +14,15 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         {
             return new PageAssertions(actualValue);
         }
+
+        /// <summary>
+        /// Returns an <see cref="ElementHandleAssertions"/> object that can be used to assert the current <see cref="IElementHandle"/>.
+        /// </summary>
+        /// <param name="actualValue">An <see cref="IElementHandle"/>.</param>
+        /// <returns>An <see cref="ElementHandleAssertions"/> object.</returns>
+        public static ElementHandleAssertions Should(this IElementHandle actualValue)
+        {
+            return new ElementHandleAssertions(actualValue);
+        }
     }
 }

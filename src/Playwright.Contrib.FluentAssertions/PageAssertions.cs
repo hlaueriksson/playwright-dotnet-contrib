@@ -62,5 +62,47 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
 
             return new AndConstraint<PageAssertions>(this);
         }
+
+        /// <summary>
+        /// Asserts that the page has the specified title.
+        /// </summary>
+        /// <param name="regex">A regular expression to test against <c>document.title</c>.</param>
+        /// <param name="flags">A set of flags for the regular expression.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <returns>An <see cref="AndConstraint{PageAssertions}"/> which can be used to chain assertions.</returns>
+        /// <seealso href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp"/>
+        public async Task<AndConstraint<PageAssertions>> HaveTitleAsync(string regex, string flags = "", string because = "", params object[] becauseArgs)
+        {
+            var result = await Subject.HasTitleAsync(regex, flags).ConfigureAwait(false);
+
+            Execute.Assertion
+                .ForCondition(result)
+                .BecauseOf(because, becauseArgs)
+                .FailWith("Expected {context:page} to have title {0}{reason}, but found {1}.", $"/{regex}/{flags}", await Subject.TitleAsync().ConfigureAwait(false));
+
+            return new AndConstraint<PageAssertions>(this);
+        }
+
+        /// <summary>
+        /// Asserts that the page does not have the specified title.
+        /// </summary>
+        /// <param name="regex">A regular expression to test against <c>document.title</c>.</param>
+        /// <param name="flags">A set of flags for the regular expression.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <returns>An <see cref="AndConstraint{PageAssertions}"/> which can be used to chain assertions.</returns>
+        /// <seealso href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp"/>
+        public async Task<AndConstraint<PageAssertions>> NotHaveTitleAsync(string regex, string flags = "", string because = "", params object[] becauseArgs)
+        {
+            var result = await Subject.HasTitleAsync(regex, flags).ConfigureAwait(false);
+
+            Execute.Assertion
+                .ForCondition(!result)
+                .BecauseOf(because, becauseArgs)
+                .FailWith("Expected {context:page} not to have title {0}{reason}.", $"/{regex}/{flags}");
+
+            return new AndConstraint<PageAssertions>(this);
+        }
     }
 }
