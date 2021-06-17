@@ -26,6 +26,8 @@ namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
 
             var ex = Assert.ThrowsAsync<AssertionException>(async () => await Page.Should().HaveContentAsync("20.", "i"));
             Assert.AreEqual("Expected page to have content \"/20./i\".", ex.Message);
+
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IPage)null).Should().HaveContentAsync(""));
         }
 
         [Test, Timeout(TestConstants.DefaultTestTimeout)]
@@ -35,6 +37,8 @@ namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
 
             var ex = Assert.ThrowsAsync<AssertionException>(async () => await Page.Should().NotHaveContentAsync("10.", "i"));
             Assert.AreEqual("Expected page not to have content \"/10./i\".", ex.Message);
+
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IPage)null).Should().NotHaveContentAsync(""));
         }
 
         // Title
@@ -48,6 +52,8 @@ namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
 
             var ex = Assert.ThrowsAsync<AssertionException>(async () => await Page.Should().HaveTitleAsync("20.", "i"));
             Assert.AreEqual("Expected page to have title \"/20./i\", but found \"100\".", ex.Message);
+
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IPage)null).Should().HaveTitleAsync(""));
         }
 
         [Test, Timeout(TestConstants.DefaultTestTimeout)]
@@ -59,6 +65,8 @@ namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
 
             var ex = Assert.ThrowsAsync<AssertionException>(async () => await Page.Should().NotHaveTitleAsync("10.", "i"));
             Assert.AreEqual("Expected page not to have title \"/10./i\".", ex.Message);
+
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IPage)null).Should().NotHaveTitleAsync(""));
         }
 
         // Visible
@@ -74,6 +82,8 @@ namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
             Assert.AreEqual("Expected element \"#bar\" on page to be visible.", ex.Message);
 
             Assert.ThrowsAsync<AssertionException>(async () => await Page.Should().HaveVisibleElementAsync(".missing"));
+
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IPage)null).Should().HaveVisibleElementAsync(""));
         }
 
         [Test, Timeout(TestConstants.DefaultTestTimeout)]
@@ -87,6 +97,8 @@ namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
             Assert.AreEqual("Expected element \"#foo\" on page to be hidden.", ex.Message);
 
             await Page.Should().HaveHiddenElementAsync(".missing");
+
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IPage)null).Should().HaveHiddenElementAsync(""));
         }
 
         // Checked
@@ -102,6 +114,8 @@ namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
             Assert.AreEqual("Expected element \"#bar\" on page to be checked.", ex.Message);
 
             Assert.ThrowsAsync<TimeoutException>(async () => await Page.Should().HaveCheckedElementAsync(".missing"));
+
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IPage)null).Should().HaveCheckedElementAsync(""));
         }
 
         [Test, Timeout(TestConstants.DefaultTestTimeout)]
@@ -115,6 +129,8 @@ namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
             Assert.AreEqual("Expected element \"#foo\" on page not to be checked.", ex.Message);
 
             Assert.ThrowsAsync<TimeoutException>(async () => await Page.Should().NotHaveCheckedElementAsync(".missing"));
+
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IPage)null).Should().NotHaveCheckedElementAsync(""));
         }
 
         // Disabled
@@ -130,6 +146,8 @@ namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
             Assert.AreEqual("Expected element \"#bar\" on page to be disabled.", ex.Message);
 
             Assert.ThrowsAsync<TimeoutException>(async () => await Page.Should().HaveDisabledElementAsync(".missing"));
+
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IPage)null).Should().HaveDisabledElementAsync(""));
         }
 
         [Test, Timeout(TestConstants.DefaultTestTimeout)]
@@ -143,6 +161,8 @@ namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
             Assert.AreEqual("Expected element \"#foo\" on page to be enabled.", ex.Message);
 
             Assert.ThrowsAsync<TimeoutException>(async () => await Page.Should().HaveEnabledElementAsync(".missing"));
+
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IPage)null).Should().HaveEnabledElementAsync(""));
         }
 
         // Editable
@@ -159,6 +179,8 @@ namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
             Assert.AreEqual("Expected element \"#bar\" on page to be editable.", ex.Message);
 
             Assert.ThrowsAsync<TimeoutException>(async () => await Page.Should().HaveEditableElementAsync(".missing"));
+
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IPage)null).Should().HaveEditableElementAsync(""));
         }
 
         [Test, Timeout(TestConstants.DefaultTestTimeout)]
@@ -172,6 +194,8 @@ namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
             Assert.AreEqual("Expected element \"#foo\" on page not to be editable.", ex.Message);
 
             Assert.ThrowsAsync<TimeoutException>(async () => await Page.Should().NotHaveEditableElementAsync(".missing"));
+
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IPage)null).Should().NotHaveEditableElementAsync(""));
         }
 
         // Attribute
@@ -187,6 +211,8 @@ namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
             Assert.AreEqual("Expected element \"div\" on page to have attribute \"id\".", ex.Message);
 
             Assert.ThrowsAsync<TimeoutException>(async () => await Page.Should().HaveElementAttributeAsync(".missing", ""));
+
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IPage)null).Should().HaveElementAttributeAsync("", ""));
         }
 
         [Test, Timeout(TestConstants.DefaultTestTimeout)]
@@ -200,6 +226,8 @@ namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
             Assert.AreEqual("Expected element \"div\" on page not to have attribute \"class\".", ex.Message);
 
             Assert.ThrowsAsync<TimeoutException>(async () => await Page.Should().NotHaveElementAttributeAsync(".missing", ""));
+
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IPage)null).Should().NotHaveElementAttributeAsync("", ""));
         }
 
         [Test, Timeout(TestConstants.DefaultTestTimeout)]
@@ -216,6 +244,8 @@ namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
             Assert.AreEqual("Expected element \"div\" on page to have attribute \"id\" with value \"class\".", ex.Message);
 
             Assert.ThrowsAsync<TimeoutException>(async () => await Page.Should().HaveElementAttributeValueAsync(".missing", "", ""));
+
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IPage)null).Should().HaveElementAttributeValueAsync("", "", ""));
         }
 
         [Test, Timeout(TestConstants.DefaultTestTimeout)]
@@ -231,6 +261,8 @@ namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
             Assert.AreEqual("Expected element \"div\" on page not to have attribute \"class\" with value \"class\".", ex.Message);
 
             Assert.ThrowsAsync<TimeoutException>(async () => await Page.Should().NotHaveElementAttributeValueAsync(".missing", "", ""));
+
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IPage)null).Should().NotHaveElementAttributeValueAsync("", "", ""));
         }
 
         // Element
@@ -249,6 +281,8 @@ namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
 
             var ex = Assert.ThrowsAsync<AssertionException>(async () => await Page.Should().HaveElementAsync(".missing"));
             Assert.AreEqual("Expected page to have element matching \".missing\".", ex.Message);
+
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IPage)null).Should().HaveElementAsync(""));
         }
 
         [Test, Timeout(TestConstants.DefaultTestTimeout)]
@@ -268,6 +302,8 @@ namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
 
             ex = Assert.ThrowsAsync<AssertionException>(async () => await Page.Should().HaveElementCountAsync(3, ".missing"));
             Assert.AreEqual("Expected page to have 3 element(s) matching \".missing\", but found 0.", ex.Message);
+
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IPage)null).Should().HaveElementCountAsync(0, ""));
         }
 
         [Test, Timeout(TestConstants.DefaultTestTimeout)]
@@ -291,6 +327,8 @@ namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
 
             ex = Assert.ThrowsAsync<AssertionException>(async () => await Page.Should().HaveElementWithContentAsync(".missing", "Foo"));
             Assert.AreEqual("Expected page to have element matching \".missing\" with content \"/Foo/\".", ex.Message);
+
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IPage)null).Should().HaveElementWithContentAsync("", ""));
         }
 
         [Test, Timeout(TestConstants.DefaultTestTimeout)]
@@ -317,6 +355,8 @@ namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
 
             ex = Assert.ThrowsAsync<AssertionException>(async () => await Page.Should().HaveElementWithContentCountAsync(1, ".missing", "Foo"));
             Assert.AreEqual("Expected page to have 1 element(s) matching \".missing\" with content \"/Foo/\", but found 0.", ex.Message);
+
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IPage)null).Should().HaveElementWithContentCountAsync(0, "", ""));
         }
     }
 }

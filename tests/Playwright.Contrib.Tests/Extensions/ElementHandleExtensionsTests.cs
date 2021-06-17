@@ -36,6 +36,8 @@ namespace Microsoft.Playwright.Contrib.Tests.Extensions
 
             var missing = await html.QuerySelectorWithContentAsync("div", "Missing");
             Assert.Null(missing);
+
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).QuerySelectorWithContentAsync("div", "Foo"));
         }
 
         [Test, Timeout(TestConstants.DefaultTestTimeout)]
@@ -61,6 +63,8 @@ namespace Microsoft.Playwright.Contrib.Tests.Extensions
 
             var missing = await html.QuerySelectorAllWithContentAsync("div", "Missing");
             Assert.IsEmpty(missing);
+
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).QuerySelectorAllWithContentAsync("div", "Foo"));
         }
 
         [Test, Timeout(TestConstants.DefaultTestTimeout)]
@@ -69,8 +73,7 @@ namespace Microsoft.Playwright.Contrib.Tests.Extensions
             var tweet = await Page.QuerySelectorAsync(".tweet");
             Assert.True(tweet.Exists());
 
-            var missing = await Page.QuerySelectorAsync(".missing");
-            Assert.False(missing.Exists());
+            Assert.False(((IElementHandle)null).Exists());
         }
 
         [Test, Timeout(TestConstants.DefaultTestTimeout)]
@@ -87,8 +90,7 @@ namespace Microsoft.Playwright.Contrib.Tests.Extensions
             var body = await Page.QuerySelectorAsync("body");
             Assert.False(await body.HasAttributeAsync(null));
 
-            var missing = await Page.QuerySelectorAsync(".missing");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.HasAttributeAsync(""));
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).HasAttributeAsync(""));
         }
 
         [Test, Timeout(TestConstants.DefaultTestTimeout)]
@@ -102,8 +104,7 @@ namespace Microsoft.Playwright.Contrib.Tests.Extensions
             var body = await Page.QuerySelectorAsync("body");
             Assert.False(await body.HasClassAsync(""));
 
-            var missing = await Page.QuerySelectorAsync(".missing");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.HasClassAsync(""));
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).HasClassAsync(""));
         }
 
         [Test, Timeout(TestConstants.DefaultTestTimeout)]
@@ -125,8 +126,7 @@ namespace Microsoft.Playwright.Contrib.Tests.Extensions
             var flags = await Page.QuerySelectorAsync("html");
             Assert.True(await flags.HasContentAsync("ba.", "i"));
 
-            var missing = await Page.QuerySelectorAsync(".missing");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.HasContentAsync(""));
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).HasContentAsync(""));
         }
 
         [Test, Timeout(TestConstants.DefaultTestTimeout)]
@@ -144,8 +144,7 @@ namespace Microsoft.Playwright.Contrib.Tests.Extensions
             input = await Page.QuerySelectorAsync("#baz");
             Assert.False(await input.HasFocusAsync());
 
-            var missing = await Page.QuerySelectorAsync(".missing");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.HasFocusAsync());
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).HasFocusAsync());
         }
 
         [Test, Timeout(TestConstants.DefaultTestTimeout)]
@@ -163,8 +162,7 @@ namespace Microsoft.Playwright.Contrib.Tests.Extensions
             input = await Page.QuerySelectorAsync("#baz");
             Assert.False(await input.IsReadOnlyAsync());
 
-            var missing = await Page.QuerySelectorAsync(".missing");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.IsReadOnlyAsync());
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).IsReadOnlyAsync());
         }
 
         [Test, Timeout(TestConstants.DefaultTestTimeout)]
@@ -182,8 +180,7 @@ namespace Microsoft.Playwright.Contrib.Tests.Extensions
             input = await Page.QuerySelectorAsync("#baz");
             Assert.False(await input.IsRequiredAsync());
 
-            var missing = await Page.QuerySelectorAsync(".missing");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.IsRequiredAsync());
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).IsRequiredAsync());
         }
 
         [Test, Timeout(TestConstants.DefaultTestTimeout)]
@@ -201,8 +198,7 @@ namespace Microsoft.Playwright.Contrib.Tests.Extensions
             option = await Page.QuerySelectorAsync("#baz");
             Assert.False(await option.IsSelectedAsync());
 
-            var missing = await Page.QuerySelectorAsync(".missing");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.IsSelectedAsync());
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).IsSelectedAsync());
         }
 
         [Test, Timeout(TestConstants.DefaultTestTimeout)]
@@ -216,8 +212,7 @@ namespace Microsoft.Playwright.Contrib.Tests.Extensions
             var body = await Page.QuerySelectorAsync("body");
             Assert.IsEmpty(await body.ClassNameAsync());
 
-            var missing = await Page.QuerySelectorAsync(".missing");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.ClassNameAsync());
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).ClassNameAsync());
         }
 
         [Test, Timeout(TestConstants.DefaultTestTimeout)]
@@ -231,8 +226,7 @@ namespace Microsoft.Playwright.Contrib.Tests.Extensions
             var body = await Page.QuerySelectorAsync("body");
             Assert.IsEmpty(await body.ClassListAsync());
 
-            var missing = await Page.QuerySelectorAsync(".missing");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.ClassListAsync());
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).ClassListAsync());
         }
 
         [Test, Timeout(TestConstants.DefaultTestTimeout)]
@@ -241,8 +235,7 @@ namespace Microsoft.Playwright.Contrib.Tests.Extensions
             var like = await Page.QuerySelectorAsync(".like");
             Assert.AreEqual("<div class=\"like\">100</div>", await like.OuterHTMLAsync());
 
-            var missing = await Page.QuerySelectorAsync(".missing");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.OuterHTMLAsync());
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).OuterHTMLAsync());
         }
     }
 }

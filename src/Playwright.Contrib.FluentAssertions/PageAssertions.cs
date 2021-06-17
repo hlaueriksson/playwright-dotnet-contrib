@@ -120,7 +120,7 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         /// <returns>An <see cref="AndConstraint{PageAssertions}"/> which can be used to chain assertions.</returns>
         public async Task<AndConstraint<PageAssertions>> HaveVisibleElementAsync(string selector, string because = "", params object[] becauseArgs)
         {
-            var result = await Subject.IsVisibleAsync(selector).ConfigureAwait(false);
+            var result = await Subject.GuardFromNull().IsVisibleAsync(selector).ConfigureAwait(false);
 
             Execute.Assertion
                 .ForCondition(result)
@@ -139,7 +139,7 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         /// <returns>An <see cref="AndConstraint{PageAssertions}"/> which can be used to chain assertions.</returns>
         public async Task<AndConstraint<PageAssertions>> HaveHiddenElementAsync(string selector, string because = "", params object[] becauseArgs)
         {
-            var result = await Subject.IsHiddenAsync(selector).ConfigureAwait(false);
+            var result = await Subject.GuardFromNull().IsHiddenAsync(selector).ConfigureAwait(false);
 
             Execute.Assertion
                 .ForCondition(result)
@@ -161,7 +161,7 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         /// <remarks><![CDATA[Elements: <command>, <input>]]></remarks>
         public async Task<AndConstraint<PageAssertions>> HaveCheckedElementAsync(string selector, string because = "", params object[] becauseArgs)
         {
-            var result = await Subject.IsCheckedAsync(selector).ConfigureAwait(false);
+            var result = await Subject.GuardFromNull().IsCheckedAsync(selector).ConfigureAwait(false);
 
             Execute.Assertion
                 .ForCondition(result)
@@ -181,7 +181,7 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         /// <remarks><![CDATA[Elements: <command>, <input>]]></remarks>
         public async Task<AndConstraint<PageAssertions>> NotHaveCheckedElementAsync(string selector, string because = "", params object[] becauseArgs)
         {
-            var result = await Subject.IsCheckedAsync(selector).ConfigureAwait(false);
+            var result = await Subject.GuardFromNull().IsCheckedAsync(selector).ConfigureAwait(false);
 
             Execute.Assertion
                 .ForCondition(!result)
@@ -203,7 +203,7 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         /// <remarks><![CDATA[Elements: <button>, <command>, <fieldset>, <input>, <keygen>, <optgroup>, <option>, <select>, <textarea>]]></remarks>
         public async Task<AndConstraint<PageAssertions>> HaveDisabledElementAsync(string selector, string because = "", params object[] becauseArgs)
         {
-            var result = await Subject.IsDisabledAsync(selector).ConfigureAwait(false);
+            var result = await Subject.GuardFromNull().IsDisabledAsync(selector).ConfigureAwait(false);
 
             Execute.Assertion
                 .ForCondition(result)
@@ -223,7 +223,7 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         /// <remarks><![CDATA[Elements: <button>, <command>, <fieldset>, <input>, <keygen>, <optgroup>, <option>, <select>, <textarea>]]></remarks>
         public async Task<AndConstraint<PageAssertions>> HaveEnabledElementAsync(string selector, string because = "", params object[] becauseArgs)
         {
-            var result = await Subject.IsEnabledAsync(selector).ConfigureAwait(false);
+            var result = await Subject.GuardFromNull().IsEnabledAsync(selector).ConfigureAwait(false);
 
             Execute.Assertion
                 .ForCondition(result)
@@ -244,7 +244,7 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         /// <returns>An <see cref="AndConstraint{PageAssertions}"/> which can be used to chain assertions.</returns>
         public async Task<AndConstraint<PageAssertions>> HaveEditableElementAsync(string selector, string because = "", params object[] becauseArgs)
         {
-            var result = await Subject.IsEditableAsync(selector).ConfigureAwait(false);
+            var result = await Subject.GuardFromNull().IsEditableAsync(selector).ConfigureAwait(false);
 
             Execute.Assertion
                 .ForCondition(result)
@@ -263,7 +263,7 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         /// <returns>An <see cref="AndConstraint{PageAssertions}"/> which can be used to chain assertions.</returns>
         public async Task<AndConstraint<PageAssertions>> NotHaveEditableElementAsync(string selector, string because = "", params object[] becauseArgs)
         {
-            var result = await Subject.IsEditableAsync(selector).ConfigureAwait(false);
+            var result = await Subject.GuardFromNull().IsEditableAsync(selector).ConfigureAwait(false);
 
             Execute.Assertion
                 .ForCondition(!result)
@@ -368,7 +368,7 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         /// <returns>An <see cref="AndConstraint{PageAssertions}"/> which can be used to chain assertions.</returns>
         public async Task<AndConstraint<PageAssertions>> HaveElementAsync(string selector, string because = "", params object[] becauseArgs)
         {
-            var result = await Subject.QuerySelectorAsync(selector).ConfigureAwait(false);
+            var result = await Subject.GuardFromNull().QuerySelectorAsync(selector).ConfigureAwait(false);
 
             Execute.Assertion
                 .ForCondition(result != null)
@@ -388,7 +388,7 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         /// <returns>An <see cref="AndConstraint{PageAssertions}"/> which can be used to chain assertions.</returns>
         public async Task<AndConstraint<PageAssertions>> HaveElementCountAsync(int count, string selector, string because = "", params object[] becauseArgs)
         {
-            var result = await Subject.QuerySelectorAllAsync(selector).ConfigureAwait(false);
+            var result = await Subject.GuardFromNull().QuerySelectorAllAsync(selector).ConfigureAwait(false);
 
             Execute.Assertion
                 .ForCondition(result.Count == count)

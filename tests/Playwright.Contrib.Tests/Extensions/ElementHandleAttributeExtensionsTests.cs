@@ -20,8 +20,7 @@ namespace Microsoft.Playwright.Contrib.Tests.Extensions
             var body = await Page.QuerySelectorAsync("body");
             Assert.Null(await body.IdAsync());
 
-            var missing = await Page.QuerySelectorAsync(".missing");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.IdAsync());
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).IdAsync());
         }
 
         [Test, Timeout(TestConstants.DefaultTestTimeout)]
@@ -35,8 +34,7 @@ namespace Microsoft.Playwright.Contrib.Tests.Extensions
             var body = await Page.QuerySelectorAsync("body");
             Assert.Null(await body.NameAsync());
 
-            var missing = await Page.QuerySelectorAsync(".missing");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.NameAsync());
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).NameAsync());
         }
 
         [Test, Timeout(TestConstants.DefaultTestTimeout)]
@@ -50,8 +48,7 @@ namespace Microsoft.Playwright.Contrib.Tests.Extensions
             var body = await Page.QuerySelectorAsync("body");
             Assert.Null(await body.HrefAsync());
 
-            var missing = await Page.QuerySelectorAsync(".missing");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.HrefAsync());
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).HrefAsync());
         }
 
         [Test, Timeout(TestConstants.DefaultTestTimeout)]
@@ -65,8 +62,7 @@ namespace Microsoft.Playwright.Contrib.Tests.Extensions
             var body = await Page.QuerySelectorAsync("body");
             Assert.Null(await body.SrcAsync());
 
-            var missing = await Page.QuerySelectorAsync(".missing");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.SrcAsync());
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).SrcAsync());
         }
 
         [Test, Timeout(TestConstants.DefaultTestTimeout)]
@@ -80,8 +76,7 @@ namespace Microsoft.Playwright.Contrib.Tests.Extensions
             var body = await Page.QuerySelectorAsync("body");
             Assert.Null(await body.ValueAsync());
 
-            var missing = await Page.QuerySelectorAsync(".missing");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.ValueAsync());
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).ValueAsync());
         }
 
         [Test, Timeout(TestConstants.DefaultTestTimeout)]
@@ -98,8 +93,7 @@ namespace Microsoft.Playwright.Contrib.Tests.Extensions
             var body = await Page.QuerySelectorAsync("body");
             Assert.Null(await body.GetAttributeOrDefaultAsync(""));
 
-            var missing = await Page.QuerySelectorAsync(".missing");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.GetAttributeOrDefaultAsync(""));
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).GetAttributeOrDefaultAsync(""));
         }
     }
 }

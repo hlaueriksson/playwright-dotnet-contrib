@@ -590,7 +590,7 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         /// <returns>An <see cref="AndConstraint{ElementHandleAssertions}"/> which can be used to chain assertions.</returns>
         public async Task<AndConstraint<ElementHandleAssertions>> HaveElementAsync(string selector, string because = "", params object[] becauseArgs)
         {
-            var result = await Subject.QuerySelectorAsync(selector).ConfigureAwait(false);
+            var result = await Subject.GuardFromNull().QuerySelectorAsync(selector).ConfigureAwait(false);
 
             Execute.Assertion
                 .ForCondition(result != null)
@@ -610,7 +610,7 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         /// <returns>An <see cref="AndConstraint{ElementHandleAssertions}"/> which can be used to chain assertions.</returns>
         public async Task<AndConstraint<ElementHandleAssertions>> HaveElementCountAsync(int count, string selector, string because = "", params object[] becauseArgs)
         {
-            var result = await Subject.QuerySelectorAllAsync(selector).ConfigureAwait(false);
+            var result = await Subject.GuardFromNull().QuerySelectorAllAsync(selector).ConfigureAwait(false);
 
             Execute.Assertion
                 .ForCondition(result.Count == count)
