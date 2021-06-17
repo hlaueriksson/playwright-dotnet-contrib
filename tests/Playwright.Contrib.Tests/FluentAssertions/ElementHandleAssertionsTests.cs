@@ -100,6 +100,41 @@ namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
             Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.Should().NotHaveAttributeAsync(""));
         }
 
+        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        public async Task Should_HaveAttributeValueAsync_throws_if_element_does_not_have_the_attribute_value()
+        {
+            await Page.SetContentAsync("<html><body><div class='class' data-foo='bar' /></body></html>");
+
+            var div = await Page.QuerySelectorAsync("div");
+            await div.Should().HaveAttributeValueAsync("class", "class");
+
+            var ex = Assert.ThrowsAsync<AssertionException>(async () => await div.Should().HaveAttributeValueAsync("class", "id"));
+            Assert.AreEqual("Expected element to have attribute \"class\" with value \"id\".", ex.Message);
+
+            ex = Assert.ThrowsAsync<AssertionException>(async () => await div.Should().HaveAttributeValueAsync("id", "class"));
+            Assert.AreEqual("Expected element to have attribute \"id\" with value \"class\".", ex.Message);
+
+            var missing = await Page.QuerySelectorAsync(".missing");
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.Should().HaveAttributeValueAsync("", ""));
+        }
+
+        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        public async Task Should_NotHaveAttributeValueAsync_throws_if_element_has_the_attribute_value()
+        {
+            await Page.SetContentAsync("<html><body><div class='class' data-foo='bar' /></body></html>");
+
+            var div = await Page.QuerySelectorAsync("div");
+            await div.Should().NotHaveAttributeValueAsync("id", "class");
+
+            await div.Should().NotHaveAttributeValueAsync("class", "id");
+
+            var ex = Assert.ThrowsAsync<AssertionException>(async () => await div.Should().NotHaveAttributeValueAsync("class", "class"));
+            Assert.AreEqual("Expected element not to have attribute \"class\" with value \"class\".", ex.Message);
+
+            var missing = await Page.QuerySelectorAsync(".missing");
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.Should().NotHaveAttributeValueAsync("", ""));
+        }
+
         // Content
 
         [Test, Timeout(TestConstants.DefaultTestTimeout)]

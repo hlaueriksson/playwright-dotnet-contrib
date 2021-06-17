@@ -203,6 +203,39 @@ namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
         }
 
         [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        public async Task Should_HaveElementAttributeValueAsync_throws_if_element_does_not_have_the_attribute_value()
+        {
+            await Page.SetContentAsync("<html><body><div class='class' data-foo='bar' /></body></html>");
+
+            await Page.Should().HaveElementAttributeValueAsync("div", "class", "class");
+
+            var ex = Assert.ThrowsAsync<AssertionException>(async () => await Page.Should().HaveElementAttributeValueAsync("div", "class", "id"));
+            Assert.AreEqual("Expected element \"div\" on page to have attribute \"class\" with value \"id\".", ex.Message);
+
+            ex = Assert.ThrowsAsync<AssertionException>(async () => await Page.Should().HaveElementAttributeValueAsync("div", "id", "class"));
+            Assert.AreEqual("Expected element \"div\" on page to have attribute \"id\" with value \"class\".", ex.Message);
+
+            Assert.ThrowsAsync<TimeoutException>(async () => await Page.Should().HaveElementAttributeValueAsync(".missing", "", ""));
+        }
+
+        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        public async Task Should_NotHaveElementAttributeValueAsync_throws_if_element_has_the_attribute_value()
+        {
+            await Page.SetContentAsync("<html><body><div class='class' data-foo='bar' /></body></html>");
+
+            await Page.Should().NotHaveElementAttributeValueAsync("div", "class", "id");
+
+            await Page.Should().NotHaveElementAttributeValueAsync("div", "id", "class");
+
+            var ex = Assert.ThrowsAsync<AssertionException>(async () => await Page.Should().NotHaveElementAttributeValueAsync("div", "class", "class"));
+            Assert.AreEqual("Expected element \"div\" on page not to have attribute \"class\" with value \"class\".", ex.Message);
+
+            Assert.ThrowsAsync<TimeoutException>(async () => await Page.Should().NotHaveElementAttributeValueAsync(".missing", "", ""));
+        }
+
+        // Element
+
+        [Test, Timeout(TestConstants.DefaultTestTimeout)]
         public async Task Should_HaveElementAsync_throws_if_page_does_not_have_the_element()
         {
             await Page.SetContentAsync(@"

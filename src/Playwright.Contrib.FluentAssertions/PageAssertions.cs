@@ -21,6 +21,8 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         /// </summary>
         public IPage Subject { get; }
 
+        // Content
+
         /// <summary>
         /// Asserts that the page has the specified content.
         /// </summary>
@@ -62,6 +64,8 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
 
             return new AndConstraint<PageAssertions>(this);
         }
+
+        // Title
 
         /// <summary>
         /// Asserts that the page has the specified title.
@@ -269,6 +273,8 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
             return new AndConstraint<PageAssertions>(this);
         }
 
+        // Attribute
+
         /// <summary>
         /// Asserts that the element has the specified attribute.
         /// </summary>
@@ -308,6 +314,50 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
 
             return new AndConstraint<PageAssertions>(this);
         }
+
+        /// <summary>
+        /// Asserts that the element has the specified attribute value.
+        /// </summary>
+        /// <param name="selector">A selector to search for element. If there are multiple elements satisfying the selector, the first will be used.</param>
+        /// <param name="name">The attribute name.</param>
+        /// <param name="value">The attribute value.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <returns>An <see cref="AndConstraint{PageAssertions}"/> which can be used to chain assertions.</returns>
+        public async Task<AndConstraint<PageAssertions>> HaveElementAttributeValueAsync(string selector, string name, string value, string because = "", params object[] becauseArgs)
+        {
+            var result = await Subject.GetAttributeOrDefaultAsync(selector, name).ConfigureAwait(false);
+
+            Execute.Assertion
+                .ForCondition(result == value)
+                .BecauseOf(because, becauseArgs)
+                .FailWith("Expected element {0} on {context:page} to have attribute {1} with value {2}{reason}.", selector, name, value);
+
+            return new AndConstraint<PageAssertions>(this);
+        }
+
+        /// <summary>
+        /// Asserts that the element does not have the specified attribute.
+        /// </summary>
+        /// <param name="selector">A selector to search for element. If there are multiple elements satisfying the selector, the first will be used.</param>
+        /// <param name="name">The attribute name.</param>
+        /// <param name="value">The attribute value.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <returns>An <see cref="AndConstraint{PageAssertions}"/> which can be used to chain assertions.</returns>
+        public async Task<AndConstraint<PageAssertions>> NotHaveElementAttributeValueAsync(string selector, string name, string value, string because = "", params object[] becauseArgs)
+        {
+            var result = await Subject.GetAttributeOrDefaultAsync(selector, name).ConfigureAwait(false);
+
+            Execute.Assertion
+                .ForCondition(result != value)
+                .BecauseOf(because, becauseArgs)
+                .FailWith("Expected element {0} on {context:page} not to have attribute {1} with value {2}{reason}.", selector, name, value);
+
+            return new AndConstraint<PageAssertions>(this);
+        }
+
+        // Element
 
         /// <summary>
         /// Asserts that the page has the specified selector.

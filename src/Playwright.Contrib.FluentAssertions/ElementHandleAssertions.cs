@@ -139,6 +139,46 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
             return new AndConstraint<ElementHandleAssertions>(this);
         }
 
+        /// <summary>
+        /// Asserts that the element has the specified attribute value.
+        /// </summary>
+        /// <param name="name">The attribute name.</param>
+        /// <param name="value">The attribute value.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <returns>An <see cref="AndConstraint{ElementHandleAssertions}"/> which can be used to chain assertions.</returns>
+        public async Task<AndConstraint<ElementHandleAssertions>> HaveAttributeValueAsync(string name, string value, string because = "", params object[] becauseArgs)
+        {
+            var result = await Subject.GetAttributeOrDefaultAsync(name).ConfigureAwait(false);
+
+            Execute.Assertion
+                .ForCondition(result == value)
+                .BecauseOf(because, becauseArgs)
+                .FailWith("Expected {context:element} to have attribute {0} with value {1}{reason}.", name, value);
+
+            return new AndConstraint<ElementHandleAssertions>(this);
+        }
+
+        /// <summary>
+        /// Asserts that the element does not have the specified attribute value.
+        /// </summary>
+        /// <param name="name">The attribute name.</param>
+        /// <param name="value">The attribute value.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <returns>An <see cref="AndConstraint{ElementHandleAssertions}"/> which can be used to chain assertions.</returns>
+        public async Task<AndConstraint<ElementHandleAssertions>> NotHaveAttributeValueAsync(string name, string value, string because = "", params object[] becauseArgs)
+        {
+            var result = await Subject.GetAttributeOrDefaultAsync(name).ConfigureAwait(false);
+
+            Execute.Assertion
+                .ForCondition(result != value)
+                .BecauseOf(because, becauseArgs)
+                .FailWith("Expected {context:element} not to have attribute {0} with value {1}{reason}.", name, value);
+
+            return new AndConstraint<ElementHandleAssertions>(this);
+        }
+
         // Content
 
         /// <summary>
@@ -538,6 +578,8 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
 
             return new AndConstraint<ElementHandleAssertions>(this);
         }
+
+        // Element
 
         /// <summary>
         /// Asserts that the element has the specified selector.
