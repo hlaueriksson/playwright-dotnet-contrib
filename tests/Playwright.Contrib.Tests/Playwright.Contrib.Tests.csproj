@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Playwright.Contrib.Extensions\Playwright.Contrib.Extensions.csproj" />
+    <ProjectReference Include="..\..\src\Playwright.Contrib.FluentAssertions\Playwright.Contrib.FluentAssertions.csproj" />
   </ItemGroup>
 
 </Project>
