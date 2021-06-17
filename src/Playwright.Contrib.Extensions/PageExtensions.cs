@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +17,7 @@ namespace Microsoft.Playwright.Contrib.Extensions
         /// <param name="selector">A selector to query page for.</param>
         /// <param name="regex">A regular expression to test against <c>element.textContent</c>.</param>
         /// <param name="flags">A set of flags for the regular expression.</param>
-        /// <returns>Task which resolves to <see cref="IElementHandle"/> pointing to the frame element.</returns>
+        /// <returns>Task which resolves to an <see cref="IElementHandle"/> pointing to the frame element.</returns>
         /// <seealso href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp"/>
         public static async Task<IElementHandle> QuerySelectorWithContentAsync(this IPage page, string selector, string regex, string flags = "") =>
             await page.GuardFromNull().EvaluateHandleAsync(
@@ -29,13 +30,13 @@ namespace Microsoft.Playwright.Contrib.Extensions
                 new object[] { selector, regex, flags }).ConfigureAwait(false) as IElementHandle;
 
         /// <summary>
-        /// The method runs <c>document.querySelectorAll</c> within the page and then tests a <c>RegExp</c> against the elements <c>textContent</c>. All element matches are returned. If no element matches the selector and regular expression, the return value resolve to <see cref="System.Array.Empty{T}"/>.
+        /// The method runs <c>document.querySelectorAll</c> within the page and then tests a <c>RegExp</c> against the elements <c>textContent</c>. All element matches are returned. If no element matches the selector and regular expression, the return value resolve to an empty <see cref="IReadOnlyList{IElementHandle}"/>.
         /// </summary>
         /// <param name="page">An <see cref="IPage"/> to query.</param>
         /// <param name="selector">A selector to query page for.</param>
         /// <param name="regex">A regular expression to test against <c>element.textContent</c>.</param>
         /// <param name="flags">A set of flags for the regular expression.</param>
-        /// <returns>Task which resolves to ElementHandles pointing to the frame elements.</returns>
+        /// <returns>Task which resolves to an <see cref="IReadOnlyList{IElementHandle}"/> pointing to the frame elements.</returns>
         /// <seealso href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp"/>
         public static async Task<IReadOnlyList<IElementHandle>> QuerySelectorAllWithContentAsync(this IPage page, string selector, string regex, string flags = "")
         {

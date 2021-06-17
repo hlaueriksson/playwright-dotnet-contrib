@@ -112,7 +112,7 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         // Visible
 
         /// <summary>
-        /// Asserts that the element is visible.
+        /// Asserts that the element on page is visible.
         /// </summary>
         /// <param name="selector">A selector to search for element. If there are multiple elements satisfying the selector, the first will be used.</param>
         /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
@@ -131,7 +131,7 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         }
 
         /// <summary>
-        /// Asserts that the element is hidden.
+        /// Asserts that the element on page is hidden.
         /// </summary>
         /// <param name="selector">A selector to search for element. If there are multiple elements satisfying the selector, the first will be used.</param>
         /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
@@ -152,7 +152,7 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         // Checked
 
         /// <summary>
-        /// Asserts that the element is checked.
+        /// Asserts that the element on page is checked.
         /// </summary>
         /// <param name="selector">A selector to search for element. If there are multiple elements satisfying the selector, the first will be used.</param>
         /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
@@ -172,7 +172,7 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         }
 
         /// <summary>
-        /// Asserts that the element is not checked.
+        /// Asserts that the element on page is not checked.
         /// </summary>
         /// <param name="selector">A selector to search for element. If there are multiple elements satisfying the selector, the first will be used.</param>
         /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
@@ -194,7 +194,7 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         // Disabled
 
         /// <summary>
-        /// Asserts that the element is disabled.
+        /// Asserts that the element on page is disabled.
         /// </summary>
         /// <param name="selector">A selector to search for element. If there are multiple elements satisfying the selector, the first will be used.</param>
         /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
@@ -214,7 +214,7 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         }
 
         /// <summary>
-        /// Asserts that the element is enabled.
+        /// Asserts that the element on page is enabled.
         /// </summary>
         /// <param name="selector">A selector to search for element. If there are multiple elements satisfying the selector, the first will be used.</param>
         /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
@@ -236,7 +236,7 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         // Editable
 
         /// <summary>
-        /// Asserts that the element is editable.
+        /// Asserts that the element on page is editable.
         /// </summary>
         /// <param name="selector">A selector to search for element. If there are multiple elements satisfying the selector, the first will be used.</param>
         /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
@@ -255,7 +255,7 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         }
 
         /// <summary>
-        /// Asserts that the element is not editable.
+        /// Asserts that the element on page is not editable.
         /// </summary>
         /// <param name="selector">A selector to search for element. If there are multiple elements satisfying the selector, the first will be used.</param>
         /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
@@ -276,7 +276,7 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         // Attribute
 
         /// <summary>
-        /// Asserts that the element has the specified attribute.
+        /// Asserts that the element on page has the specified attribute.
         /// </summary>
         /// <param name="selector">A selector to search for element. If there are multiple elements satisfying the selector, the first will be used.</param>
         /// <param name="name">The attribute name.</param>
@@ -296,7 +296,7 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         }
 
         /// <summary>
-        /// Asserts that the element does not have the specified attribute.
+        /// Asserts that the element on page does not have the specified attribute.
         /// </summary>
         /// <param name="selector">A selector to search for element. If there are multiple elements satisfying the selector, the first will be used.</param>
         /// <param name="name">The attribute name.</param>
@@ -316,7 +316,7 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         }
 
         /// <summary>
-        /// Asserts that the element has the specified attribute value.
+        /// Asserts that the element on page has the specified attribute value.
         /// </summary>
         /// <param name="selector">A selector to search for element. If there are multiple elements satisfying the selector, the first will be used.</param>
         /// <param name="name">The attribute name.</param>
@@ -337,7 +337,7 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         }
 
         /// <summary>
-        /// Asserts that the element does not have the specified attribute.
+        /// Asserts that the element on page does not have the specified attribute.
         /// </summary>
         /// <param name="selector">A selector to search for element. If there are multiple elements satisfying the selector, the first will be used.</param>
         /// <param name="name">The attribute name.</param>
