@@ -54,12 +54,11 @@ namespace Microsoft.Playwright.Contrib.Extensions
             await elementHandle.GuardFromNull().GetAttributeOrDefaultAsync("value").ConfigureAwait(false);
 
         /// <summary>
-        /// The value of a specified attribute on the element, or a default value if no attribute is found.
+        /// Returns element attribute value, or a default value if no attribute is found.
         /// </summary>
         /// <param name="elementHandle">An <see cref="IElementHandle"/>.</param>
         /// <param name="name">The attribute name.</param>
         /// <returns>The attribute value, or a default value if no attribute is found.</returns>
-        /// <seealso href="https://developer.mozilla.org/en-US/docs/Web/API/Element/getAttribute"/>
         public static async Task<string> GetAttributeOrDefaultAsync(this IElementHandle elementHandle, string name)
         {
             try

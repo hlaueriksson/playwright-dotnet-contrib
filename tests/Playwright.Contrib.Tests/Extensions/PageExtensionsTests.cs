@@ -59,7 +59,9 @@ namespace Microsoft.Playwright.Contrib.Tests.Extensions
         {
             Assert.True(await Page.HasContentAsync("Ba."));
             Assert.True(await Page.HasContentAsync("ba.", "i"));
+            Assert.True(await Page.HasContentAsync(""));
             Assert.False(await Page.HasContentAsync("Missing"));
+            Assert.False(await Page.HasContentAsync(null));
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IPage)null).HasContentAsync(""));
         }
 
@@ -75,7 +77,9 @@ namespace Microsoft.Playwright.Contrib.Tests.Extensions
 
             Assert.True(await Page.HasTitleAsync("Ba."));
             Assert.True(await Page.HasTitleAsync("ba.", "i"));
+            Assert.True(await Page.HasTitleAsync(""));
             Assert.False(await Page.HasTitleAsync("Missing"));
+            Assert.False(await Page.HasTitleAsync(null));
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IPage)null).HasTitleAsync(""));
         }
     }

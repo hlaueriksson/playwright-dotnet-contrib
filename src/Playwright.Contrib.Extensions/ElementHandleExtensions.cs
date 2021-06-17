@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -37,7 +38,7 @@ namespace Microsoft.Playwright.Contrib.Extensions
         /// <param name="flags">A set of flags for the regular expression.</param>
         /// <returns>Task which resolves to IElementHandles pointing to the elements.</returns>
         /// <seealso href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp"/>
-        public static async Task<IElementHandle[]> QuerySelectorAllWithContentAsync(this IElementHandle elementHandle, string selector, string regex, string flags = "")
+        public static async Task<IReadOnlyList<IElementHandle>> QuerySelectorAllWithContentAsync(this IElementHandle elementHandle, string selector, string regex, string flags = "")
         {
             var arrayHandle = await elementHandle.GuardFromNull().EvaluateHandleAsync(
                 @"(element, [selector, regex, flags]) => {
@@ -51,7 +52,7 @@ namespace Microsoft.Playwright.Contrib.Extensions
             var properties = await arrayHandle.GetPropertiesAsync().ConfigureAwait(false);
             await arrayHandle.DisposeAsync().ConfigureAwait(false);
 
-            return properties.Values.OfType<IElementHandle>().ToArray();
+            return properties.Values.OfType<IElementHandle>().ToList().AsReadOnly();
         }
 
         /// <summary>
@@ -144,10 +145,10 @@ namespace Microsoft.Playwright.Contrib.Extensions
         /// <param name="elementHandle">An <see cref="IElementHandle"/>.</param>
         /// <returns>The element's <c>classList</c>.</returns>
         /// <seealso href="https://developer.mozilla.org/en-US/docs/Web/API/Element/classList"/>
-        public static async Task<string[]> ClassListAsync(this IElementHandle elementHandle)
+        public static async Task<IReadOnlyList<string>> ClassListAsync(this IElementHandle elementHandle)
         {
             var jsonElement = await elementHandle.GuardFromNull().EvaluateAsync("element => element.classList").ConfigureAwait(false);
-            return jsonElement.HasValue ? jsonElement.Value.EnumerateObject().Select(x => x.Value.GetString()).ToArray() : Array.Empty<string>();
+            return jsonElement?.EnumerateObject().Select(x => x.Value.GetString()).ToList().AsReadOnly() ?? Array.Empty<string>().ToList().AsReadOnly();
         }
 
         /// <summary>
