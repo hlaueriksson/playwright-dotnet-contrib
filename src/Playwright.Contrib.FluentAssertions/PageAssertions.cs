@@ -104,5 +104,291 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
 
             return new AndConstraint<PageAssertions>(this);
         }
+
+        // Visible
+
+        /// <summary>
+        /// Asserts that the element is visible.
+        /// </summary>
+        /// <param name="selector">A selector to search for element. If there are multiple elements satisfying the selector, the first will be used.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <returns>An <see cref="AndConstraint{PageAssertions}"/> which can be used to chain assertions.</returns>
+        public async Task<AndConstraint<PageAssertions>> HaveVisibleElementAsync(string selector, string because = "", params object[] becauseArgs)
+        {
+            var result = await Subject.IsVisibleAsync(selector).ConfigureAwait(false);
+
+            Execute.Assertion
+                .ForCondition(result)
+                .BecauseOf(because, becauseArgs)
+                .FailWith("Expected element {0} on {context:page} to be visible{reason}.", selector);
+
+            return new AndConstraint<PageAssertions>(this);
+        }
+
+        /// <summary>
+        /// Asserts that the element is hidden.
+        /// </summary>
+        /// <param name="selector">A selector to search for element. If there are multiple elements satisfying the selector, the first will be used.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <returns>An <see cref="AndConstraint{PageAssertions}"/> which can be used to chain assertions.</returns>
+        public async Task<AndConstraint<PageAssertions>> HaveHiddenElementAsync(string selector, string because = "", params object[] becauseArgs)
+        {
+            var result = await Subject.IsHiddenAsync(selector).ConfigureAwait(false);
+
+            Execute.Assertion
+                .ForCondition(result)
+                .BecauseOf(because, becauseArgs)
+                .FailWith("Expected element {0} on {context:page} to be hidden{reason}.", selector);
+
+            return new AndConstraint<PageAssertions>(this);
+        }
+
+        // Checked
+
+        /// <summary>
+        /// Asserts that the element is checked.
+        /// </summary>
+        /// <param name="selector">A selector to search for element. If there are multiple elements satisfying the selector, the first will be used.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <returns>An <see cref="AndConstraint{PageAssertions}"/> which can be used to chain assertions.</returns>
+        /// <remarks><![CDATA[Elements: <command>, <input>]]></remarks>
+        public async Task<AndConstraint<PageAssertions>> HaveCheckedElementAsync(string selector, string because = "", params object[] becauseArgs)
+        {
+            var result = await Subject.IsCheckedAsync(selector).ConfigureAwait(false);
+
+            Execute.Assertion
+                .ForCondition(result)
+                .BecauseOf(because, becauseArgs)
+                .FailWith("Expected element {0} on {context:page} to be checked{reason}.", selector);
+
+            return new AndConstraint<PageAssertions>(this);
+        }
+
+        /// <summary>
+        /// Asserts that the element is not checked.
+        /// </summary>
+        /// <param name="selector">A selector to search for element. If there are multiple elements satisfying the selector, the first will be used.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <returns>An <see cref="AndConstraint{PageAssertions}"/> which can be used to chain assertions.</returns>
+        /// <remarks><![CDATA[Elements: <command>, <input>]]></remarks>
+        public async Task<AndConstraint<PageAssertions>> NotHaveCheckedElementAsync(string selector, string because = "", params object[] becauseArgs)
+        {
+            var result = await Subject.IsCheckedAsync(selector).ConfigureAwait(false);
+
+            Execute.Assertion
+                .ForCondition(!result)
+                .BecauseOf(because, becauseArgs)
+                .FailWith("Expected element {0} on {context:page} not to be checked{reason}.", selector);
+
+            return new AndConstraint<PageAssertions>(this);
+        }
+
+        // Disabled
+
+        /// <summary>
+        /// Asserts that the element is disabled.
+        /// </summary>
+        /// <param name="selector">A selector to search for element. If there are multiple elements satisfying the selector, the first will be used.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <returns>An <see cref="AndConstraint{PageAssertions}"/> which can be used to chain assertions.</returns>
+        /// <remarks><![CDATA[Elements: <button>, <command>, <fieldset>, <input>, <keygen>, <optgroup>, <option>, <select>, <textarea>]]></remarks>
+        public async Task<AndConstraint<PageAssertions>> HaveDisabledElementAsync(string selector, string because = "", params object[] becauseArgs)
+        {
+            var result = await Subject.IsDisabledAsync(selector).ConfigureAwait(false);
+
+            Execute.Assertion
+                .ForCondition(result)
+                .BecauseOf(because, becauseArgs)
+                .FailWith("Expected element {0} on {context:page} to be disabled{reason}.", selector);
+
+            return new AndConstraint<PageAssertions>(this);
+        }
+
+        /// <summary>
+        /// Asserts that the element is enabled.
+        /// </summary>
+        /// <param name="selector">A selector to search for element. If there are multiple elements satisfying the selector, the first will be used.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <returns>An <see cref="AndConstraint{PageAssertions}"/> which can be used to chain assertions.</returns>
+        /// <remarks><![CDATA[Elements: <button>, <command>, <fieldset>, <input>, <keygen>, <optgroup>, <option>, <select>, <textarea>]]></remarks>
+        public async Task<AndConstraint<PageAssertions>> HaveEnabledElementAsync(string selector, string because = "", params object[] becauseArgs)
+        {
+            var result = await Subject.IsEnabledAsync(selector).ConfigureAwait(false);
+
+            Execute.Assertion
+                .ForCondition(result)
+                .BecauseOf(because, becauseArgs)
+                .FailWith("Expected element {0} on {context:page} to be enabled{reason}.", selector);
+
+            return new AndConstraint<PageAssertions>(this);
+        }
+
+        // Editable
+
+        /// <summary>
+        /// Asserts that the element is editable.
+        /// </summary>
+        /// <param name="selector">A selector to search for element. If there are multiple elements satisfying the selector, the first will be used.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <returns>An <see cref="AndConstraint{PageAssertions}"/> which can be used to chain assertions.</returns>
+        public async Task<AndConstraint<PageAssertions>> HaveEditableElementAsync(string selector, string because = "", params object[] becauseArgs)
+        {
+            var result = await Subject.IsEditableAsync(selector).ConfigureAwait(false);
+
+            Execute.Assertion
+                .ForCondition(result)
+                .BecauseOf(because, becauseArgs)
+                .FailWith("Expected element {0} on {context:page} to be editable{reason}.", selector);
+
+            return new AndConstraint<PageAssertions>(this);
+        }
+
+        /// <summary>
+        /// Asserts that the element is not editable.
+        /// </summary>
+        /// <param name="selector">A selector to search for element. If there are multiple elements satisfying the selector, the first will be used.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <returns>An <see cref="AndConstraint{PageAssertions}"/> which can be used to chain assertions.</returns>
+        public async Task<AndConstraint<PageAssertions>> NotHaveEditableElementAsync(string selector, string because = "", params object[] becauseArgs)
+        {
+            var result = await Subject.IsEditableAsync(selector).ConfigureAwait(false);
+
+            Execute.Assertion
+                .ForCondition(!result)
+                .BecauseOf(because, becauseArgs)
+                .FailWith("Expected element {0} on {context:page} not to be editable{reason}.", selector);
+
+            return new AndConstraint<PageAssertions>(this);
+        }
+
+        /// <summary>
+        /// Asserts that the element has the specified attribute.
+        /// </summary>
+        /// <param name="selector">A selector to search for element. If there are multiple elements satisfying the selector, the first will be used.</param>
+        /// <param name="name">The attribute name.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <returns>An <see cref="AndConstraint{PageAssertions}"/> which can be used to chain assertions.</returns>
+        public async Task<AndConstraint<PageAssertions>> HaveElementAttributeAsync(string selector, string name, string because = "", params object[] becauseArgs)
+        {
+            var result = await Subject.GetAttributeOrDefaultAsync(selector, name).ConfigureAwait(false);
+
+            Execute.Assertion
+                .ForCondition(result != null)
+                .BecauseOf(because, becauseArgs)
+                .FailWith("Expected element {0} on {context:page} to have attribute {1}{reason}.", selector, name);
+
+            return new AndConstraint<PageAssertions>(this);
+        }
+
+        /// <summary>
+        /// Asserts that the element does not have the specified attribute.
+        /// </summary>
+        /// <param name="selector">A selector to search for element. If there are multiple elements satisfying the selector, the first will be used.</param>
+        /// <param name="name">The attribute name.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <returns>An <see cref="AndConstraint{PageAssertions}"/> which can be used to chain assertions.</returns>
+        public async Task<AndConstraint<PageAssertions>> NotHaveElementAttributeAsync(string selector, string name, string because = "", params object[] becauseArgs)
+        {
+            var result = await Subject.GetAttributeOrDefaultAsync(selector, name).ConfigureAwait(false);
+
+            Execute.Assertion
+                .ForCondition(result == null)
+                .BecauseOf(because, becauseArgs)
+                .FailWith("Expected element {0} on {context:page} not to have attribute {1}{reason}.", selector, name);
+
+            return new AndConstraint<PageAssertions>(this);
+        }
+
+        /// <summary>
+        /// Asserts that the page has the specified selector.
+        /// </summary>
+        /// <param name="selector">A selector to query for.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <returns>An <see cref="AndConstraint{PageAssertions}"/> which can be used to chain assertions.</returns>
+        public async Task<AndConstraint<PageAssertions>> HaveElementAsync(string selector, string because = "", params object[] becauseArgs)
+        {
+            var result = await Subject.QuerySelectorAsync(selector).ConfigureAwait(false);
+
+            Execute.Assertion
+                .ForCondition(result != null)
+                .BecauseOf(because, becauseArgs)
+                .FailWith("Expected {context:page} to have element matching {0}{reason}.", selector);
+
+            return new AndConstraint<PageAssertions>(this);
+        }
+
+        /// <summary>
+        /// Asserts that the page has the expected number of elements matching the specified selector.
+        /// </summary>
+        /// <param name="count">The expected number of elements matching the specified selector.</param>
+        /// <param name="selector">A selector to query for.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <returns>An <see cref="AndConstraint{PageAssertions}"/> which can be used to chain assertions.</returns>
+        public async Task<AndConstraint<PageAssertions>> HaveElementCountAsync(int count, string selector, string because = "", params object[] becauseArgs)
+        {
+            var result = await Subject.QuerySelectorAllAsync(selector).ConfigureAwait(false);
+
+            Execute.Assertion
+                .ForCondition(result.Count == count)
+                .BecauseOf(because, becauseArgs)
+                .FailWith("Expected {context:page} to have {0} element(s) matching {1}{reason}, but found {2}.", count, selector, result.Count);
+
+            return new AndConstraint<PageAssertions>(this);
+        }
+
+        /// <summary>
+        /// Asserts that the page has the specified selector with the specified content.
+        /// </summary>
+        /// <param name="selector">A selector to query for.</param>
+        /// <param name="regex">A regular expression to test against <c>element.textContent</c>.</param>
+        /// <param name="flags">A set of flags for the regular expression.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <returns>An <see cref="AndConstraint{PageAssertions}"/> which can be used to chain assertions.</returns>
+        public async Task<AndConstraint<PageAssertions>> HaveElementWithContentAsync(string selector, string regex, string flags = "", string because = "", params object[] becauseArgs)
+        {
+            var result = await Subject.QuerySelectorWithContentAsync(selector, regex, flags).ConfigureAwait(false);
+
+            Execute.Assertion
+                .ForCondition(result != null)
+                .BecauseOf(because, becauseArgs)
+                .FailWith("Expected {context:page} to have element matching {0} with content {1}{reason}.", selector, $"/{regex}/{flags}");
+
+            return new AndConstraint<PageAssertions>(this);
+        }
+
+        /// <summary>
+        /// Asserts that the page has the expected number of elements matching the specified selector with the specified content.
+        /// </summary>
+        /// <param name="count">The expected number of elements matching the specified selector.</param>
+        /// <param name="selector">A selector to query for.</param>
+        /// <param name="regex">A regular expression to test against <c>element.textContent</c>.</param>
+        /// <param name="flags">A set of flags for the regular expression.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <returns>An <see cref="AndConstraint{PageAssertions}"/> which can be used to chain assertions.</returns>
+        public async Task<AndConstraint<PageAssertions>> HaveElementWithContentCountAsync(int count, string selector, string regex, string flags = "", string because = "", params object[] becauseArgs)
+        {
+            var result = await Subject.QuerySelectorAllWithContentAsync(selector, regex, flags).ConfigureAwait(false);
+
+            Execute.Assertion
+                .ForCondition(result.Count == count)
+                .BecauseOf(because, becauseArgs)
+                .FailWith("Expected {context:page} to have {0} element(s) matching {1} with content {2}{reason}, but found {3}.", count, selector, $"/{regex}/{flags}", result.Count);
+
+            return new AndConstraint<PageAssertions>(this);
+        }
     }
 }

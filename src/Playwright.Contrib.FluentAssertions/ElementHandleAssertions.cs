@@ -538,5 +538,87 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
 
             return new AndConstraint<ElementHandleAssertions>(this);
         }
+
+        /// <summary>
+        /// Asserts that the element has the specified selector.
+        /// </summary>
+        /// <param name="selector">A selector to query for.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <returns>An <see cref="AndConstraint{ElementHandleAssertions}"/> which can be used to chain assertions.</returns>
+        public async Task<AndConstraint<ElementHandleAssertions>> HaveElementAsync(string selector, string because = "", params object[] becauseArgs)
+        {
+            var result = await Subject.QuerySelectorAsync(selector).ConfigureAwait(false);
+
+            Execute.Assertion
+                .ForCondition(result != null)
+                .BecauseOf(because, becauseArgs)
+                .FailWith("Expected {context:element} to have element matching {0}{reason}.", selector);
+
+            return new AndConstraint<ElementHandleAssertions>(this);
+        }
+
+        /// <summary>
+        /// Asserts that the element has the expected number of elements matching the specified selector.
+        /// </summary>
+        /// <param name="count">The expected number of elements matching the specified selector.</param>
+        /// <param name="selector">A selector to query for.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <returns>An <see cref="AndConstraint{ElementHandleAssertions}"/> which can be used to chain assertions.</returns>
+        public async Task<AndConstraint<ElementHandleAssertions>> HaveElementCountAsync(int count, string selector, string because = "", params object[] becauseArgs)
+        {
+            var result = await Subject.QuerySelectorAllAsync(selector).ConfigureAwait(false);
+
+            Execute.Assertion
+                .ForCondition(result.Count == count)
+                .BecauseOf(because, becauseArgs)
+                .FailWith("Expected {context:element} to have {0} element(s) matching {1}{reason}, but found {2}.", count, selector, result.Count);
+
+            return new AndConstraint<ElementHandleAssertions>(this);
+        }
+
+        /// <summary>
+        /// Asserts that the element has the specified selector with the specified content.
+        /// </summary>
+        /// <param name="selector">A selector to query for.</param>
+        /// <param name="regex">A regular expression to test against <c>element.textContent</c>.</param>
+        /// <param name="flags">A set of flags for the regular expression.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <returns>An <see cref="AndConstraint{ElementHandleAssertions}"/> which can be used to chain assertions.</returns>
+        public async Task<AndConstraint<ElementHandleAssertions>> HaveElementWithContentAsync(string selector, string regex, string flags = "", string because = "", params object[] becauseArgs)
+        {
+            var result = await Subject.QuerySelectorWithContentAsync(selector, regex, flags).ConfigureAwait(false);
+
+            Execute.Assertion
+                .ForCondition(result != null)
+                .BecauseOf(because, becauseArgs)
+                .FailWith("Expected {context:element} to have element matching {0} with content {1}{reason}.", selector, $"/{regex}/{flags}");
+
+            return new AndConstraint<ElementHandleAssertions>(this);
+        }
+
+        /// <summary>
+        /// Asserts that the element has the expected number of elements matching the specified selector with the specified content.
+        /// </summary>
+        /// <param name="count">The expected number of elements matching the specified selector.</param>
+        /// <param name="selector">A selector to query for.</param>
+        /// <param name="regex">A regular expression to test against <c>element.textContent</c>.</param>
+        /// <param name="flags">A set of flags for the regular expression.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <returns>An <see cref="AndConstraint{ElementHandleAssertions}"/> which can be used to chain assertions.</returns>
+        public async Task<AndConstraint<ElementHandleAssertions>> HaveElementWithContentCountAsync(int count, string selector, string regex, string flags = "", string because = "", params object[] becauseArgs)
+        {
+            var result = await Subject.QuerySelectorAllWithContentAsync(selector, regex, flags).ConfigureAwait(false);
+
+            Execute.Assertion
+                .ForCondition(result.Count == count)
+                .BecauseOf(because, becauseArgs)
+                .FailWith("Expected {context:element} to have {0} element(s) matching {1} with content {2}{reason}, but found {3}.", count, selector, $"/{regex}/{flags}", result.Count);
+
+            return new AndConstraint<ElementHandleAssertions>(this);
+        }
     }
 }
