@@ -1,8 +1,8 @@
 using System;
 
-namespace Microsoft.Playwright.Contrib.FluentAssertions
+namespace Microsoft.Playwright.Contrib.FluentAssertions.Internal
 {
-    internal static class InternalExtensions
+    internal static class GuardExtensions
     {
         internal static IPage GuardFromNull(this IPage page)
         {

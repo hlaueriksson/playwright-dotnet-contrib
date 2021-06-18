@@ -1,12 +1,14 @@
 using System;
 using FluentAssertions.Formatting;
+using Microsoft.Playwright.Contrib.Extensions;
+using Microsoft.Playwright.Contrib.FluentAssertions.Internal;
 
 namespace Microsoft.Playwright.Contrib.FluentAssertions
 {
     /// <summary>
-    /// Represents a strategy for formatting an <see cref="IPage"/> into a human-readable string representation.
+    /// Represents a strategy for formatting an <see cref="IElementHandle"/> into a human-readable string representation.
     /// </summary>
-    public class PageValueFormatter : IValueFormatter
+    public class ElementHandleValueFormatter : IValueFormatter
     {
         /// <summary>
         /// Indicates whether the current <see cref="IValueFormatter"/> can handle the specified <paramref name="value"/>.
@@ -15,7 +17,7 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         /// <returns><c>true</c> if the current <see cref="IValueFormatter"/> can handle the specified value; otherwise, <c>false</c>.</returns>
         public bool CanHandle(object value)
         {
-            return value is IPage;
+            return value is IElementHandle;
         }
 
         /// <summary>
@@ -31,8 +33,11 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
             var newline = context.UseLineBreaks ? Environment.NewLine : string.Empty;
             var padding = new string('\t', context.Depth);
 
-            var page = (IPage)value;
-            return $"{newline}{padding}IPage: {page.Url}";
+            var element = (IElementHandle)value;
+#pragma warning disable VSTHRD002 // Avoid problematic synchronous waits
+            var html = element.OuterHTMLAsync().Result();
+#pragma warning restore VSTHRD002 // Avoid problematic synchronous waits
+            return $"{newline}{padding}IElementHandle: {html}";
 #pragma warning restore CA1062 // Validate arguments of public methods
         }
     }
