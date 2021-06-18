@@ -120,7 +120,7 @@ namespace Microsoft.Playwright.Contrib.Sample
         }
 
         [Test]
-        public async Task Input()
+        public async Task Evaluation()
         {
             await Page.SetContentAsync(@"
 <form>
