@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using FluentAssertions;
 using FluentAssertions.Execution;
+using FluentAssertions.Primitives;
 using Microsoft.Playwright.Contrib.Extensions;
 
 namespace Microsoft.Playwright.Contrib.FluentAssertions
@@ -8,7 +9,7 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
     /// <summary>
     /// Contains a number of methods to assert that an <see cref="IPage"/> is in the expected state.
     /// </summary>
-    public class PageAssertions
+    public class PageAssertions : ReferenceTypeAssertions<IPage, PageAssertions>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PageAssertions"/> class.
@@ -17,9 +18,9 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         public PageAssertions(IPage subject) => Subject = subject;
 
         /// <summary>
-        /// Gets the object which value is being asserted.
+        /// Returns the type of the subject the assertion applies on.
         /// </summary>
-        public IPage Subject { get; }
+        protected override string Identifier => nameof(IPage);
 
         // Content
 
