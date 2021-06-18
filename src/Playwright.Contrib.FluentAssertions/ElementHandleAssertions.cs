@@ -156,7 +156,7 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
             Execute.Assertion
                 .ForCondition(result == value)
                 .BecauseOf(because, becauseArgs)
-                .FailWith("Expected {context:element} to have attribute {0} with value {1}{reason}.", name, value);
+                .FailWith("Expected {context:element} to have attribute {0} with value {1}{reason}, but found {2}.", name, value, result);
 
             return new AndConstraint<ElementHandleAssertions>(this);
         }
@@ -241,7 +241,7 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
             Execute.Assertion
                 .ForCondition(result)
                 .BecauseOf(because, becauseArgs)
-                .FailWith("Expected {context:element} to have class {0}{reason}.", className);
+                .FailWith("Expected {context:element} to have class {0}{reason}, but found {1}.", className, await Subject.ClassNameAsync().ConfigureAwait(false));
 
             return new AndConstraint<ElementHandleAssertions>(this);
         }

@@ -121,10 +121,10 @@ namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
             await div.Should().HaveAttributeValueAsync("class", "class");
 
             var ex = Assert.ThrowsAsync<AssertionException>(async () => await div.Should().HaveAttributeValueAsync("class", "id"));
-            Assert.AreEqual("Expected element to have attribute \"class\" with value \"id\".", ex.Message);
+            Assert.AreEqual("Expected element to have attribute \"class\" with value \"id\", but found \"class\".", ex.Message);
 
             ex = Assert.ThrowsAsync<AssertionException>(async () => await div.Should().HaveAttributeValueAsync("id", "class"));
-            Assert.AreEqual("Expected element to have attribute \"id\" with value \"class\".", ex.Message);
+            Assert.AreEqual("Expected element to have attribute \"id\" with value \"class\", but found <null>.", ex.Message);
 
             var missing = await Page.QuerySelectorAsync(".missing");
             Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.Should().HaveAttributeValueAsync("", ""));
@@ -194,7 +194,7 @@ namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
             await div.Should().HaveClassAsync("foo");
 
             var ex = Assert.ThrowsAsync<AssertionException>(async () => await div.Should().HaveClassAsync("baz"));
-            Assert.AreEqual("Expected element to have class \"baz\".", ex.Message);
+            Assert.AreEqual("Expected element to have class \"baz\", but found \"foo bar\".", ex.Message);
 
             var missing = await Page.QuerySelectorAsync(".missing");
             Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.Should().HaveClassAsync(""));

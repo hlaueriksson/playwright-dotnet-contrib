@@ -333,7 +333,7 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
             Execute.Assertion
                 .ForCondition(result == value)
                 .BecauseOf(because, becauseArgs)
-                .FailWith("Expected element {0} on {context:page} to have attribute {1} with value {2}{reason}.", selector, name, value);
+                .FailWith("Expected element {0} on {context:page} to have attribute {1} with value {2}{reason}, but found {3}.", selector, name, value, result);
 
             return new AndConstraint<PageAssertions>(this);
         }

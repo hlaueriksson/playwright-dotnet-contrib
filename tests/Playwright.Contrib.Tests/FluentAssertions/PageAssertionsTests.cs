@@ -238,10 +238,10 @@ namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
             await Page.Should().HaveElementAttributeValueAsync("div", "class", "class");
 
             var ex = Assert.ThrowsAsync<AssertionException>(async () => await Page.Should().HaveElementAttributeValueAsync("div", "class", "id"));
-            Assert.AreEqual("Expected element \"div\" on page to have attribute \"class\" with value \"id\".", ex.Message);
+            Assert.AreEqual("Expected element \"div\" on page to have attribute \"class\" with value \"id\", but found \"class\".", ex.Message);
 
             ex = Assert.ThrowsAsync<AssertionException>(async () => await Page.Should().HaveElementAttributeValueAsync("div", "id", "class"));
-            Assert.AreEqual("Expected element \"div\" on page to have attribute \"id\" with value \"class\".", ex.Message);
+            Assert.AreEqual("Expected element \"div\" on page to have attribute \"id\" with value \"class\", but found <null>.", ex.Message);
 
             Assert.ThrowsAsync<TimeoutException>(async () => await Page.Should().HaveElementAttributeValueAsync(".missing", "", ""));
 
