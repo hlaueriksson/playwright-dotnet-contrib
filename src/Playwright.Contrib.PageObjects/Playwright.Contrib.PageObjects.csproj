@@ -29,6 +29,10 @@
   <Import Project="../../Analyzers.props" />
 
   <ItemGroup>
+    <InternalsVisibleTo Include="Playwright.Contrib.Tests" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Castle.Core" Version="4.4.1" />
     <PackageReference Include="Microsoft.Playwright" Version="1.12.1" />
   </ItemGroup>
