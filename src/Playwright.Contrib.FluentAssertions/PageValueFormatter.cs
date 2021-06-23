@@ -19,12 +19,12 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         }
 
         /// <summary>
-        /// Returns a human-readable representation of <paramref name="value" />.
+        /// Returns a human-readable representation of <paramref name="value"/>.
         /// </summary>
         /// <param name="value">The value for which to format.</param>
         /// <param name="context">Contains additional information about the formatting task.</param>
         /// <param name="formatChild">Allows the formatter to recursively format any child objects.</param>
-        /// <returns>A human-readable representation of <paramref name="value" />.</returns>
+        /// <returns>A human-readable representation of <paramref name="value"/>.</returns>
         public string Format(object value, FormattingContext context, FormatChild formatChild)
         {
 #pragma warning disable CA1062 // Validate arguments of public methods

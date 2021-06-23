@@ -28,8 +28,8 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         /// <summary>
         /// Asserts that the element exists.
         /// </summary>
-        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
-        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])"/> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
         /// <returns>An <see cref="AndConstraint{ElementHandleAssertions}"/> which can be used to chain assertions.</returns>
         public AndConstraint<ElementHandleAssertions> Exist(string because = "", params object[] becauseArgs)
         {
@@ -46,8 +46,8 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         /// <summary>
         /// Asserts that the element does not exist.
         /// </summary>
-        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
-        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])"/> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
         /// <returns>An <see cref="AndConstraint{ElementHandleAssertions}"/> which can be used to chain assertions.</returns>
         public AndConstraint<ElementHandleAssertions> NotExist(string because = "", params object[] becauseArgs)
         {
@@ -67,8 +67,8 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         /// Asserts that the element has the specified value.
         /// </summary>
         /// <param name="value">The value.</param>
-        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
-        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])"/> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
         /// <returns>An <see cref="AndConstraint{ElementHandleAssertions}"/> which can be used to chain assertions.</returns>
         public async Task<AndConstraint<ElementHandleAssertions>> HaveValueAsync(string value, string because = "", params object[] becauseArgs)
         {
@@ -86,8 +86,8 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         /// Asserts that the element does not have the specified value.
         /// </summary>
         /// <param name="value">The value.</param>
-        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
-        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])"/> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
         /// <returns>An <see cref="AndConstraint{ElementHandleAssertions}"/> which can be used to chain assertions.</returns>
         public async Task<AndConstraint<ElementHandleAssertions>> NotHaveValueAsync(string value, string because = "", params object[] becauseArgs)
         {
@@ -107,8 +107,8 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         /// Asserts that the element has the specified attribute.
         /// </summary>
         /// <param name="name">The attribute name.</param>
-        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
-        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])"/> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
         /// <returns>An <see cref="AndConstraint{ElementHandleAssertions}"/> which can be used to chain assertions.</returns>
         public async Task<AndConstraint<ElementHandleAssertions>> HaveAttributeAsync(string name, string because = "", params object[] becauseArgs)
         {
@@ -126,8 +126,8 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         /// Asserts that the element does not have the specified attribute.
         /// </summary>
         /// <param name="name">The attribute name.</param>
-        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
-        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])"/> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
         /// <returns>An <see cref="AndConstraint{ElementHandleAssertions}"/> which can be used to chain assertions.</returns>
         public async Task<AndConstraint<ElementHandleAssertions>> NotHaveAttributeAsync(string name, string because = "", params object[] becauseArgs)
         {
@@ -146,8 +146,8 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         /// </summary>
         /// <param name="name">The attribute name.</param>
         /// <param name="value">The attribute value.</param>
-        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
-        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])"/> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
         /// <returns>An <see cref="AndConstraint{ElementHandleAssertions}"/> which can be used to chain assertions.</returns>
         public async Task<AndConstraint<ElementHandleAssertions>> HaveAttributeValueAsync(string name, string value, string because = "", params object[] becauseArgs)
         {
@@ -166,8 +166,8 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         /// </summary>
         /// <param name="name">The attribute name.</param>
         /// <param name="value">The attribute value.</param>
-        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
-        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])"/> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
         /// <returns>An <see cref="AndConstraint{ElementHandleAssertions}"/> which can be used to chain assertions.</returns>
         public async Task<AndConstraint<ElementHandleAssertions>> NotHaveAttributeValueAsync(string name, string value, string because = "", params object[] becauseArgs)
         {
@@ -188,8 +188,8 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         /// </summary>
         /// <param name="regex">A regular expression to test against <c>element.textContent</c>.</param>
         /// <param name="flags">A set of flags for the regular expression.</param>
-        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
-        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])"/> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
         /// <returns>An <see cref="AndConstraint{ElementHandleAssertions}"/> which can be used to chain assertions.</returns>
         /// <seealso href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp"/>
         public async Task<AndConstraint<ElementHandleAssertions>> HaveContentAsync(string regex, string flags = "", string because = "", params object[] becauseArgs)
@@ -209,8 +209,8 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         /// </summary>
         /// <param name="regex">A regular expression to test against <c>element.textContent</c>.</param>
         /// <param name="flags">A set of flags for the regular expression.</param>
-        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
-        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])"/> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
         /// <returns>An <see cref="AndConstraint{ElementHandleAssertions}"/> which can be used to chain assertions.</returns>
         /// <seealso href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp"/>
         public async Task<AndConstraint<ElementHandleAssertions>> NotHaveContentAsync(string regex, string flags = "", string because = "", params object[] becauseArgs)
@@ -231,8 +231,8 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         /// Asserts that the element has the specified class.
         /// </summary>
         /// <param name="className">The class name.</param>
-        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
-        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])"/> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
         /// <returns>An <see cref="AndConstraint{ElementHandleAssertions}"/> which can be used to chain assertions.</returns>
         public async Task<AndConstraint<ElementHandleAssertions>> HaveClassAsync(string className, string because = "", params object[] becauseArgs)
         {
@@ -250,8 +250,8 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         /// Asserts that the element does not have the specified class.
         /// </summary>
         /// <param name="className">The class name.</param>
-        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
-        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])"/> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
         /// <returns>An <see cref="AndConstraint{ElementHandleAssertions}"/> which can be used to chain assertions.</returns>
         public async Task<AndConstraint<ElementHandleAssertions>> NotHaveClassAsync(string className, string because = "", params object[] becauseArgs)
         {
@@ -270,8 +270,8 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         /// <summary>
         /// Asserts that the element is visible.
         /// </summary>
-        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
-        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])"/> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
         /// <returns>An <see cref="AndConstraint{ElementHandleAssertions}"/> which can be used to chain assertions.</returns>
         public async Task<AndConstraint<ElementHandleAssertions>> BeVisibleAsync(string because = "", params object[] becauseArgs)
         {
@@ -288,8 +288,8 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         /// <summary>
         /// Asserts that the element is hidden.
         /// </summary>
-        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
-        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])"/> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
         /// <returns>An <see cref="AndConstraint{ElementHandleAssertions}"/> which can be used to chain assertions.</returns>
         public async Task<AndConstraint<ElementHandleAssertions>> BeHiddenAsync(string because = "", params object[] becauseArgs)
         {
@@ -308,8 +308,8 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         /// <summary>
         /// Asserts that the element is selected.
         /// </summary>
-        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
-        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])"/> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
         /// <returns>An <see cref="AndConstraint{ElementHandleAssertions}"/> which can be used to chain assertions.</returns>
         /// <remarks><![CDATA[Elements: <option>]]></remarks>
         public async Task<AndConstraint<ElementHandleAssertions>> BeSelectedAsync(string because = "", params object[] becauseArgs)
@@ -327,8 +327,8 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         /// <summary>
         /// Asserts that the element is not selected.
         /// </summary>
-        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
-        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])"/> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
         /// <returns>An <see cref="AndConstraint{ElementHandleAssertions}"/> which can be used to chain assertions.</returns>
         /// <remarks><![CDATA[Elements: <option>]]></remarks>
         public async Task<AndConstraint<ElementHandleAssertions>> NotBeSelectedAsync(string because = "", params object[] becauseArgs)
@@ -348,8 +348,8 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         /// <summary>
         /// Asserts that the element is checked.
         /// </summary>
-        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
-        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])"/> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
         /// <returns>An <see cref="AndConstraint{ElementHandleAssertions}"/> which can be used to chain assertions.</returns>
         /// <remarks><![CDATA[Elements: <command>, <input>]]></remarks>
         public async Task<AndConstraint<ElementHandleAssertions>> BeCheckedAsync(string because = "", params object[] becauseArgs)
@@ -367,8 +367,8 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         /// <summary>
         /// Asserts that the element is not checked.
         /// </summary>
-        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
-        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])"/> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
         /// <returns>An <see cref="AndConstraint{ElementHandleAssertions}"/> which can be used to chain assertions.</returns>
         /// <remarks><![CDATA[Elements: <command>, <input>]]></remarks>
         public async Task<AndConstraint<ElementHandleAssertions>> NotBeCheckedAsync(string because = "", params object[] becauseArgs)
@@ -388,8 +388,8 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         /// <summary>
         /// Asserts that the element is disabled.
         /// </summary>
-        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
-        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])"/> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
         /// <returns>An <see cref="AndConstraint{ElementHandleAssertions}"/> which can be used to chain assertions.</returns>
         /// <remarks><![CDATA[Elements: <button>, <command>, <fieldset>, <input>, <keygen>, <optgroup>, <option>, <select>, <textarea>]]></remarks>
         public async Task<AndConstraint<ElementHandleAssertions>> BeDisabledAsync(string because = "", params object[] becauseArgs)
@@ -407,8 +407,8 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         /// <summary>
         /// Asserts that the element is enabled.
         /// </summary>
-        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
-        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])"/> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
         /// <returns>An <see cref="AndConstraint{ElementHandleAssertions}"/> which can be used to chain assertions.</returns>
         /// <remarks><![CDATA[Elements: <button>, <command>, <fieldset>, <input>, <keygen>, <optgroup>, <option>, <select>, <textarea>]]></remarks>
         public async Task<AndConstraint<ElementHandleAssertions>> BeEnabledAsync(string because = "", params object[] becauseArgs)
@@ -428,8 +428,8 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         /// <summary>
         /// Asserts that the element is read-only.
         /// </summary>
-        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
-        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])"/> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
         /// <returns>An <see cref="AndConstraint{ElementHandleAssertions}"/> which can be used to chain assertions.</returns>
         /// <remarks><![CDATA[Elements: <input>, <textarea>]]></remarks>
         public async Task<AndConstraint<ElementHandleAssertions>> BeReadOnlyAsync(string because = "", params object[] becauseArgs)
@@ -447,8 +447,8 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         /// <summary>
         /// Asserts that the element is not read-only.
         /// </summary>
-        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
-        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])"/> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
         /// <returns>An <see cref="AndConstraint{ElementHandleAssertions}"/> which can be used to chain assertions.</returns>
         /// <remarks><![CDATA[Elements: <input>, <textarea>]]></remarks>
         public async Task<AndConstraint<ElementHandleAssertions>> NotBeReadOnlyAsync(string because = "", params object[] becauseArgs)
@@ -468,8 +468,8 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         /// <summary>
         /// Asserts that the element is required.
         /// </summary>
-        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
-        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])"/> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
         /// <returns>An <see cref="AndConstraint{ElementHandleAssertions}"/> which can be used to chain assertions.</returns>
         /// <remarks><![CDATA[Elements: <input>, <select>, <textarea>]]></remarks>
         public async Task<AndConstraint<ElementHandleAssertions>> BeRequiredAsync(string because = "", params object[] becauseArgs)
@@ -487,8 +487,8 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         /// <summary>
         /// Asserts that the element is not required.
         /// </summary>
-        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
-        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])"/> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
         /// <returns>An <see cref="AndConstraint{ElementHandleAssertions}"/> which can be used to chain assertions.</returns>
         /// <remarks><![CDATA[Elements: <input>, <select>, <textarea>]]></remarks>
         public async Task<AndConstraint<ElementHandleAssertions>> NotBeRequiredAsync(string because = "", params object[] becauseArgs)
@@ -508,8 +508,8 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         /// <summary>
         /// Asserts that the element has focus.
         /// </summary>
-        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
-        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])"/> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
         /// <returns>An <see cref="AndConstraint{ElementHandleAssertions}"/> which can be used to chain assertions.</returns>
         /// <remarks><![CDATA[Elements: <button>, <input>, <keygen>, <select>, <textarea>]]></remarks>
         public async Task<AndConstraint<ElementHandleAssertions>> HaveFocusAsync(string because = "", params object[] becauseArgs)
@@ -527,8 +527,8 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         /// <summary>
         /// Asserts that the element does not have focus.
         /// </summary>
-        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
-        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])"/> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
         /// <returns>An <see cref="AndConstraint{ElementHandleAssertions}"/> which can be used to chain assertions.</returns>
         /// <remarks><![CDATA[Elements: <button>, <input>, <keygen>, <select>, <textarea>]]></remarks>
         public async Task<AndConstraint<ElementHandleAssertions>> NotHaveFocusAsync(string because = "", params object[] becauseArgs)
@@ -548,8 +548,8 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         /// <summary>
         /// Asserts that the element is editable.
         /// </summary>
-        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
-        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])"/> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
         /// <returns>An <see cref="AndConstraint{ElementHandleAssertions}"/> which can be used to chain assertions.</returns>
         public async Task<AndConstraint<ElementHandleAssertions>> BeEditableAsync(string because = "", params object[] becauseArgs)
         {
@@ -566,8 +566,8 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         /// <summary>
         /// Asserts that the element is not editable.
         /// </summary>
-        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
-        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])"/> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
         /// <returns>An <see cref="AndConstraint{ElementHandleAssertions}"/> which can be used to chain assertions.</returns>
         public async Task<AndConstraint<ElementHandleAssertions>> NotBeEditableAsync(string because = "", params object[] becauseArgs)
         {
@@ -587,8 +587,8 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         /// Asserts that the element has the specified selector.
         /// </summary>
         /// <param name="selector">A selector to query for.</param>
-        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
-        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])"/> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
         /// <returns>An <see cref="AndConstraint{ElementHandleAssertions}"/> which can be used to chain assertions.</returns>
         public async Task<AndConstraint<ElementHandleAssertions>> HaveElementAsync(string selector, string because = "", params object[] becauseArgs)
         {
@@ -607,8 +607,8 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         /// </summary>
         /// <param name="count">The expected number of elements matching the specified selector.</param>
         /// <param name="selector">A selector to query for.</param>
-        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
-        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])"/> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
         /// <returns>An <see cref="AndConstraint{ElementHandleAssertions}"/> which can be used to chain assertions.</returns>
         public async Task<AndConstraint<ElementHandleAssertions>> HaveElementCountAsync(int count, string selector, string because = "", params object[] becauseArgs)
         {
@@ -628,8 +628,8 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         /// <param name="selector">A selector to query for.</param>
         /// <param name="regex">A regular expression to test against <c>element.textContent</c>.</param>
         /// <param name="flags">A set of flags for the regular expression.</param>
-        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
-        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])"/> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
         /// <returns>An <see cref="AndConstraint{ElementHandleAssertions}"/> which can be used to chain assertions.</returns>
         public async Task<AndConstraint<ElementHandleAssertions>> HaveElementWithContentAsync(string selector, string regex, string flags = "", string because = "", params object[] becauseArgs)
         {
@@ -650,8 +650,8 @@ namespace Microsoft.Playwright.Contrib.FluentAssertions
         /// <param name="selector">A selector to query for.</param>
         /// <param name="regex">A regular expression to test against <c>element.textContent</c>.</param>
         /// <param name="flags">A set of flags for the regular expression.</param>
-        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
-        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because" />.</param>
+        /// <param name="because">A formatted phrase as is supported by <see cref="string.Format(string,object[])"/> explaining why the assertion is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.</param>
+        /// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
         /// <returns>An <see cref="AndConstraint{ElementHandleAssertions}"/> which can be used to chain assertions.</returns>
         public async Task<AndConstraint<ElementHandleAssertions>> HaveElementWithContentCountAsync(int count, string selector, string regex, string flags = "", string because = "", params object[] becauseArgs)
         {
