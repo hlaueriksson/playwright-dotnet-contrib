@@ -19,6 +19,9 @@ namespace Microsoft.Playwright.Contrib.Tests.PageObjects.Extensions
         {
             var result = Page.To<FakePageObject>();
             Assert.NotNull(result);
+
+            result = ((IPage)null).To<FakePageObject>();
+            Assert.Null(result);
         }
 
         [Test, Timeout(TestConstants.DefaultTestTimeout)]

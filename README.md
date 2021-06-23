@@ -176,7 +176,7 @@ State:
 
 ### Page Objects<!-- omit in toc -->
 
-A page object wraps a [`IPage`](https://playwright.dev/dotnet/docs/api/class-page) and should encapsulate the way tests interact with a web page.
+A page object wraps an [`IPage`](https://playwright.dev/dotnet/docs/api/class-page) and should encapsulate the way tests interact with a web page.
 
 Create page objects by inheriting `PageObject` and declare properties decorated with `[Selector]` attributes.
 
