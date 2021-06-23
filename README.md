@@ -15,6 +15,7 @@ It provides a convenient way to write readable and reliable browser tests in C#
 - [Introduction](#introduction)
 - [Playwright.Contrib.Extensions](#playwrightcontribextensions)
 - [Playwright.Contrib.FluentAssertions](#playwrightcontribfluentassertions)
+- [Playwright.Contrib.PageObjects](#playwrightcontribpageobjects)
 - [Samples](#samples)
 - [Attribution](#attribution)
 
@@ -26,6 +27,7 @@ Playwright Contributions consists of a few libraries that helps you write browse
 
 * `Playwright.Contrib.Extensions`
 * `Playwright.Contrib.FluentAssertions`
+* `Playwright.Contrib.PageObjects`
 
 These libraries contains _extension methods_ to the Playwright API and they are test framework agnostic.
 
@@ -168,6 +170,118 @@ State:
 * `NotExist`
 * `NotHaveFocusAsync`
 
+## Playwright.Contrib.PageObjects
+
+`Playwright.Contrib.PageObjects` is a library for writing browser tests using the _page object pattern_ with the Playwright API.
+
+### Page Objects<!-- omit in toc -->
+
+A page object wraps an [`IPage`](https://playwright.dev/dotnet/docs/api/class-page) and should encapsulate the way tests interact with a web page.
+
+Create page objects by inheriting `PageObject` and declare properties decorated with `[Selector]` attributes.
+
+```csharp
+public class GitHubStartPage : PageObject
+{
+    [Selector("h1")]
+    public virtual Task<IElementHandle> Heading { get; }
+
+    [Selector("header")]
+    public virtual Task<GitHubHeader> Header { get; }
+
+    public async Task<GitHubSearchPage> SearchAsync(string text)
+    {
+        await (await Header).SearchAsync(text);
+        return Page.To<GitHubSearchPage>();
+    }
+}
+```
+
+### Element Objects<!-- omit in toc -->
+
+An element object wraps an [`IElementHandle`](https://playwright.dev/dotnet/docs/api/class-elementhandle) and should encapsulate the way tests interact with an element of a web page.
+
+Create element objects by inheriting `ElementObject` and declare properties decorated with `[Selector]` attributes.
+
+```csharp
+public class GitHubHeader : ElementObject
+{
+    [Selector("input.header-search-input")]
+    public virtual Task<IElementHandle> SearchInput { get; }
+
+    [Selector(".octicon-three-bars")]
+    public virtual Task<IElementHandle> ThreeBars { get; }
+
+    public async Task SearchAsync(string text)
+    {
+        var input = await SearchInput;
+        if (await input.IsHiddenAsync()) await (await ThreeBars).ClickAsync();
+        await input.TypeAsync(text);
+        await input.PressAsync("Enter");
+    }
+}
+```
+
+### Selector Attributes<!-- omit in toc -->
+
+`[Selector]` attributes can be applied to properties on a `PageObject` or `ElementObject`.
+
+Properties decorated with a `[Selector]` attribute must be a:
+
+* public
+* virtual
+* asynchronous
+* getter
+
+that returns one of:
+
+* `Task<IElementHandle>`
+* `Task<IReadOnlyList<IElementHandle>>`
+* `Task<ElementObject>`
+* `Task<IReadOnlyList<ElementObject>>`
+
+Example:
+
+```csharp
+[Selector("#foo")]
+public virtual Task<IElementHandle> SelectorForElementHandle { get; }
+
+[Selector(".bar")]
+public virtual Task<IReadOnlyList<IElementHandle>> SelectorForElementHandleList { get; }
+
+[Selector("#foo")]
+public virtual Task<FooElementObject> SelectorForElementObject { get; }
+
+[Selector(".bar")]
+public virtual Task<IReadOnlyList<BarElementObject>> SelectorForElementObjectList { get; }
+```
+
+### Extensions for `IPage`<!-- omit in toc -->
+
+Where `T` is a `PageObject`:
+
+* `GoToAsync<T>`
+* `RunAndWaitForNavigationAsync<T>`
+* `RunAndWaitForResponseAsync<T>`
+* `To<T>`
+* `WaitForNavigationAsync<T>`
+* `WaitForResponseAsync<T>`
+
+Where `T` is an `ElementObject`:
+
+* `QuerySelectorAllAsync<T>`
+* `QuerySelectorAsync<T>`
+* `WaitForSelectorAsync<T>`
+
+### Extensions for `IElementHandle`<!-- omit in toc -->
+
+Where `T` is an `ElementObject`:
+
+* `To<T>`
+* `QuerySelectorAllAsync<T>`
+* `QuerySelectorAsync<T>`
+* `WaitForSelectorAsync<T>`
+
 ## Samples
 
 Sample projects are located in the [`samples`](/samples/) folder.
@@ -268,6 +382,182 @@ namespace Microsoft.Playwright.Contrib.Sample
                 var latest = await page.QuerySelectorWithContentAsync("a[href*='releases'] span", @"v\d\.\d+\.\d");
                 return await latest.TextContentAsync();
             }
+        }
+    }
+}
+```
+
+This is an example with `NUnit` and `Playwright.Contrib.PageObjects`:
+
+```csharp
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.Playwright.Contrib.Extensions;
+using Microsoft.Playwright.Contrib.PageObjects;
+
+namespace Microsoft.Playwright.Contrib.Sample
+{
+    public class GitHubStartPage : PageObject
+    {
+        [Selector("h1")]
+        public virtual Task<IElementHandle> Heading { get; }
+
+        [Selector("header")]
+        public virtual Task<GitHubHeader> Header { get; }
+
+        public async Task<GitHubSearchPage> SearchAsync(string text)
+        {
+            await (await Header).SearchAsync(text);
+            return Page.To<GitHubSearchPage>();
+        }
+    }
+
+    public class GitHubHeader : ElementObject
+    {
+        [Selector("input.header-search-input")]
+        public virtual Task<IElementHandle> SearchInput { get; }
+
+        [Selector(".octicon-three-bars")]
+        public virtual Task<IElementHandle> ThreeBars { get; }
+
+        public async Task SearchAsync(string text)
+        {
+            var input = await SearchInput;
+            if (await input.IsHiddenAsync()) await (await ThreeBars).ClickAsync();
+            await input.TypeAsync(text);
+            await input.PressAsync("Enter");
+        }
+    }
+
+    public class GitHubSearchPage : PageObject
+    {
+        [Selector(".repo-list-item")]
+        public virtual Task<IReadOnlyList<GitHubRepoListItem>> RepoListItems { get; }
+
+        public async Task<GitHubRepoPage> GotoAsync(GitHubRepoListItem repo)
+        {
+            return await Page.RunAndWaitForNavigationAsync<GitHubRepoPage>(async () =>
+            {
+                var link = await repo.Link;
+                await link.ClickAsync();
+            });
+        }
+    }
+
+    public class GitHubRepoListItem : ElementObject
+    {
+        [Selector("a")]
+        public virtual Task<IElementHandle> Link { get; }
+
+        [Selector("p")]
+        public virtual Task<IElementHandle> Text { get; }
+    }
+
+    public class GitHubRepoPage : PageObject
+    {
+        [Selector("article > h1")]
+        public virtual Task<IElementHandle> Heading { get; }
+
+        [Selector("a span[data-content='Actions']")]
+        public virtual Task<IElementHandle> Actions { get; }
+
+        public async Task<GitHubActionsPage> GotoActionsAsync()
+        {
+            await (await Actions).ClickAsync();
+            return await Page.WaitForNavigationAsync<GitHubActionsPage>();
+        }
+
+        public async Task<string> GetLatestReleaseVersionAsync()
+        {
+            var latest = await Page.QuerySelectorWithContentAsync("a[href*='releases'] span", @"v\d\.\d+\.\d");
+            return await latest.TextContentAsync();
+        }
+    }
+
+    public class GitHubActionsPage : PageObject
+    {
+        public async Task<string> GetLatestWorkflowRunStatusAsync()
+        {
+            var status = await Page.QuerySelectorAsync("#partial-actions-workflow-runs .Box-row div[title]");
+            return await status.GetAttributeAsync("title");
+        }
+    }
+}
+```
+
+```csharp
+using System.Linq;
+using System.Threading.Tasks;
+using FluentAssertions;
+using Microsoft.Playwright.Contrib.FluentAssertions;
+using Microsoft.Playwright.Contrib.PageObjects;
+using NUnit.Framework;
+
+namespace Microsoft.Playwright.Contrib.Sample
+{
+    public class PlaywrightDotnetRepoPageObjectTests
+    {
+        IBrowser Browser { get; set; }
+
+        [SetUp]
+        public async Task SetUp()
+        {
+            var playwright = await Playwright.CreateAsync();
+            Browser = await playwright.Chromium.LaunchAsync();
+        }
+
+        [TearDown]
+        public async Task TearDown()
+        {
+            await Browser.CloseAsync();
+        }
+
+        [Test]
+        public async Task Should_be_first_search_result_on_GitHub()
+        {
+            var page = await Browser.NewPageAsync();
+            var startPage = await page.GotoAsync<GitHubStartPage>("https://github.com/");
+            var heading = await startPage.Heading;
+            await heading.Should().HaveContentAsync("Where the world builds software");
+
+            var searchPage = await startPage.SearchAsync("playwright dotnet");
+            var repositories = await searchPage.RepoListItems;
+            repositories.Should().NotBeEmpty();
+            var repository = repositories.First();
+            var text = await repository.Text;
+            await text.Should().HaveContentAsync(".NET version of the Playwright testing and automation library.");
+            var link = await repository.Link;
+            await link.Should().HaveContentAsync("microsoft/playwright-dotnet");
+
+            var repoPage = await searchPage.GotoAsync(repository);
+            heading = await repoPage.Heading;
+            await heading.Should().HaveContentAsync("Playwright for .NET");
+            repoPage.Page.Url.Should().Be("https://github.com/microsoft/playwright-dotnet");
+        }
+
+        [Test]
+        public async Task Should_have_successful_build_status()
+        {
+            var page = await Browser.NewPageAsync();
+            var repoPage = await page.GotoAsync<GitHubRepoPage>("https://github.com/microsoft/playwright-dotnet");
+
+            var actionsPage = await repoPage.GotoActionsAsync();
+            var status = await actionsPage.GetLatestWorkflowRunStatusAsync();
+            status.Should().Be("This workflow run completed successfully.");
+        }
+
+        [Test]
+        public async Task Should_be_up_to_date_with_the_TypeScript_version()
+        {
+            var page = await Browser.NewPageAsync();
+
+            var repoPage = await page.GotoAsync<GitHubRepoPage>("https://github.com/microsoft/playwright-dotnet");
+            var dotnetVersion = await repoPage.GetLatestReleaseVersionAsync();
+
+            repoPage = await page.GotoAsync<GitHubRepoPage>("https://github.com/microsoft/playwright");
+            var typescriptVersion = await repoPage.GetLatestReleaseVersionAsync();
+
+            dotnetVersion.Should().BeEquivalentTo(typescriptVersion);
         }
     }
 }
