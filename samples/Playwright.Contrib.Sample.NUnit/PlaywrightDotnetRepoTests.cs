@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Threading.Tasks;
+using FluentAssertions;
 using Microsoft.Playwright.Contrib.Extensions;
 using Microsoft.Playwright.Contrib.FluentAssertions;
 using NUnit.Framework;
@@ -39,7 +40,7 @@ namespace Microsoft.Playwright.Contrib.Sample
             await page.WaitForNavigationAsync();
 
             var repositories = await page.QuerySelectorAllAsync(".repo-list-item");
-            Assert.IsNotEmpty(repositories);
+            repositories.Should().NotBeEmpty();
             var repository = repositories.First();
             await repository.Should().HaveContentAsync("microsoft/playwright-dotnet");
             var text = await repository.QuerySelectorAsync("p");
@@ -49,7 +50,7 @@ namespace Microsoft.Playwright.Contrib.Sample
 
             h1 = await page.QuerySelectorAsync("article > h1");
             await h1.Should().HaveContentAsync("Playwright for .NET");
-            Assert.AreEqual("https://github.com/microsoft/playwright-dotnet", page.Url);
+            page.Url.Should().Be("https://github.com/microsoft/playwright-dotnet");
         }
 
         [Test]
@@ -71,13 +72,13 @@ namespace Microsoft.Playwright.Contrib.Sample
         {
             var page = await Browser.NewPageAsync();
 
-            await page.GotoAsync("https://github.com/microsoft/playwright");
-            var typescriptVersion = await GetLatestReleaseVersion();
-
             await page.GotoAsync("https://github.com/microsoft/playwright-dotnet");
             var dotnetVersion = await GetLatestReleaseVersion();
 
-            Assert.AreEqual(typescriptVersion, dotnetVersion);
+            await page.GotoAsync("https://github.com/microsoft/playwright");
+            var typescriptVersion = await GetLatestReleaseVersion();
+
+            dotnetVersion.Should().BeEquivalentTo(typescriptVersion);
 
             async Task<string> GetLatestReleaseVersion()
             {
