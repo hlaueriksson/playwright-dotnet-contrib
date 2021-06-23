@@ -1,5 +1,8 @@
 # Playwright Contributions<!-- omit in toc -->
 
+[![build](https://github.com/hlaueriksson/playwright-dotnet-contrib/actions/workflows/build.yml/badge.svg)](https://github.com/hlaueriksson/playwright-dotnet-contrib/actions/workflows/build.yml)
+[![CodeFactor](https://www.codefactor.io/repository/github/hlaueriksson/playwright-dotnet-contrib/badge)](https://www.codefactor.io/repository/github/hlaueriksson/playwright-dotnet-contrib)
+
 Contributions to Playwright for .NET 🎭🧪
 
 Playwright Contributions offers extensions to Playwright for .NET
