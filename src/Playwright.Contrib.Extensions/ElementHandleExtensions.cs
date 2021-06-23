@@ -74,6 +74,26 @@ namespace Microsoft.Playwright.Contrib.Extensions
             await elementHandle.GuardFromNull().EvaluateAsync<bool>("(element, name) => element.hasAttribute(name)", name).ConfigureAwait(false);
 
         /// <summary>
+        /// Indicates whether the element has the specified attribute value or not.
+        /// </summary>
+        /// <param name="elementHandle">An <see cref="IElementHandle"/>.</param>
+        /// <param name="name">The attribute name.</param>
+        /// <param name="value">The attribute value.</param>
+        /// <returns><c>true</c> if the element has the specified attribute value.</returns>
+        public static async Task<bool> HasAttributeValueAsync(this IElementHandle elementHandle, string name, string value) =>
+            await elementHandle.GuardFromNull().EvaluateAsync<bool>("(element, [name, value]) => element.getAttribute(name) === value", new object[] { name, value }).ConfigureAwait(false);
+
+        /// <summary>
+        /// Indicates whether the element has the specified value or not.
+        /// </summary>
+        /// <param name="elementHandle">An <see cref="IElementHandle"/>.</param>
+        /// <param name="value">The value.</param>
+        /// <returns><c>true</c> if the element has the specified value.</returns>
+        /// <remarks><![CDATA[Elements: <button>, <option>, <input>, <li>, <meter>, <progress>, <param>]]></remarks>
+        public static async Task<bool> HasValueAsync(this IElementHandle elementHandle, string value) =>
+            await elementHandle.GuardFromNull().EvaluateAsync<bool>("(element, value) => element.getAttribute('value') === value", value).ConfigureAwait(false);
+
+        /// <summary>
         /// Indicates whether the element has the specified class or not.
         /// </summary>
         /// <param name="elementHandle">An <see cref="IElementHandle"/>.</param>

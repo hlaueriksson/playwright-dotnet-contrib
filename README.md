@@ -72,9 +72,11 @@ Evaluation:
 
 * `Exists`
 * `HasAttributeAsync`
+* `HasAttributeValueAsync`
 * `HasClassAsync`
 * `HasContentAsync`
 * `HasFocusAsync`
+* `HasValueAsync`
 * `IsReadOnlyAsync`
 * `IsRequiredAsync`
 * `IsSelectedAsync`
@@ -108,10 +110,10 @@ Content:
 
 Element:
 
-* `HaveElement`
-* `HaveElementCount`
-* `HaveElementWithContent`
-* `HaveElementWithContentCount`
+* `HaveElementAsync`
+* `HaveElementCountAsync`
+* `HaveElementWithContentAsync`
+* `HaveElementWithContentCountAsync`
 
 State:
 
@@ -144,10 +146,10 @@ Content:
 
 Element:
 
-* `HaveElement`
-* `HaveElementCount`
-* `HaveElementWithContent`
-* `HaveElementWithContentCount`
+* `HaveElementAsync`
+* `HaveElementCountAsync`
+* `HaveElementWithContentAsync`
+* `HaveElementWithContentCountAsync`
 
 State:
 

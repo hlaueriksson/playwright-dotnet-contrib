@@ -94,6 +94,40 @@ namespace Microsoft.Playwright.Contrib.Tests.Extensions
         }
 
         [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        public async Task HasAttributeValueAsync_should_return_true_if_element_has_the_attribute_value()
+        {
+            await Page.SetContentAsync("<html><body><div class='class' data-foo='bar' /></body></html>");
+
+            var div = await Page.QuerySelectorAsync("div");
+            Assert.True(await div.HasAttributeValueAsync("class", "class"));
+            Assert.True(await div.HasAttributeValueAsync(null, null));
+            Assert.False(await div.HasAttributeValueAsync("class", "id"));
+            Assert.False(await div.HasAttributeValueAsync("id", "class"));
+
+            var body = await Page.QuerySelectorAsync("body");
+            Assert.False(await body.HasAttributeValueAsync("", ""));
+
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).HasAttributeValueAsync("", ""));
+        }
+
+        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        public async Task HasValueAsync_should_return_the_value_of_the_element()
+        {
+            await Page.SetContentAsync("<html><body><input value='input' /><button value='button' /></body></html>");
+
+            var input = await Page.QuerySelectorAsync("input");
+            Assert.True(await input.HasValueAsync("input"));
+            Assert.False(await input.HasValueAsync("button"));
+            Assert.False(await input.HasValueAsync(null));
+
+            var body = await Page.QuerySelectorAsync("body");
+            Assert.True(await body.HasValueAsync(null));
+            Assert.False(await body.HasValueAsync(""));
+
+            Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).HasValueAsync(""));
+        }
+
+        [Test, Timeout(TestConstants.DefaultTestTimeout)]
         public async Task HasClassAsync_should_return_true_if_the_element_has_the_class()
         {
             await Page.SetContentAsync("<html><body><div class='foo bar' /></body></html>");
