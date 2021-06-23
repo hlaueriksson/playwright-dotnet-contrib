@@ -17,9 +17,17 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.x
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
+    - name: Install tools
+      run: dotnet tool install --global Microsoft.Playwright.CLI
+    - name: Install playwright
+      run: playwright install
     - name: Test
       run: dotnet test ./tests/Playwright.Contrib.Tests --no-build --verbosity normal
