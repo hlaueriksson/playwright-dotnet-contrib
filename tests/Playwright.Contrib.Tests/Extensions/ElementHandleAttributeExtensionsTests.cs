@@ -40,10 +40,9 @@ namespace Microsoft.Playwright.Contrib.Tests.Extensions
         [Test, Timeout(TestConstants.DefaultTestTimeout)]
         public async Task HrefAsync_should_return_the_href_of_the_element()
         {
-            await Page.SetContentAsync("<html><body><a href='file.html'></a><link href='file.css' /></body></html>");
-
-            var a = await Page.QuerySelectorAsync("a");
-            Assert.AreEqual("file.html", await a.HrefAsync());
+            await Page.GotoAsync("https://github.com/microsoft/playwright-dotnet");
+            var a = await Page.QuerySelectorAsync("h1 strong a");
+            Assert.AreEqual("https://github.com/microsoft/playwright-dotnet", await a.HrefAsync());
 
             var body = await Page.QuerySelectorAsync("body");
             Assert.Null(await body.HrefAsync());
