@@ -16,9 +16,9 @@ namespace Microsoft.Playwright.Contrib.PageObjects.DynamicProxy
                 return false;
             }
 
-            var property = methodInfo.DeclaringType.GetProperty(methodInfo);
+            var property = methodInfo.DeclaringType?.GetProperty(methodInfo);
 
-            return property.HasAttribute<T>();
+            return property?.HasAttribute<T>() == true;
         }
 
         public static bool IsGetter(this MethodInfo methodInfo) =>
@@ -30,11 +30,11 @@ namespace Microsoft.Playwright.Contrib.PageObjects.DynamicProxy
             where T : Attribute =>
             propertyInfo.GetCustomAttributes<T>().Any();
 
-        public static T GetAttribute<T>(this PropertyInfo propertyInfo)
+        public static T? GetAttribute<T>(this PropertyInfo propertyInfo)
             where T : Attribute =>
             propertyInfo.GetCustomAttribute<T>();
 
-        public static PropertyInfo GetProperty(this Type rootType, MethodInfo methodInfo) =>
+        public static PropertyInfo? GetProperty(this Type rootType, MethodInfo methodInfo) =>
             rootType.GetProperty(methodInfo.Name.Substring(4), BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 
         public static bool IsReturningAsyncResult(this MethodInfo methodInfo) =>

@@ -7,7 +7,7 @@ namespace Microsoft.Playwright.Contrib.PageObjects.DynamicProxy
 {
     internal static class InvocationExtensions
     {
-        public static async Task<object> GetReturnValueAsync(this IInvocation invocation)
+        public static async Task<object?> GetReturnValueAsync(this IInvocation invocation)
         {
             if (!invocation.IsGetterPropertyWithAttribute<SelectorAttribute>())
             {
@@ -22,7 +22,7 @@ namespace Microsoft.Playwright.Contrib.PageObjects.DynamicProxy
             };
         }
 
-        internal static async Task<object> GetReturnValueAsync(this IInvocation invocation, PageObject pageObject)
+        internal static async Task<object?> GetReturnValueAsync(this IInvocation invocation, PageObject pageObject)
         {
             var page = pageObject.Page;
 
@@ -31,7 +31,7 @@ namespace Microsoft.Playwright.Contrib.PageObjects.DynamicProxy
                 return null;
             }
 
-            var attribute = invocation.GetAttribute<SelectorAttribute>();
+            var attribute = invocation.GetAttribute<SelectorAttribute>()!;
 
             if (invocation.IsReturning<IElementHandle>())
             {
@@ -63,7 +63,7 @@ namespace Microsoft.Playwright.Contrib.PageObjects.DynamicProxy
             return null;
         }
 
-        internal static async Task<object> GetReturnValueAsync(this IInvocation invocation, ElementObject elementObject)
+        internal static async Task<object?> GetReturnValueAsync(this IInvocation invocation, ElementObject elementObject)
         {
             var element = elementObject.Element;
 
@@ -72,7 +72,7 @@ namespace Microsoft.Playwright.Contrib.PageObjects.DynamicProxy
                 return null;
             }
 
-            var attribute = invocation.GetAttribute<SelectorAttribute>();
+            var attribute = invocation.GetAttribute<SelectorAttribute>()!;
 
             if (invocation.IsReturning<IElementHandle>())
             {
@@ -121,15 +121,15 @@ namespace Microsoft.Playwright.Contrib.PageObjects.DynamicProxy
 
             var property = invocation.TargetType.GetProperty(invocation.Method);
 
-            return property.HasAttribute<T>();
+            return property?.HasAttribute<T>() == true;
         }
 
-        internal static T GetAttribute<T>(this IInvocation invocation)
+        internal static T? GetAttribute<T>(this IInvocation invocation)
             where T : Attribute
         {
             var property = invocation.TargetType.GetProperty(invocation.Method);
 
-            return property.GetAttribute<T>();
+            return property?.GetAttribute<T>();
         }
 
         internal static bool IsReturning<T>(this IInvocation invocation) =>

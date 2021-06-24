@@ -19,7 +19,7 @@ namespace Microsoft.Playwright.Contrib.PageObjects.DynamicProxy
             methodInfo.IsGetterPropertyWithAttribute<SelectorAttribute>() &&
             methodInfo.IsReturningAsyncResult();
 
-        public override bool Equals(object obj) =>
+        public override bool Equals(object? obj) =>
             obj != null &&
             obj.GetType() == typeof(ProxyGenerationHook);
 

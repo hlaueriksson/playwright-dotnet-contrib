@@ -30,14 +30,16 @@ namespace Microsoft.Playwright.Contrib.PageObjects
         /// <summary>
         /// The <c>Playwright</c> page.
         /// </summary>
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public IPage Page { get; private set; }
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
         /// <summary>
         /// The response from page navigation.
         /// </summary>
-        public IResponse Response { get; private set; }
+        public IResponse? Response { get; private set; }
 
-        internal void Initialize(IPage page, IResponse response)
+        internal void Initialize(IPage page, IResponse? response)
         {
             Page = page;
             Response = response;

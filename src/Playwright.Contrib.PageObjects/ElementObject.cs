@@ -30,7 +30,9 @@ namespace Microsoft.Playwright.Contrib.PageObjects
         /// <summary>
         /// The <c>Playwright</c> element handle.
         /// </summary>
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public IElementHandle Element { get; private set; }
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
         internal void Initialize(IElementHandle element)
         {

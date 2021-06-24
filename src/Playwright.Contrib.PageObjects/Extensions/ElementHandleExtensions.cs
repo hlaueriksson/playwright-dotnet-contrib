@@ -17,7 +17,7 @@ namespace Microsoft.Playwright.Contrib.PageObjects
         /// <typeparam name="T">The type of <see cref="ElementObject"/>.</typeparam>
         /// <param name="elementHandle">A <see cref="IElementHandle"/>.</param>
         /// <returns>The <see cref="ElementObject"/>.</returns>
-        public static T To<T>(this IElementHandle elementHandle)
+        public static T? To<T>(this IElementHandle elementHandle)
             where T : ElementObject
         {
             return ProxyFactory.ElementObject<T>(elementHandle);
@@ -32,7 +32,7 @@ namespace Microsoft.Playwright.Contrib.PageObjects
         public static IReadOnlyList<T> To<T>(this IReadOnlyList<IElementHandle> elementHandles)
             where T : ElementObject
         {
-            return elementHandles.Select(ProxyFactory.ElementObject<T>).ToArray();
+            return elementHandles.Select(ProxyFactory.ElementObject<T>).ToArray()!;
         }
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace Microsoft.Playwright.Contrib.PageObjects
         {
             var results = await elementHandle.GuardFromNull().QuerySelectorAllAsync(selector).ConfigureAwait(false);
 
-            return results.Select(ProxyFactory.ElementObject<T>).ToArray();
+            return results.Select(ProxyFactory.ElementObject<T>).ToArray()!;
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace Microsoft.Playwright.Contrib.PageObjects
         /// <param name="selector">A selector to query for.</param>
         /// <returns>Task which resolves to the <see cref="ElementObject"/>.</returns>
         /// <seealso cref="IElementHandle.QuerySelectorAsync(string)"/>
-        public static async Task<T> QuerySelectorAsync<T>(this IElementHandle elementHandle, string selector)
+        public static async Task<T?> QuerySelectorAsync<T>(this IElementHandle elementHandle, string selector)
             where T : ElementObject
         {
             var result = await elementHandle.GuardFromNull().QuerySelectorAsync(selector).ConfigureAwait(false);
@@ -78,7 +78,7 @@ namespace Microsoft.Playwright.Contrib.PageObjects
         /// <param name="options">Optional waiting parameters.</param>
         /// <returns>A task that resolves to the <see cref="ElementObject"/>, when a element specified by selector string is added to DOM.</returns>
         /// <seealso cref="IElementHandle.WaitForSelectorAsync(string, ElementHandleWaitForSelectorOptions)"/>
-        public static async Task<T> WaitForSelectorAsync<T>(this IElementHandle elementHandle, string selector, ElementHandleWaitForSelectorOptions options = default)
+        public static async Task<T?> WaitForSelectorAsync<T>(this IElementHandle elementHandle, string selector, ElementHandleWaitForSelectorOptions? options = default)
             where T : ElementObject
         {
             var result = await elementHandle.GuardFromNull().WaitForSelectorAsync(selector, options).ConfigureAwait(false);

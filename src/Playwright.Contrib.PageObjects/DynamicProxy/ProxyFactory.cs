@@ -9,7 +9,7 @@ namespace Microsoft.Playwright.Contrib.PageObjects.DynamicProxy
         private static readonly ProxyGenerator _proxyGenerator = new();
         private static readonly ProxyGenerationOptions _options = new(new ProxyGenerationHook()) { Selector = new InterceptorSelector() };
 
-        public static T PageObject<T>(IPage page, IResponse response)
+        public static T? PageObject<T>(IPage? page, IResponse? response)
             where T : PageObject
         {
             if (page == null)
@@ -23,7 +23,7 @@ namespace Microsoft.Playwright.Contrib.PageObjects.DynamicProxy
             return proxy;
         }
 
-        public static T ElementObject<T>(IElementHandle elementHandle)
+        public static T? ElementObject<T>(IElementHandle? elementHandle)
             where T : ElementObject
         {
             if (elementHandle == null)
@@ -37,7 +37,7 @@ namespace Microsoft.Playwright.Contrib.PageObjects.DynamicProxy
             return proxy;
         }
 
-        public static ElementObject ElementObject(Type proxyType, IElementHandle elementHandle)
+        public static ElementObject? ElementObject(Type proxyType, IElementHandle? elementHandle)
         {
             if (elementHandle == null)
             {
@@ -52,18 +52,18 @@ namespace Microsoft.Playwright.Contrib.PageObjects.DynamicProxy
 
         public static object ElementObjectList(Type proxyType, IReadOnlyList<IElementHandle> elementHandles)
         {
-            var list = Activator.CreateInstance(typeof(List<>).MakeGenericType(proxyType));
+            var list = Activator.CreateInstance(typeof(List<>).MakeGenericType(proxyType))!;
             var listType = list.GetType();
-            var methodInfo = listType.GetMethod("Add");
+            var methodInfo = listType.GetMethod("Add")!;
 
             foreach (var elementHandle in elementHandles)
             {
-                methodInfo.Invoke(list, new object[] { ElementObject(proxyType, elementHandle) });
+                methodInfo.Invoke(list, new object[] { ElementObject(proxyType, elementHandle)! });
             }
 
-            methodInfo = listType.GetMethod("AsReadOnly");
+            methodInfo = listType.GetMethod("AsReadOnly")!;
 
-            return methodInfo.Invoke(list, Array.Empty<object>());
+            return methodInfo.Invoke(list, Array.Empty<object>())!;
         }
     }
 }

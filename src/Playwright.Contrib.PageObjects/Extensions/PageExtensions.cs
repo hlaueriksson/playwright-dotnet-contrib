@@ -19,7 +19,7 @@ namespace Microsoft.Playwright.Contrib.PageObjects
         /// <typeparam name="T">The type of <see cref="PageObject"/>.</typeparam>
         /// <param name="page">A <see cref="IPage"/>.</param>
         /// <returns>The <see cref="PageObject"/>.</returns>
-        public static T To<T>(this IPage page)
+        public static T? To<T>(this IPage page)
             where T : PageObject
         {
             return ProxyFactory.PageObject<T>(page, null);
@@ -34,7 +34,7 @@ namespace Microsoft.Playwright.Contrib.PageObjects
         /// <param name="options">Call options.</param>
         /// <returns>Task which resolves to the <see cref="PageObject"/>.</returns>
         /// <seealso cref="IPage.GotoAsync(string, PageGotoOptions)"/>
-        public static async Task<T> GotoAsync<T>(this IPage page, string url, PageGotoOptions options = default)
+        public static async Task<T?> GotoAsync<T>(this IPage page, string url, PageGotoOptions? options = default)
             where T : PageObject
         {
             var response = await page.GuardFromNull().GotoAsync(url, options).ConfigureAwait(false);
@@ -55,7 +55,7 @@ namespace Microsoft.Playwright.Contrib.PageObjects
         /// In case of navigation to a different anchor or navigation due to History API usage, the <see cref="PageObject.Response"/> is <c>null</c>.
         /// </returns>
         /// <seealso cref="IPage.WaitForNavigationAsync(PageWaitForNavigationOptions)"/>
-        public static async Task<T> WaitForNavigationAsync<T>(this IPage page, PageWaitForNavigationOptions options = default)
+        public static async Task<T?> WaitForNavigationAsync<T>(this IPage page, PageWaitForNavigationOptions? options = default)
             where T : PageObject
         {
             var response = await page.GuardFromNull().WaitForNavigationAsync(options).ConfigureAwait(false);
@@ -77,7 +77,7 @@ namespace Microsoft.Playwright.Contrib.PageObjects
         /// In case of navigation to a different anchor or navigation due to History API usage, the <see cref="PageObject.Response"/> is <c>null</c>.
         /// </returns>
         /// <seealso cref="IPage.RunAndWaitForNavigationAsync(Func{Task}, PageRunAndWaitForNavigationOptions)"/>
-        public static async Task<T> RunAndWaitForNavigationAsync<T>(this IPage page, Func<Task> action, PageRunAndWaitForNavigationOptions options = default)
+        public static async Task<T?> RunAndWaitForNavigationAsync<T>(this IPage page, Func<Task> action, PageRunAndWaitForNavigationOptions? options = default)
             where T : PageObject
         {
             var response = await page.GuardFromNull().RunAndWaitForNavigationAsync(action, options).ConfigureAwait(false);
@@ -94,12 +94,12 @@ namespace Microsoft.Playwright.Contrib.PageObjects
         /// <param name="options">Call options.</param>
         /// <returns>Task which resolves to the <see cref="PageObject"/>.</returns>
         /// <seealso cref="IPage.WaitForResponseAsync(Func{IResponse, bool}, PageWaitForResponseOptions)"/>
-        public static async Task<T> WaitForResponseAsync<T>(this IPage page, Func<IResponse, bool> urlOrPredicate, PageWaitForResponseOptions options = default)
+        public static async Task<T> WaitForResponseAsync<T>(this IPage page, Func<IResponse, bool> urlOrPredicate, PageWaitForResponseOptions? options = default)
             where T : PageObject
         {
             var response = await page.GuardFromNull().WaitForResponseAsync(urlOrPredicate, options).ConfigureAwait(false);
 
-            return ProxyFactory.PageObject<T>(page, response);
+            return ProxyFactory.PageObject<T>(page, response)!;
         }
 
         /// <summary>
@@ -112,12 +112,12 @@ namespace Microsoft.Playwright.Contrib.PageObjects
         /// <param name="options">Call options.</param>
         /// <returns>Task which resolves to the <see cref="PageObject"/>.</returns>
         /// <seealso cref="IPage.RunAndWaitForResponseAsync(Func{Task}, Func{IResponse, bool}, PageRunAndWaitForResponseOptions)"/>
-        public static async Task<T> RunAndWaitForResponseAsync<T>(this IPage page, Func<Task> action, Func<IResponse, bool> urlOrPredicate, PageRunAndWaitForResponseOptions options = default)
+        public static async Task<T> RunAndWaitForResponseAsync<T>(this IPage page, Func<Task> action, Func<IResponse, bool> urlOrPredicate, PageRunAndWaitForResponseOptions? options = default)
             where T : PageObject
         {
             var response = await page.GuardFromNull().RunAndWaitForResponseAsync(action, urlOrPredicate, options).ConfigureAwait(false);
 
-            return ProxyFactory.PageObject<T>(page, response);
+            return ProxyFactory.PageObject<T>(page, response)!;
         }
 
         // ElementObject
@@ -136,7 +136,7 @@ namespace Microsoft.Playwright.Contrib.PageObjects
         {
             var results = await page.GuardFromNull().QuerySelectorAllAsync(selector).ConfigureAwait(false);
 
-            return results.Select(ProxyFactory.ElementObject<T>).ToArray();
+            return results.Select(ProxyFactory.ElementObject<T>).ToArray()!;
         }
 
         /// <summary>
@@ -148,7 +148,7 @@ namespace Microsoft.Playwright.Contrib.PageObjects
         /// <param name="selector">A selector to query for.</param>
         /// <returns>Task which resolves to the <see cref="ElementObject"/>.</returns>
         /// <seealso cref="IPage.QuerySelectorAsync(string)"/>
-        public static async Task<T> QuerySelectorAsync<T>(this IPage page, string selector)
+        public static async Task<T?> QuerySelectorAsync<T>(this IPage page, string selector)
             where T : ElementObject
         {
             var result = await page.GuardFromNull().QuerySelectorAsync(selector).ConfigureAwait(false);
@@ -165,7 +165,7 @@ namespace Microsoft.Playwright.Contrib.PageObjects
         /// <param name="options">Call options.</param>
         /// <returns>A task that resolves to the <see cref="ElementObject"/>, when a element specified by selector string is added to DOM.</returns>
         /// <seealso cref="IPage.WaitForSelectorAsync(string, PageWaitForSelectorOptions)"/>
-        public static async Task<T> WaitForSelectorAsync<T>(this IPage page, string selector, PageWaitForSelectorOptions options = default)
+        public static async Task<T?> WaitForSelectorAsync<T>(this IPage page, string selector, PageWaitForSelectorOptions? options = default)
             where T : ElementObject
         {
             var result = await page.GuardFromNull().WaitForSelectorAsync(selector, options).ConfigureAwait(false);
