@@ -27,15 +27,6 @@ namespace Microsoft.Playwright.Contrib.Extensions
             await elementHandle.GuardFromNull().GetAttributeOrDefaultAsync("name").ConfigureAwait(false);
 
         /// <summary>
-        /// Href of the element.
-        /// </summary>
-        /// <param name="elementHandle">An <see cref="IElementHandle"/>.</param>
-        /// <returns>The element's <c>href</c>, or <c>null</c> if the attribute is missing.</returns>
-        /// <remarks><![CDATA[Elements: <a>, <area>, <base>, <link>]]></remarks>
-        public static async Task<string> HrefAsync(this IElementHandle elementHandle) =>
-            await elementHandle.GuardFromNull().GetAttributeOrDefaultAsync("href").ConfigureAwait(false);
-
-        /// <summary>
         /// Src of the element.
         /// </summary>
         /// <param name="elementHandle">An <see cref="IElementHandle"/>.</param>
@@ -52,6 +43,15 @@ namespace Microsoft.Playwright.Contrib.Extensions
         /// <remarks><![CDATA[Elements: <button>, <option>, <input>, <li>, <meter>, <progress>, <param>]]></remarks>
         public static async Task<string> ValueAsync(this IElementHandle elementHandle) =>
             await elementHandle.GuardFromNull().GetAttributeOrDefaultAsync("value").ConfigureAwait(false);
+
+        /// <summary>
+        /// Href of the element.
+        /// </summary>
+        /// <param name="elementHandle">An <see cref="IElementHandle"/>.</param>
+        /// <returns>The element's <c>href</c>, or <c>null</c> if the attribute is missing.</returns>
+        /// <remarks><![CDATA[Elements: <a>, <area>, <base>, <link>]]></remarks>
+        public static async Task<string> HrefAsync(this IElementHandle elementHandle) =>
+            await elementHandle.GuardFromNull().EvaluateAsync<string>("(element) => element.href").ConfigureAwait(false);
 
         /// <summary>
         /// Returns element attribute value, or a default value if no attribute is found.

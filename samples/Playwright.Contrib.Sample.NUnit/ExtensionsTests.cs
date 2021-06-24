@@ -60,14 +60,14 @@ namespace Microsoft.Playwright.Contrib.Sample
     <input type='submit' value='Subscribe!'>
   </form>
   <img src='unsubscribe.png' />
-  <a href='/unsubscribe/'>Unsubscribe</a>
+  <a href='http://example.com/unsubscribe/'>Unsubscribe</a>
 </html>");
 
             var input = await Page.QuerySelectorAsync("#name");
             Assert.True(await input.HasAttributeAsync("required"));
 
             var link = await Page.QuerySelectorAsync("a");
-            Assert.AreEqual("/unsubscribe/", await link.HrefAsync());
+            Assert.AreEqual("http://example.com/unsubscribe/", await link.HrefAsync());
 
             input = await Page.QuerySelectorAsync("input[type=email]");
             Assert.AreEqual("email", await input.IdAsync());
