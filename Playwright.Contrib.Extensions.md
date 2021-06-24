@@ -1,43 +1,49 @@
-# Playwright.Contrib.Extensions
+### Playwright.Contrib.Extensions 🎭🧪
 
-`Playwright.Contrib.Extensions` is a library with convenient extension methods for writing browser tests with the Playwright API.
+[![build](https://github.com/hlaueriksson/playwright-dotnet-contrib/actions/workflows/build.yml/badge.svg)](https://github.com/hlaueriksson/playwright-dotnet-contrib/actions/workflows/build.yml) [![CodeFactor](https://codefactor.io/repository/github/hlaueriksson/playwright-dotnet-contrib/badge)](https://codefactor.io/repository/github/hlaueriksson/playwright-dotnet-contrib)
 
-## Content
+`Playwright.Contrib.Extensions` is a library with extension methods for writing tests with the Playwright API.
 
-- [Playwright.Contrib.Extensions](#playwrightcontribextensions)
-  - [Content](#content)
-  - [Installation](#installation)
-  - [Extensions for `IPage`](#extensions-for-ipage)
-  - [Extensions for `IElementHandle`](#extensions-for-ielementhandle)
-  - [Samples](#samples)
+```cs
+using FluentAssertions;
+using Microsoft.Playwright;
+using Microsoft.Playwright.Contrib.Extensions;
 
-## Installation
+var playwright = await Playwright.CreateAsync();
+var browser = await playwright.Chromium.LaunchAsync();
+var page = await browser.NewPageAsync();
 
-| NuGet            |       | [![Playwright.Contrib.Extensions][1]][2]                                       |
-| :--------------- | ----: | :----------------------------------------------------------------------------- |
-| Package Manager  | `PM>` | `Install-Package Playwright.Contrib.Extensions -Version 1.0.0`                 |
-| .NET CLI         | `>`   | `dotnet add package Playwright.Contrib.Extensions --version 1.0.0`             |
-| PackageReference |       | `<PackageReference Include="Playwright.Contrib.Extensions" Version="1.0.0" />` |
-| Paket CLI        | `>`   | `paket add Playwright.Contrib.Extensions --version 1.0.0`                      |
+await page.GotoAsync("https://github.com/microsoft/playwright-dotnet");
+var link = await page.QuerySelectorWithContentAsync("h1 a", "playwright-dotnet");
+(await link.HrefAsync()).Should().Be("https://github.com/microsoft/playwright-dotnet");
+(await page.HasContentAsync("Playwright for .NET is the official language port of Playwright")).Should().BeTrue();
 
-[1]: https://img.shields.io/nuget/v/Playwright.Contrib.Extensions.svg?label=Playwright.Contrib.Extensions
-[2]: https://www.nuget.org/packages/Playwright.Contrib.Extensions
+await page.ClickAsync("a span[data-content='Actions']");
+await page.WaitForNavigationAsync();
+var latestStatus = await page.QuerySelectorAsync("#partial-actions-workflow-runs .Box-row div[title]");
+latestStatus.Exists().Should().BeTrue();
+(await latestStatus.HasAttributeValueAsync("title", "This workflow run completed successfully.")).Should().BeTrue();
+```
 
-## Extensions for `IPage`
+### Extensions for `IPage` 📄
 
-Query:
+Attribute:
 
-* `QuerySelectorWithContentAsync`
-* `QuerySelectorAllWithContentAsync`
+* `GetAttributeOrDefaultAsync`
 
 Evaluation:
 
 * `HasContentAsync`
 * `HasTitleAsync`
 
-## Extensions for `IElementHandle`
+Query:
 
-Attributes:
+* `QuerySelectorAllWithContentAsync`
+* `QuerySelectorWithContentAsync`
+
+### Extensions for `IElementHandle` 📑
+
+Attribute:
 
 * `ClassListAsync`
 * `ClassNameAsync`
@@ -56,172 +62,20 @@ Evaluation:
 
 * `Exists`
 * `HasAttributeAsync`
+* `HasAttributeValueAsync`
 * `HasClassAsync`
 * `HasContentAsync`
 * `HasFocusAsync`
+* `HasValueAsync`
 * `IsReadOnlyAsync`
 * `IsRequiredAsync`
 * `IsSelectedAsync`
 
 Query:
 
-* `QuerySelectorWithContentAsync`
 * `QuerySelectorAllWithContentAsync`
+* `QuerySelectorWithContentAsync`
 
-## Samples
+### Would you like to know more? 🤔
 
-Sample projects are located in the [`samples`](/samples/) folder.
-
-This is an example with `NUnit`:
-
-```csharp
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.Playwright.Contrib.Extensions;
-using NUnit.Framework;
-
-namespace Microsoft.Playwright.Contrib.Sample
-{
-    public class ExtensionsTests
-    {
-        IBrowser Browser { get; set; }
-        IPage Page { get; set; }
-
-        [SetUp]
-        public async Task SetUp()
-        {
-            var playwright = await Playwright.CreateAsync();
-            Browser = await playwright.Chromium.LaunchAsync();
-            Page = await Browser.NewPageAsync();
-        }
-
-        [TearDown]
-        public async Task TearDown()
-        {
-            await Browser.CloseAsync();
-        }
-
-        [Test]
-        public async Task Query()
-        {
-            await Page.SetContentAsync(@"
-<html>
-  <div id='foo'>Foo</div>
-  <div id='bar'>Bar</div>
-  <div id='baz'>Baz</div>
-</html>");
-
-            var html = await Page.QuerySelectorAsync("html");
-
-            var div = await Page.QuerySelectorWithContentAsync("div", "Ba.");
-            Assert.AreEqual("bar", await div.IdAsync());
-
-            div = await html.QuerySelectorWithContentAsync("div", "Ba.");
-            Assert.AreEqual("bar", await div.IdAsync());
-
-            var divs = await Page.QuerySelectorAllWithContentAsync("div", "Ba.");
-            Assert.AreEqual(new[] { "bar", "baz" }, await Task.WhenAll(divs.Select(x => x.IdAsync())));
-
-            divs = await html.QuerySelectorAllWithContentAsync("div", "Ba.");
-            Assert.AreEqual(new[] { "bar", "baz" }, await Task.WhenAll(divs.Select(x => x.IdAsync())));
-        }
-
-        [Test]
-        public async Task Attributes()
-        {
-            await Page.SetContentAsync(@"
-<html>
-  <form method='post'>
-    Name: <input type='text' name='name' id='name' required>
-    Email: <input type='email' name='email' id='email' required>
-    <input type='submit' value='Subscribe!'>
-  </form>
-  <img src='unsubscribe.png' />
-  <a href='/unsubscribe/'>Unsubscribe</a>
-</html>");
-
-            var input = await Page.QuerySelectorAsync("#name");
-            Assert.True(await input.HasAttributeAsync("required"));
-
-            var link = await Page.QuerySelectorAsync("a");
-            Assert.AreEqual("/unsubscribe/", await link.HrefAsync());
-
-            input = await Page.QuerySelectorAsync("input[type=email]");
-            Assert.AreEqual("email", await input.IdAsync());
-
-            input = await Page.QuerySelectorAsync("#email");
-            Assert.AreEqual("email", await input.NameAsync());
-
-            var img = await Page.QuerySelectorAsync("img");
-            Assert.AreEqual("unsubscribe.png", await img.SrcAsync());
-
-            input = await Page.QuerySelectorAsync("input[type=submit]");
-            Assert.AreEqual("Subscribe!", await input.ValueAsync());
-        }
-
-        [Test]
-        public async Task Class()
-        {
-            await Page.SetContentAsync("<div class='foo bar' />");
-
-            var div = await Page.QuerySelectorAsync("div");
-            Assert.AreEqual("foo bar", await div.ClassNameAsync());
-            Assert.AreEqual(new[] { "foo", "bar" }, await div.ClassListAsync());
-            Assert.True(await div.HasClassAsync("bar"));
-        }
-
-        [Test]
-        public async Task Content()
-        {
-            await Page.SetContentAsync(@"
-<html>
-  <head>
-    <title>Foo Bar Baz</title>
-  </head>
-  <body>
-    <div>
-      Foo
-      <span>Bar</span>
-    </div>
-  </body>
-</html>
-");
-
-            Assert.True(await Page.HasTitleAsync("Foo Bar Baz"));
-
-            var html = await Page.QuerySelectorAsync("html");
-            Assert.True(await html.HasContentAsync("Foo"));
-
-            var div = await Page.QuerySelectorAsync("div");
-            Assert.AreEqual("<div>\n      Foo\n      <span>Bar</span>\n    </div>", await div.OuterHTMLAsync());
-        }
-
-        [Test]
-        public async Task Input()
-        {
-            await Page.SetContentAsync(@"
-<form>
-  <input type='text' autofocus required>
-  <input type='radio' readonly>
-  <input type='checkbox' checked>
-  <select>
-    <option id='foo'>Foo</option>
-    <option id='bar'>Bar</option>
-  </select>
-</form>
-");
-
-            var input = await Page.QuerySelectorAsync("input[type=text]");
-            Assert.True(input.Exists());
-            Assert.True(await input.HasFocusAsync());
-            Assert.True(await input.IsRequiredAsync());
-
-            input = await Page.QuerySelectorAsync("input[type=radio]");
-            Assert.True(await input.IsReadOnlyAsync());
-
-            input = await Page.QuerySelectorAsync("#foo");
-            Assert.True(await input.IsSelectedAsync());
-        }
-    }
-}
-```
+Further documentation is available at [https://github.com/hlaueriksson/playwright-dotnet-contrib](https://github.com/hlaueriksson/playwright-dotnet-contrib)
