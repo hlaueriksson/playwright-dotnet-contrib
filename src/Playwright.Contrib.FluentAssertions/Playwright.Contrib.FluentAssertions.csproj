@@ -14,11 +14,11 @@
 ✔️ It provides a convenient way to write readable and robust browser tests in .NET
 ✔️ Playwright is built to enable cross-browser web automation that is ever-green, capable, reliable and fast
 ✔️ FluentAssertions offers a very extensive set of extension methods that allow you to more naturally specify the expected outcome of a TDD or BDD-style unit tests
-📄 https://hlaueriksson.me/Playwright.Contrib.FluentAssertions/
     </Description>
     <PackageId>Playwright.Contrib.FluentAssertions</PackageId>
     <PackageProjectUrl>https://github.com/hlaueriksson/playwright-dotnet-contrib</PackageProjectUrl>
     <PackageIcon>icon.png</PackageIcon>
+    <PackageReadmeFile>Playwright.Contrib.FluentAssertions.md</PackageReadmeFile>
     <PackageTags>headless;chrome;firefox;webkit;playwright;test;testing;automation;assert</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <None Include="..\..\icon.png" Link="icon.png" Pack="true" PackagePath="\" />
+    <None Include="..\..\Playwright.Contrib.FluentAssertions.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
   <Import Project="../../Analyzers.props" />
