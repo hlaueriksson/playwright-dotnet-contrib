@@ -19,7 +19,7 @@ namespace Microsoft.Playwright.Contrib.Extensions
         /// <param name="flags">A set of flags for the regular expression.</param>
         /// <returns>Task which resolves to an <see cref="IElementHandle"/> pointing to the element.</returns>
         /// <seealso href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp"/>
-        public static async Task<IElementHandle> QuerySelectorWithContentAsync(this IElementHandle elementHandle, string selector, string regex, string flags = "") =>
+        public static async Task<IElementHandle?> QuerySelectorWithContentAsync(this IElementHandle elementHandle, string selector, string regex, string flags = "") =>
             await elementHandle.GuardFromNull().EvaluateHandleAsync(
                 @"(element, [selector, regex, flags]) => {
                     var elements = element.querySelectorAll(selector);
@@ -168,7 +168,9 @@ namespace Microsoft.Playwright.Contrib.Extensions
         public static async Task<IReadOnlyList<string>> ClassListAsync(this IElementHandle elementHandle)
         {
             var jsonElement = await elementHandle.GuardFromNull().EvaluateAsync("element => element.classList").ConfigureAwait(false);
-            return jsonElement?.EnumerateObject().Select(x => x.Value.GetString()).ToList().AsReadOnly() ?? Array.Empty<string>().ToList().AsReadOnly();
+            return
+                jsonElement?.EnumerateObject().Select(x => x.Value.GetString()!).Where(x => x != null).ToList().AsReadOnly() ??
+                Array.Empty<string>().ToList().AsReadOnly();
         }
 
         /// <summary>

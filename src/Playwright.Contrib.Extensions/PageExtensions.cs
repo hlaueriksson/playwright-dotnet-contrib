@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,7 +18,7 @@ namespace Microsoft.Playwright.Contrib.Extensions
         /// <param name="flags">A set of flags for the regular expression.</param>
         /// <returns>Task which resolves to an <see cref="IElementHandle"/> pointing to the frame element.</returns>
         /// <seealso href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp"/>
-        public static async Task<IElementHandle> QuerySelectorWithContentAsync(this IPage page, string selector, string regex, string flags = "") =>
+        public static async Task<IElementHandle?> QuerySelectorWithContentAsync(this IPage page, string selector, string regex, string flags = "") =>
             await page.GuardFromNull().EvaluateHandleAsync(
                 @"([selector, regex, flags]) => {
                     var elements = document.querySelectorAll(selector);
@@ -84,7 +83,7 @@ namespace Microsoft.Playwright.Contrib.Extensions
         /// <param name="selector">A selector to search for element. If there are multiple elements satisfying the selector, the first will be used.</param>
         /// <param name="name">The attribute name.</param>
         /// <returns>The attribute value, or a default value if no attribute is found.</returns>
-        public static async Task<string> GetAttributeOrDefaultAsync(this IPage page, string selector, string name)
+        public static async Task<string?> GetAttributeOrDefaultAsync(this IPage page, string selector, string name)
         {
             try
             {
