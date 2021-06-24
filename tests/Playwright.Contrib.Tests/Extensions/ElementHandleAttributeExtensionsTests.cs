@@ -85,8 +85,6 @@ namespace Microsoft.Playwright.Contrib.Tests.Extensions
 
             var div = await Page.QuerySelectorAsync("div");
             Assert.AreEqual("class", await div.GetAttributeOrDefaultAsync("class"));
-
-            div = await Page.QuerySelectorAsync("div");
             Assert.Null(await div.GetAttributeOrDefaultAsync("id"));
 
             var body = await Page.QuerySelectorAsync("body");

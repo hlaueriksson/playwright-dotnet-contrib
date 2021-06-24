@@ -83,8 +83,6 @@ namespace Microsoft.Playwright.Contrib.Tests.Extensions
 
             var div = await Page.QuerySelectorAsync("div");
             Assert.True(await div.HasAttributeAsync("class"));
-
-            div = await Page.QuerySelectorAsync("div");
             Assert.False(await div.HasAttributeAsync("id"));
 
             var body = await Page.QuerySelectorAsync("body");

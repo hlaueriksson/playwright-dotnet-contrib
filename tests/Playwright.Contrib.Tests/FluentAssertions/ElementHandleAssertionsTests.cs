@@ -20,19 +20,13 @@ namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
             var tweet = await Page.QuerySelectorAsync(".tweet");
             tweet.Should().Exist();
 
-            var missing = await Page.QuerySelectorAsync(".missing");
-            var ex = Assert.Throws<AssertionException>(() => missing.Should().Exist());
+            var ex = Assert.Throws<AssertionException>(() => ((IElementHandle)null).Should().Exist());
             Assert.AreEqual("Expected element to exist, but it did not.", ex.Message);
-
-            Assert.Throws<AssertionException>(() => ((IElementHandle)null).Should().Exist());
         }
 
         [Test, Timeout(TestConstants.DefaultTestTimeout)]
         public async Task Should_NotExist_throws_if_element_is_present()
         {
-            var missing = await Page.QuerySelectorAsync(".missing");
-            missing.Should().NotExist();
-
             var tweet = await Page.QuerySelectorAsync(".tweet");
             var ex = Assert.Throws<AssertionException>(() => tweet.Should().NotExist());
             Assert.AreEqual("Expected element not to exist, but it did.", ex.Message);
@@ -53,9 +47,6 @@ namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
             var ex = Assert.ThrowsAsync<AssertionException>(async () => await input.Should().HaveValueAsync("button"));
             Assert.AreEqual("Expected element to have value \"button\", but found \"input\".", ex.Message);
 
-            var missing = await Page.QuerySelectorAsync(".missing");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.Should().HaveValueAsync(""));
-
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).Should().HaveValueAsync(""));
         }
 
@@ -69,9 +60,6 @@ namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
 
             var ex = Assert.ThrowsAsync<AssertionException>(async () => await input.Should().NotHaveValueAsync("input"));
             Assert.AreEqual("Expected element not to have value \"input\".", ex.Message);
-
-            var missing = await Page.QuerySelectorAsync(".missing");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.Should().NotHaveValueAsync(""));
 
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).Should().NotHaveValueAsync(""));
         }
@@ -89,9 +77,6 @@ namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
             var ex = Assert.ThrowsAsync<AssertionException>(async () => await div.Should().HaveAttributeAsync("id"));
             Assert.AreEqual("Expected element to have attribute \"id\".", ex.Message);
 
-            var missing = await Page.QuerySelectorAsync(".missing");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.Should().HaveAttributeAsync(""));
-
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).Should().HaveAttributeAsync(""));
         }
 
@@ -105,9 +90,6 @@ namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
 
             var ex = Assert.ThrowsAsync<AssertionException>(async () => await div.Should().NotHaveAttributeAsync("class"));
             Assert.AreEqual("Expected element not to have attribute \"class\".", ex.Message);
-
-            var missing = await Page.QuerySelectorAsync(".missing");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.Should().NotHaveAttributeAsync(""));
 
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).Should().NotHaveAttributeAsync(""));
         }
@@ -126,9 +108,6 @@ namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
             ex = Assert.ThrowsAsync<AssertionException>(async () => await div.Should().HaveAttributeValueAsync("id", "class"));
             Assert.AreEqual("Expected element to have attribute \"id\" with value \"class\", but found <null>.", ex.Message);
 
-            var missing = await Page.QuerySelectorAsync(".missing");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.Should().HaveAttributeValueAsync("", ""));
-
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).Should().HaveAttributeValueAsync("", ""));
         }
 
@@ -145,9 +124,6 @@ namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
             var ex = Assert.ThrowsAsync<AssertionException>(async () => await div.Should().NotHaveAttributeValueAsync("class", "class"));
             Assert.AreEqual("Expected element not to have attribute \"class\" with value \"class\".", ex.Message);
 
-            var missing = await Page.QuerySelectorAsync(".missing");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.Should().NotHaveAttributeValueAsync("", ""));
-
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).Should().NotHaveAttributeValueAsync("", ""));
         }
 
@@ -162,9 +138,6 @@ namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
             var ex = Assert.ThrowsAsync<AssertionException>(async () => await like.Should().HaveContentAsync("200", "i"));
             Assert.AreEqual("Expected element to have content \"/200/i\".", ex.Message);
 
-            var missing = await Page.QuerySelectorAsync(".missing");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.Should().HaveContentAsync(""));
-
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).Should().HaveContentAsync(""));
         }
 
@@ -176,9 +149,6 @@ namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
 
             var ex = Assert.ThrowsAsync<AssertionException>(async () => await like.Should().NotHaveContentAsync("100", "i"));
             Assert.AreEqual("Expected element not to have content \"/100/i\".", ex.Message);
-
-            var missing = await Page.QuerySelectorAsync(".missing");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.Should().NotHaveContentAsync(""));
 
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).Should().NotHaveContentAsync(""));
         }
@@ -196,9 +166,6 @@ namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
             var ex = Assert.ThrowsAsync<AssertionException>(async () => await div.Should().HaveClassAsync("baz"));
             Assert.AreEqual("Expected element to have class \"baz\", but found \"foo bar\".", ex.Message);
 
-            var missing = await Page.QuerySelectorAsync(".missing");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.Should().HaveClassAsync(""));
-
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).Should().HaveClassAsync(""));
         }
 
@@ -212,9 +179,6 @@ namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
 
             var ex = Assert.ThrowsAsync<AssertionException>(async () => await div.Should().NotHaveClassAsync("foo"));
             Assert.AreEqual("Expected element not to have class \"foo\".", ex.Message);
-
-            var missing = await Page.QuerySelectorAsync(".missing");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.Should().NotHaveClassAsync(""));
 
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).Should().NotHaveClassAsync(""));
         }
@@ -233,9 +197,6 @@ namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
             var ex = Assert.ThrowsAsync<AssertionException>(async () => await div.Should().BeVisibleAsync());
             Assert.AreEqual("Expected element to be visible.", ex.Message);
 
-            var missing = await Page.QuerySelectorAsync(".missing");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.Should().BeVisibleAsync());
-
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).Should().BeVisibleAsync());
         }
 
@@ -250,9 +211,6 @@ namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
             div = await Page.QuerySelectorAsync("#foo");
             var ex = Assert.ThrowsAsync<AssertionException>(async () => await div.Should().BeHiddenAsync());
             Assert.AreEqual("Expected element to be hidden.", ex.Message);
-
-            var missing = await Page.QuerySelectorAsync(".missing");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.Should().BeHiddenAsync());
 
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).Should().BeHiddenAsync());
         }
@@ -271,9 +229,6 @@ namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
             var ex = Assert.ThrowsAsync<AssertionException>(async () => await div.Should().BeSelectedAsync());
             Assert.AreEqual("Expected element to be selected.", ex.Message);
 
-            var missing = await Page.QuerySelectorAsync(".missing");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.Should().BeSelectedAsync());
-
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).Should().BeSelectedAsync());
         }
 
@@ -288,9 +243,6 @@ namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
             div = await Page.QuerySelectorAsync("#foo");
             var ex = Assert.ThrowsAsync<AssertionException>(async () => await div.Should().NotBeSelectedAsync());
             Assert.AreEqual("Expected element not to be selected.", ex.Message);
-
-            var missing = await Page.QuerySelectorAsync(".missing");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.Should().NotBeSelectedAsync());
 
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).Should().NotBeSelectedAsync());
         }
@@ -309,9 +261,6 @@ namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
             var ex = Assert.ThrowsAsync<AssertionException>(async () => await div.Should().BeCheckedAsync());
             Assert.AreEqual("Expected element to be checked.", ex.Message);
 
-            var missing = await Page.QuerySelectorAsync(".missing");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.Should().BeCheckedAsync());
-
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).Should().BeCheckedAsync());
         }
 
@@ -326,9 +275,6 @@ namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
             div = await Page.QuerySelectorAsync("#foo");
             var ex = Assert.ThrowsAsync<AssertionException>(async () => await div.Should().NotBeCheckedAsync());
             Assert.AreEqual("Expected element not to be checked.", ex.Message);
-
-            var missing = await Page.QuerySelectorAsync(".missing");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.Should().NotBeCheckedAsync());
 
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).Should().NotBeCheckedAsync());
         }
@@ -347,9 +293,6 @@ namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
             var ex = Assert.ThrowsAsync<AssertionException>(async () => await div.Should().BeDisabledAsync());
             Assert.AreEqual("Expected element to be disabled.", ex.Message);
 
-            var missing = await Page.QuerySelectorAsync(".missing");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.Should().BeDisabledAsync());
-
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).Should().BeDisabledAsync());
         }
 
@@ -364,9 +307,6 @@ namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
             div = await Page.QuerySelectorAsync("#foo");
             var ex = Assert.ThrowsAsync<AssertionException>(async () => await div.Should().BeEnabledAsync());
             Assert.AreEqual("Expected element to be enabled.", ex.Message);
-
-            var missing = await Page.QuerySelectorAsync(".missing");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.Should().BeEnabledAsync());
 
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).Should().BeEnabledAsync());
         }
@@ -385,9 +325,6 @@ namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
             var ex = Assert.ThrowsAsync<AssertionException>(async () => await div.Should().BeReadOnlyAsync());
             Assert.AreEqual("Expected element to be read-only.", ex.Message);
 
-            var missing = await Page.QuerySelectorAsync(".missing");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.Should().BeReadOnlyAsync());
-
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).Should().BeReadOnlyAsync());
         }
 
@@ -402,9 +339,6 @@ namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
             div = await Page.QuerySelectorAsync("#foo");
             var ex = Assert.ThrowsAsync<AssertionException>(async () => await div.Should().NotBeReadOnlyAsync());
             Assert.AreEqual("Expected element not to be read-only.", ex.Message);
-
-            var missing = await Page.QuerySelectorAsync(".missing");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.Should().NotBeReadOnlyAsync());
 
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).Should().NotBeReadOnlyAsync());
         }
@@ -423,9 +357,6 @@ namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
             var ex = Assert.ThrowsAsync<AssertionException>(async () => await div.Should().BeRequiredAsync());
             Assert.AreEqual("Expected element to be required.", ex.Message);
 
-            var missing = await Page.QuerySelectorAsync(".missing");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.Should().BeRequiredAsync());
-
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).Should().BeRequiredAsync());
         }
 
@@ -440,9 +371,6 @@ namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
             div = await Page.QuerySelectorAsync("#foo");
             var ex = Assert.ThrowsAsync<AssertionException>(async () => await div.Should().NotBeRequiredAsync());
             Assert.AreEqual("Expected element not to be required.", ex.Message);
-
-            var missing = await Page.QuerySelectorAsync(".missing");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.Should().NotBeRequiredAsync());
 
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).Should().NotBeRequiredAsync());
         }
@@ -461,9 +389,6 @@ namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
             var ex = Assert.ThrowsAsync<AssertionException>(async () => await div.Should().HaveFocusAsync());
             Assert.AreEqual("Expected element to have focus.", ex.Message);
 
-            var missing = await Page.QuerySelectorAsync(".missing");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.Should().HaveFocusAsync());
-
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).Should().HaveFocusAsync());
         }
 
@@ -478,9 +403,6 @@ namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
             div = await Page.QuerySelectorAsync("#foo");
             var ex = Assert.ThrowsAsync<AssertionException>(async () => await div.Should().NotHaveFocusAsync());
             Assert.AreEqual("Expected element not to have focus.", ex.Message);
-
-            var missing = await Page.QuerySelectorAsync(".missing");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.Should().NotHaveFocusAsync());
 
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).Should().NotHaveFocusAsync());
         }
@@ -500,9 +422,6 @@ namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
             var ex = Assert.ThrowsAsync<AssertionException>(async () => await div.Should().BeEditableAsync());
             Assert.AreEqual("Expected element to be editable.", ex.Message);
 
-            var missing = await Page.QuerySelectorAsync(".missing");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.Should().BeEditableAsync());
-
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).Should().BeEditableAsync());
         }
 
@@ -517,9 +436,6 @@ namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
             div = await Page.QuerySelectorAsync("#foo");
             var ex = Assert.ThrowsAsync<AssertionException>(async () => await div.Should().NotBeEditableAsync());
             Assert.AreEqual("Expected element not to be editable.", ex.Message);
-
-            var missing = await Page.QuerySelectorAsync(".missing");
-            Assert.ThrowsAsync<ArgumentNullException>(async () => await missing.Should().NotBeEditableAsync());
 
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).Should().NotBeEditableAsync());
         }
