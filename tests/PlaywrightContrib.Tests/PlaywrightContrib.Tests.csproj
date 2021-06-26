@@ -17,9 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Playwright.Contrib.Extensions\Playwright.Contrib.Extensions.csproj" />
-    <ProjectReference Include="..\..\src\Playwright.Contrib.FluentAssertions\Playwright.Contrib.FluentAssertions.csproj" />
-    <ProjectReference Include="..\..\src\Playwright.Contrib.PageObjects\Playwright.Contrib.PageObjects.csproj" />
+    <ProjectReference Include="..\..\src\PlaywrightContrib.Extensions\PlaywrightContrib.Extensions.csproj" />
+    <ProjectReference Include="..\..\src\PlaywrightContrib.FluentAssertions\PlaywrightContrib.FluentAssertions.csproj" />
+    <ProjectReference Include="..\..\src\PlaywrightContrib.PageObjects\PlaywrightContrib.PageObjects.csproj" />
   </ItemGroup>
 
 </Project>

@@ -18,7 +18,7 @@
     <PackageId>Playwright.Contrib.FluentAssertions</PackageId>
     <PackageProjectUrl>https://github.com/hlaueriksson/playwright-dotnet-contrib</PackageProjectUrl>
     <PackageIcon>icon.png</PackageIcon>
-    <PackageReadmeFile>Playwright.Contrib.FluentAssertions.md</PackageReadmeFile>
+    <PackageReadmeFile>PlaywrightContrib.FluentAssertions.md</PackageReadmeFile>
     <PackageTags>headless;chrome;firefox;webkit;playwright;test;testing;automation;assert</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
@@ -26,7 +26,7 @@
 
   <ItemGroup>
     <None Include="..\..\icon.png" Link="icon.png" Pack="true" PackagePath="\" />
-    <None Include="..\..\Playwright.Contrib.FluentAssertions.md" Pack="true" PackagePath="\" />
+    <None Include="..\..\PlaywrightContrib.FluentAssertions.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
   <Import Project="../../Analyzers.props" />
@@ -36,7 +36,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Playwright.Contrib.Extensions\Playwright.Contrib.Extensions.csproj" />
+    <ProjectReference Include="..\PlaywrightContrib.Extensions\PlaywrightContrib.Extensions.csproj" />
   </ItemGroup>
 
 </Project>

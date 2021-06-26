@@ -34,4 +34,4 @@ jobs:
       run: |
         npm i -D playwright
     - name: Test
-      run: dotnet test ./tests/Playwright.Contrib.Tests --no-build --verbosity normal
+      run: dotnet test ./tests/PlaywrightContrib.Tests --no-build --verbosity normal

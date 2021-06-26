@@ -1,1 +1,1 @@
-dotnet test .\tests\Playwright.Contrib.Tests\Playwright.Contrib.Tests.csproj
+dotnet test .\tests\PlaywrightContrib.Tests\PlaywrightContrib.Tests.csproj
