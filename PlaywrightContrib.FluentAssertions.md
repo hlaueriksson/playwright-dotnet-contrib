@@ -1,12 +1,12 @@
-### Playwright.Contrib.FluentAssertions 🎭🧪
+### PlaywrightContrib.FluentAssertions 🎭🧪
 
 [![build](https://github.com/hlaueriksson/playwright-dotnet-contrib/actions/workflows/build.yml/badge.svg)](https://github.com/hlaueriksson/playwright-dotnet-contrib/actions/workflows/build.yml) [![CodeFactor](https://codefactor.io/repository/github/hlaueriksson/playwright-dotnet-contrib/badge)](https://codefactor.io/repository/github/hlaueriksson/playwright-dotnet-contrib)
 
-`Playwright.Contrib.FluentAssertions` is a library for writing tests with [`FluentAssertions`](https://www.nuget.org/packages/FluentAssertions/) against the Playwright API.
+`PlaywrightContrib.FluentAssertions` is a library for writing tests with [`FluentAssertions`](https://www.nuget.org/packages/FluentAssertions/) against the Playwright API.
 
 ```cs
 using Microsoft.Playwright;
-using Microsoft.Playwright.Contrib.FluentAssertions;
+using PlaywrightContrib.FluentAssertions;
 
 var playwright = await Playwright.CreateAsync();
 var browser = await playwright.Chromium.LaunchAsync();

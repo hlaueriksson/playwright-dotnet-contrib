@@ -1,14 +1,14 @@
-### Playwright.Contrib.PageObjects 🎭🧪
+### PlaywrightContrib.PageObjects 🎭🧪
 
 [![build](https://github.com/hlaueriksson/playwright-dotnet-contrib/actions/workflows/build.yml/badge.svg)](https://github.com/hlaueriksson/playwright-dotnet-contrib/actions/workflows/build.yml) [![CodeFactor](https://codefactor.io/repository/github/hlaueriksson/playwright-dotnet-contrib/badge)](https://codefactor.io/repository/github/hlaueriksson/playwright-dotnet-contrib)
 
-`Playwright.Contrib.PageObjects` is a library for writing browser tests using the _page object pattern_ with the Playwright API.
+`PlaywrightContrib.PageObjects` is a library for writing browser tests using the _page object pattern_ with the Playwright API.
 
 ```cs
 using FluentAssertions;
 using Microsoft.Playwright;
-using Microsoft.Playwright.Contrib.FluentAssertions;
-using Microsoft.Playwright.Contrib.PageObjects;
+using PlaywrightContrib.FluentAssertions;
+using PlaywrightContrib.PageObjects;
 using System.Threading.Tasks;
 
 var playwright = await Playwright.CreateAsync();

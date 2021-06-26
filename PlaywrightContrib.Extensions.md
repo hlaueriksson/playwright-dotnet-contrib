@@ -1,13 +1,13 @@
-### Playwright.Contrib.Extensions 🎭🧪
+### PlaywrightContrib.Extensions 🎭🧪
 
 [![build](https://github.com/hlaueriksson/playwright-dotnet-contrib/actions/workflows/build.yml/badge.svg)](https://github.com/hlaueriksson/playwright-dotnet-contrib/actions/workflows/build.yml) [![CodeFactor](https://codefactor.io/repository/github/hlaueriksson/playwright-dotnet-contrib/badge)](https://codefactor.io/repository/github/hlaueriksson/playwright-dotnet-contrib)
 
-`Playwright.Contrib.Extensions` is a library with extension methods for writing tests with the Playwright API.
+`PlaywrightContrib.Extensions` is a library with extension methods for writing tests with the Playwright API.
 
 ```cs
 using FluentAssertions;
 using Microsoft.Playwright;
-using Microsoft.Playwright.Contrib.Extensions;
+using PlaywrightContrib.Extensions;
 
 var playwright = await Playwright.CreateAsync();
 var browser = await playwright.Chromium.LaunchAsync();
