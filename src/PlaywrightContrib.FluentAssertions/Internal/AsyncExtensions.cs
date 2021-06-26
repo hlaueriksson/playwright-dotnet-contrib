@@ -2,7 +2,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Microsoft.Playwright.Contrib.FluentAssertions.Internal
+namespace PlaywrightContrib.FluentAssertions.Internal
 {
     internal static class AsyncExtensions
     {

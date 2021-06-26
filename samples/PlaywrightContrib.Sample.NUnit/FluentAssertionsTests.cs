@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Microsoft.Playwright;
-using Microsoft.Playwright.Contrib.FluentAssertions;
 using NUnit.Framework;
+using PlaywrightContrib.FluentAssertions;
 
 namespace PlaywrightContrib.Sample.NUnit
 {

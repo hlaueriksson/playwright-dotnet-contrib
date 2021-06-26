@@ -1,9 +1,10 @@
 using System;
 using FluentAssertions.Formatting;
+using Microsoft.Playwright;
 using Microsoft.Playwright.Contrib.Extensions;
-using Microsoft.Playwright.Contrib.FluentAssertions.Internal;
+using PlaywrightContrib.FluentAssertions.Internal;
 
-namespace Microsoft.Playwright.Contrib.FluentAssertions
+namespace PlaywrightContrib.FluentAssertions
 {
     /// <summary>
     /// Represents a strategy for formatting an <see cref="IElementHandle"/> into a human-readable string representation.

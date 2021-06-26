@@ -1,4 +1,6 @@
-namespace Microsoft.Playwright.Contrib.FluentAssertions
+using Microsoft.Playwright;
+
+namespace PlaywrightContrib.FluentAssertions
 {
     /// <summary>
     /// Contains extension methods for custom assertions in unit tests.

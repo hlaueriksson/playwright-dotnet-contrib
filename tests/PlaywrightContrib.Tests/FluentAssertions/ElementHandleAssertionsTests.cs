@@ -1,9 +1,9 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.Playwright;
-using Microsoft.Playwright.Contrib.FluentAssertions;
 using Microsoft.Playwright.NUnit;
 using NUnit.Framework;
+using PlaywrightContrib.FluentAssertions;
 
 namespace PlaywrightContrib.Tests.FluentAssertions
 {

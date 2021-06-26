@@ -1,7 +1,8 @@
 using System;
 using FluentAssertions.Formatting;
+using Microsoft.Playwright;
 
-namespace Microsoft.Playwright.Contrib.FluentAssertions
+namespace PlaywrightContrib.FluentAssertions
 {
     /// <summary>
     /// Represents a strategy for formatting an <see cref="IPage"/> into a human-readable string representation.

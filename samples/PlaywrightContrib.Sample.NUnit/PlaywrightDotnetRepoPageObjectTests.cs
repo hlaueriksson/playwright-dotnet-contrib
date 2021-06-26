@@ -2,8 +2,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.Playwright;
-using Microsoft.Playwright.Contrib.FluentAssertions;
 using NUnit.Framework;
+using PlaywrightContrib.FluentAssertions;
 using PlaywrightContrib.PageObjects;
 
 namespace PlaywrightContrib.Sample.NUnit

@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.Playwright;
 using Microsoft.Playwright.Contrib.Extensions;
-using Microsoft.Playwright.Contrib.FluentAssertions;
 using NUnit.Framework;
+using PlaywrightContrib.FluentAssertions;
 
 namespace PlaywrightContrib.Sample.NUnit
 {

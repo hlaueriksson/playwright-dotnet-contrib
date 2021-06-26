@@ -1,6 +1,7 @@
 using System;
+using Microsoft.Playwright;
 
-namespace Microsoft.Playwright.Contrib.FluentAssertions.Internal
+namespace PlaywrightContrib.FluentAssertions.Internal
 {
     internal static class GuardExtensions
     {

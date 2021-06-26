@@ -2,10 +2,11 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using FluentAssertions.Execution;
 using FluentAssertions.Primitives;
+using Microsoft.Playwright;
 using Microsoft.Playwright.Contrib.Extensions;
-using Microsoft.Playwright.Contrib.FluentAssertions.Internal;
+using PlaywrightContrib.FluentAssertions.Internal;
 
-namespace Microsoft.Playwright.Contrib.FluentAssertions
+namespace PlaywrightContrib.FluentAssertions
 {
     /// <summary>
     /// Contains a number of methods to assert that an <see cref="IElementHandle"/> is in the expected state.
