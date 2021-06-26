@@ -16,9 +16,9 @@ It provides a convenient way to write readable and reliable browser tests in C#
 ## Content<!-- omit in toc -->
 
 - [Introduction](#introduction)
-- [Playwright.Contrib.Extensions](#playwrightcontribextensions)
-- [Playwright.Contrib.FluentAssertions](#playwrightcontribfluentassertions)
-- [Playwright.Contrib.PageObjects](#playwrightcontribpageobjects)
+- [PlaywrightContrib.Extensions](#playwrightcontribextensions)
+- [PlaywrightContrib.FluentAssertions](#playwrightcontribfluentassertions)
+- [PlaywrightContrib.PageObjects](#playwrightcontribpageobjects)
 - [Samples](#samples)
 - [Attribution](#attribution)
 
@@ -28,15 +28,15 @@ It provides a convenient way to write readable and reliable browser tests in C#
 
 Playwright Contributions consists of a few libraries that helps you write browser automation tests:
 
-* `Playwright.Contrib.Extensions`
-* `Playwright.Contrib.FluentAssertions`
-* `Playwright.Contrib.PageObjects`
+* `PlaywrightContrib.Extensions`
+* `PlaywrightContrib.FluentAssertions`
+* `PlaywrightContrib.PageObjects`
 
 These libraries contains _extension methods_ to the Playwright API and they are test framework agnostic.
 
-## Playwright.Contrib.Extensions
+## PlaywrightContrib.Extensions
 
-`Playwright.Contrib.Extensions` is a library with extension methods for writing tests with the Playwright API.
+`PlaywrightContrib.Extensions` is a library with extension methods for writing tests with the Playwright API.
 
 ### Extensions for `IPage`<!-- omit in toc -->
 
@@ -89,9 +89,9 @@ Query:
 * `QuerySelectorAllWithContentAsync`
 * `QuerySelectorWithContentAsync`
 
-## Playwright.Contrib.FluentAssertions
+## PlaywrightContrib.FluentAssertions
 
-`Playwright.Contrib.FluentAssertions` is a library for writing tests with [`FluentAssertions`](https://github.com/fluentassertions/fluentassertions) against the Playwright API.
+`PlaywrightContrib.FluentAssertions` is a library for writing tests with [`FluentAssertions`](https://github.com/fluentassertions/fluentassertions) against the Playwright API.
 
 *Fluent Assertions* offers a very extensive set of extension methods that allow you to more naturally specify the expected outcome of a TDD or BDD-style unit tests.
 
@@ -175,9 +175,9 @@ State:
 * `NotExist`
 * `NotHaveFocusAsync`
 
-## Playwright.Contrib.PageObjects
+## PlaywrightContrib.PageObjects
 
-`Playwright.Contrib.PageObjects` is a library for writing browser tests using the _page object pattern_ with the Playwright API.
+`PlaywrightContrib.PageObjects` is a library for writing browser tests using the _page object pattern_ with the Playwright API.
 
 ### Page Objects<!-- omit in toc -->
 
@@ -298,16 +298,18 @@ Examples are written with these test frameworks:
 - [ ] ~~SpecFlow~~
 - [ ] ~~Xunit~~
 
-This is an example with `NUnit` and `Playwright.Contrib.FluentAssertions`:
+This is an example with `NUnit` and `PlaywrightContrib.FluentAssertions`:
 
 ```csharp
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Playwright.Contrib.Extensions;
-using Microsoft.Playwright.Contrib.FluentAssertions;
+using FluentAssertions;
+using Microsoft.Playwright;
 using NUnit.Framework;
+using PlaywrightContrib.Extensions;
+using PlaywrightContrib.FluentAssertions;
 
-namespace Microsoft.Playwright.Contrib.Sample
+namespace PlaywrightContrib.Sample.NUnit
 {
     public class PlaywrightDotnetRepoTests
     {
@@ -342,7 +344,7 @@ namespace Microsoft.Playwright.Contrib.Sample
             await page.WaitForNavigationAsync();
 
             var repositories = await page.QuerySelectorAllAsync(".repo-list-item");
-            Assert.IsNotEmpty(repositories);
+            repositories.Should().NotBeEmpty();
             var repository = repositories.First();
             await repository.Should().HaveContentAsync("microsoft/playwright-dotnet");
             var text = await repository.QuerySelectorAsync("p");
@@ -352,7 +354,7 @@ namespace Microsoft.Playwright.Contrib.Sample
 
             h1 = await page.QuerySelectorAsync("article > h1");
             await h1.Should().HaveContentAsync("Playwright for .NET");
-            Assert.AreEqual("https://github.com/microsoft/playwright-dotnet", page.Url);
+            page.Url.Should().Be("https://github.com/microsoft/playwright-dotnet");
         }
 
         [Test]
@@ -374,13 +376,13 @@ namespace Microsoft.Playwright.Contrib.Sample
         {
             var page = await Browser.NewPageAsync();
 
-            await page.GotoAsync("https://github.com/microsoft/playwright");
-            var typescriptVersion = await GetLatestReleaseVersion();
-
             await page.GotoAsync("https://github.com/microsoft/playwright-dotnet");
             var dotnetVersion = await GetLatestReleaseVersion();
 
-            Assert.AreEqual(typescriptVersion, dotnetVersion);
+            await page.GotoAsync("https://github.com/microsoft/playwright");
+            var typescriptVersion = await GetLatestReleaseVersion();
+
+            dotnetVersion.Should().BeEquivalentTo(typescriptVersion);
 
             async Task<string> GetLatestReleaseVersion()
             {
@@ -392,15 +394,16 @@ namespace Microsoft.Playwright.Contrib.Sample
 }
 ```
 
-This is an example with `NUnit` and `Playwright.Contrib.PageObjects`:
+This is an example with `NUnit` and `PlaywrightContrib.PageObjects`:
 
 ```csharp
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.Playwright.Contrib.Extensions;
-using Microsoft.Playwright.Contrib.PageObjects;
+using Microsoft.Playwright;
+using PlaywrightContrib.Extensions;
+using PlaywrightContrib.PageObjects;
 
-namespace Microsoft.Playwright.Contrib.Sample
+namespace PlaywrightContrib.Sample.NUnit
 {
     public class GitHubStartPage : PageObject
     {
@@ -494,11 +497,12 @@ namespace Microsoft.Playwright.Contrib.Sample
 using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
-using Microsoft.Playwright.Contrib.FluentAssertions;
-using Microsoft.Playwright.Contrib.PageObjects;
+using Microsoft.Playwright;
 using NUnit.Framework;
+using PlaywrightContrib.FluentAssertions;
+using PlaywrightContrib.PageObjects;
 
-namespace Microsoft.Playwright.Contrib.Sample
+namespace PlaywrightContrib.Sample.NUnit
 {
     public class PlaywrightDotnetRepoPageObjectTests
     {
