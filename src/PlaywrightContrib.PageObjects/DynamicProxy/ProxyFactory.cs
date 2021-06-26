@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using Castle.DynamicProxy;
+using Microsoft.Playwright;
 
-namespace Microsoft.Playwright.Contrib.PageObjects.DynamicProxy
+namespace PlaywrightContrib.PageObjects.DynamicProxy
 {
     internal static class ProxyFactory
     {

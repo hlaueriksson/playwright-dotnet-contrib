@@ -1,6 +1,6 @@
-using Microsoft.Playwright.Contrib.PageObjects;
-using Microsoft.Playwright.Contrib.PageObjects.DynamicProxy;
 using NUnit.Framework;
+using PlaywrightContrib.PageObjects;
+using PlaywrightContrib.PageObjects.DynamicProxy;
 
 namespace PlaywrightContrib.Tests.PageObjects.DynamicProxy
 {

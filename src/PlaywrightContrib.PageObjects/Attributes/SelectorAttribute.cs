@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.Playwright;
 
-namespace Microsoft.Playwright.Contrib.PageObjects
+namespace PlaywrightContrib.PageObjects
 {
     /// <summary>
     /// Represents a selector for a property on a <see cref="PageObject"/> or <see cref="ElementObject"/>.

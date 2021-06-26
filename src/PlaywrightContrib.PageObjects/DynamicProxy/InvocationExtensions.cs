@@ -2,8 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Castle.DynamicProxy;
+using Microsoft.Playwright;
 
-namespace Microsoft.Playwright.Contrib.PageObjects.DynamicProxy
+namespace PlaywrightContrib.PageObjects.DynamicProxy
 {
     internal static class InvocationExtensions
     {

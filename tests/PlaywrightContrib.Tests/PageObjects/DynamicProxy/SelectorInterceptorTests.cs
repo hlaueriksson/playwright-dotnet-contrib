@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Playwright;
-using Microsoft.Playwright.Contrib.PageObjects.DynamicProxy;
 using Microsoft.Playwright.NUnit;
 using NUnit.Framework;
+using PlaywrightContrib.PageObjects.DynamicProxy;
 
 namespace PlaywrightContrib.Tests.PageObjects.DynamicProxy
 {

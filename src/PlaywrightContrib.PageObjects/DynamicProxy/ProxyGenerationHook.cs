@@ -2,7 +2,7 @@ using System;
 using System.Reflection;
 using Castle.DynamicProxy;
 
-namespace Microsoft.Playwright.Contrib.PageObjects.DynamicProxy
+namespace PlaywrightContrib.PageObjects.DynamicProxy
 {
     [Serializable]
     internal class ProxyGenerationHook : IProxyGenerationHook

@@ -1,4 +1,6 @@
-namespace Microsoft.Playwright.Contrib.PageObjects
+using Microsoft.Playwright;
+
+namespace PlaywrightContrib.PageObjects
 {
     /// <summary>
     /// Base class for element objects.

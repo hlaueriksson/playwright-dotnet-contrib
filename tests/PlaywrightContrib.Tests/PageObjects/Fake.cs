@@ -4,7 +4,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Castle.DynamicProxy;
 using Microsoft.Playwright;
-using Microsoft.Playwright.Contrib.PageObjects;
+using PlaywrightContrib.PageObjects;
 
 namespace PlaywrightContrib.Tests.PageObjects
 {

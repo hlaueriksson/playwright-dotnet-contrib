@@ -4,7 +4,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
-namespace Microsoft.Playwright.Contrib.PageObjects.DynamicProxy
+namespace PlaywrightContrib.PageObjects.DynamicProxy
 {
     internal static class ReflectionExtensions
     {

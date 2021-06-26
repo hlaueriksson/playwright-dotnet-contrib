@@ -2,7 +2,6 @@ using FluentAssertions;
 using Microsoft.Playwright;
 using Microsoft.Playwright.Contrib.Extensions;
 using Microsoft.Playwright.Contrib.FluentAssertions;
-using Microsoft.Playwright.Contrib.PageObjects;
 using System.Threading.Tasks;
 
 var playwright = await Playwright.CreateAsync();

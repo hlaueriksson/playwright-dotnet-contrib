@@ -2,9 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Playwright.Contrib.PageObjects.DynamicProxy;
+using Microsoft.Playwright;
+using PlaywrightContrib.PageObjects.DynamicProxy;
 
-namespace Microsoft.Playwright.Contrib.PageObjects
+namespace PlaywrightContrib.PageObjects
 {
     /// <summary>
     /// <see cref="IElementHandle"/> extension methods.

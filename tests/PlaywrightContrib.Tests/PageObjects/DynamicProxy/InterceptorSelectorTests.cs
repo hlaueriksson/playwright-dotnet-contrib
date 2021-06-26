@@ -1,7 +1,7 @@
 using System.Linq;
 using Castle.DynamicProxy;
-using Microsoft.Playwright.Contrib.PageObjects.DynamicProxy;
 using NUnit.Framework;
+using PlaywrightContrib.PageObjects.DynamicProxy;
 
 namespace PlaywrightContrib.Tests.PageObjects.DynamicProxy
 {
