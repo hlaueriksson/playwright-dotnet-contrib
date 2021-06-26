@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Playwright;
-using Microsoft.Playwright.Contrib.Extensions;
+using PlaywrightContrib.Extensions;
 using PlaywrightContrib.PageObjects;
 
 namespace PlaywrightContrib.Sample.NUnit

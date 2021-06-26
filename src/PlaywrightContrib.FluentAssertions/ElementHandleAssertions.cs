@@ -3,7 +3,7 @@ using FluentAssertions;
 using FluentAssertions.Execution;
 using FluentAssertions.Primitives;
 using Microsoft.Playwright;
-using Microsoft.Playwright.Contrib.Extensions;
+using PlaywrightContrib.Extensions;
 using PlaywrightContrib.FluentAssertions.Internal;
 
 namespace PlaywrightContrib.FluentAssertions

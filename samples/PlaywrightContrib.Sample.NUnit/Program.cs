@@ -1,7 +1,7 @@
 using FluentAssertions;
 using Microsoft.Playwright;
-using Microsoft.Playwright.Contrib.Extensions;
 using System.Threading.Tasks;
+using PlaywrightContrib.Extensions;
 
 var playwright = await Playwright.CreateAsync();
 var browser = await playwright.Chromium.LaunchAsync();

@@ -1,6 +1,7 @@
 using System;
+using Microsoft.Playwright;
 
-namespace Microsoft.Playwright.Contrib.Extensions
+namespace PlaywrightContrib.Extensions
 {
     internal static class InternalExtensions
     {

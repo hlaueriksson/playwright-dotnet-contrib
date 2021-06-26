@@ -2,8 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Playwright;
 
-namespace Microsoft.Playwright.Contrib.Extensions
+namespace PlaywrightContrib.Extensions
 {
     /// <summary>
     /// Extension methods for <see cref="IElementHandle"/>.
