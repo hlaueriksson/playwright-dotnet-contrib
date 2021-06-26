@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.Playwright;
 using NUnit.Framework;
 
-namespace Microsoft.Playwright.Documentation
+namespace PlaywrightContrib.Sample.NUnit
 {
     public class Examples
     {

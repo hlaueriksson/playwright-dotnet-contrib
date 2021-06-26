@@ -1,8 +1,9 @@
 using System.Threading.Tasks;
+using Microsoft.Playwright;
 using Microsoft.Playwright.Contrib.FluentAssertions;
 using NUnit.Framework;
 
-namespace Microsoft.Playwright.Contrib.Sample
+namespace PlaywrightContrib.Sample.NUnit
 {
     public class FluentAssertionsTests
     {

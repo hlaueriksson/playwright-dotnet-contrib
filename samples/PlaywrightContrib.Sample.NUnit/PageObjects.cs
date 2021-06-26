@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.Playwright;
 using Microsoft.Playwright.Contrib.Extensions;
 using Microsoft.Playwright.Contrib.PageObjects;
 
-namespace Microsoft.Playwright.Contrib.Sample
+namespace PlaywrightContrib.Sample.NUnit
 {
     public class GitHubStartPage : PageObject
     {

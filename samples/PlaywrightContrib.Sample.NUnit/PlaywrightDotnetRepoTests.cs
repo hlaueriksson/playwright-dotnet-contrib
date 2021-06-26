@@ -1,11 +1,12 @@
 using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
+using Microsoft.Playwright;
 using Microsoft.Playwright.Contrib.Extensions;
 using Microsoft.Playwright.Contrib.FluentAssertions;
 using NUnit.Framework;
 
-namespace Microsoft.Playwright.Contrib.Sample
+namespace PlaywrightContrib.Sample.NUnit
 {
     public class PlaywrightDotnetRepoTests
     {
