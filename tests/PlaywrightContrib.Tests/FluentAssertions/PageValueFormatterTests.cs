@@ -4,7 +4,7 @@ using Microsoft.Playwright.Contrib.FluentAssertions;
 using Microsoft.Playwright.NUnit;
 using NUnit.Framework;
 
-namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
+namespace PlaywrightContrib.Tests.FluentAssertions
 {
     [Parallelizable(ParallelScope.Self)]
     public class PageValueFormatterTests : PageTest

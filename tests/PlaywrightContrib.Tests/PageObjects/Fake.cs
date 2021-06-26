@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
 using Castle.DynamicProxy;
+using Microsoft.Playwright;
 using Microsoft.Playwright.Contrib.PageObjects;
 
-namespace Microsoft.Playwright.Contrib.Tests.PageObjects
+namespace PlaywrightContrib.Tests.PageObjects
 {
     public static class Fake
     {

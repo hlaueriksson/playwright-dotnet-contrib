@@ -1,10 +1,11 @@
 using System;
 using System.Threading.Tasks;
+using Microsoft.Playwright;
 using Microsoft.Playwright.Contrib.Extensions;
 using Microsoft.Playwright.NUnit;
 using NUnit.Framework;
 
-namespace Microsoft.Playwright.Contrib.Tests.Extensions
+namespace PlaywrightContrib.Tests.Extensions
 {
     [Parallelizable(ParallelScope.Self)]
     public class ElementHandleAttributeExtensionsTests : PageTest

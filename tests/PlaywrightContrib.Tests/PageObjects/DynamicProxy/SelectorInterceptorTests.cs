@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.Playwright;
 using Microsoft.Playwright.Contrib.PageObjects.DynamicProxy;
 using Microsoft.Playwright.NUnit;
 using NUnit.Framework;
 
-namespace Microsoft.Playwright.Contrib.Tests.PageObjects.DynamicProxy
+namespace PlaywrightContrib.Tests.PageObjects.DynamicProxy
 {
     [Parallelizable(ParallelScope.Self)]
     public class SelectorInterceptorTests : PageTest

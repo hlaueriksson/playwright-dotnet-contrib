@@ -3,7 +3,7 @@ using Castle.DynamicProxy;
 using Microsoft.Playwright.Contrib.PageObjects.DynamicProxy;
 using NUnit.Framework;
 
-namespace Microsoft.Playwright.Contrib.Tests.PageObjects.DynamicProxy
+namespace PlaywrightContrib.Tests.PageObjects.DynamicProxy
 {
     public class InterceptorSelectorTests
     {

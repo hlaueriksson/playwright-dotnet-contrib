@@ -1,10 +1,11 @@
 using System;
 using System.Threading.Tasks;
+using Microsoft.Playwright;
 using Microsoft.Playwright.Contrib.FluentAssertions;
 using Microsoft.Playwright.NUnit;
 using NUnit.Framework;
 
-namespace Microsoft.Playwright.Contrib.Tests.FluentAssertions
+namespace PlaywrightContrib.Tests.FluentAssertions
 {
     [Parallelizable(ParallelScope.Self)]
     public class ElementHandleAssertionsTests : PageTest
