@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net5.0</TargetFrameworks>
+    <Nullable>enable</Nullable>
+    <Version>1.0.0</Version>
+    <PackageReleaseNotes>
+    </PackageReleaseNotes>
+    <Authors>Henrik Lau Eriksson</Authors>
+    <Description>Contributions to Playwright for .NET 🎭🧪
+
+✔️ PlaywrightContrib.FluentAssertions is a library for writing tests with FluentAssertions against the Playwright API
+✔️ It provides a convenient way to write readable and robust browser tests in .NET
+✔️ Playwright is built to enable cross-browser web automation that is ever-green, capable, reliable and fast
+✔️ FluentAssertions offers a very extensive set of extension methods that allow you to more naturally specify the expected outcome of a TDD or BDD-style unit tests
+    </Description>
+    <PackageId>PlaywrightContrib.FluentAssertions</PackageId>
+    <PackageProjectUrl>https://github.com/hlaueriksson/playwright-dotnet-contrib</PackageProjectUrl>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageReadmeFile>PlaywrightContrib.FluentAssertions.md</PackageReadmeFile>
+    <PackageTags>headless;chrome;firefox;webkit;playwright;test;testing;automation;assert</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\icon.png" Link="icon.png" Pack="true" PackagePath="\" />
+    <None Include="..\..\PlaywrightContrib.FluentAssertions.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <Import Project="../../Analyzers.props" />
+
+  <ItemGroup>
+    <PackageReference Include="FluentAssertions" Version="5.10.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PlaywrightContrib.Extensions\PlaywrightContrib.Extensions.csproj" />
+  </ItemGroup>
+
+</Project>
