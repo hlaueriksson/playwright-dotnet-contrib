@@ -3,6 +3,10 @@
 [![build](https://github.com/hlaueriksson/playwright-dotnet-contrib/actions/workflows/build.yml/badge.svg)](https://github.com/hlaueriksson/playwright-dotnet-contrib/actions/workflows/build.yml)
 [![CodeFactor](https://www.codefactor.io/repository/github/hlaueriksson/playwright-dotnet-contrib/badge)](https://www.codefactor.io/repository/github/hlaueriksson/playwright-dotnet-contrib)
 
+[![PlaywrightContrib.Extensions](https://img.shields.io/nuget/v/PlaywrightContrib.Extensions.svg?label=PlaywrightContrib.Extensions)](https://www.nuget.org/packages/PlaywrightContrib.Extensions)
+[![PlaywrightContrib.FluentAssertions](https://img.shields.io/nuget/v/PlaywrightContrib.FluentAssertions.svg?label=PlaywrightContrib.FluentAssertions)](https://www.nuget.org/packages/PlaywrightContrib.FluentAssertions)
+[![PlaywrightContrib.PageObjects](https://img.shields.io/nuget/v/PlaywrightContrib.PageObjects.svg?label=PlaywrightContrib.PageObjects)](https://www.nuget.org/packages/PlaywrightContrib.PageObjects)
+
 Contributions to Playwright for .NET 🎭🧪
 
 Playwright Contributions offers extensions to Playwright for .NET
