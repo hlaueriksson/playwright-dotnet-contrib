@@ -42,7 +42,7 @@ namespace PlaywrightContrib.Tests.PageObjects.Extensions
         public async Task WaitForNavigationAsync_returns_proxy_of_type()
         {
             await Page.GotoAsync("https://github.com/microsoft/playwright-dotnet");
-            await Page.ClickAsync("h1 > strong > a");
+            await Page.ClickAsync("h2 > strong > a");
             var result = await Page.WaitForNavigationAsync<FakePageObject>();
             Assert.NotNull(result);
             Assert.NotNull(result.Page);
@@ -54,18 +54,18 @@ namespace PlaywrightContrib.Tests.PageObjects.Extensions
         public async Task RunAndWaitForNavigationAsync_returns_proxy_of_type()
         {
             await Page.GotoAsync("https://github.com/microsoft/playwright-dotnet");
-            var result = await Page.RunAndWaitForNavigationAsync<FakePageObject>(async () => await Page.ClickAsync("h1 > strong > a"));
+            var result = await Page.RunAndWaitForNavigationAsync<FakePageObject>(async () => await Page.ClickAsync("h2 > strong > a"));
             Assert.NotNull(result);
             Assert.NotNull(result.Page);
 
-            Assert.ThrowsAsync<TimeoutException>(async () => await Page.RunAndWaitForNavigationAsync<FakePageObject>(async () => await Page.ClickAsync("h1 > strong > a"), new PageRunAndWaitForNavigationOptions { Timeout = 1 }));
+            Assert.ThrowsAsync<TimeoutException>(async () => await Page.RunAndWaitForNavigationAsync<FakePageObject>(async () => await Page.ClickAsync("h2 > strong > a"), new PageRunAndWaitForNavigationOptions { Timeout = 1 }));
         }
 
         [Test, Timeout(TestConstants.DefaultTestTimeout)]
         public async Task WaitForResponseAsync_returns_proxy_of_type()
         {
             await Page.GotoAsync("https://github.com/microsoft/playwright-dotnet");
-            await Page.ClickAsync("a span[data-content='Actions']");
+            await Page.ClickAsync("#actions-tab");
             var result = await Page.WaitForResponseAsync<FakePageObject>(response => response.Url == "https://api.github.com/_private/browser/stats" && response.Status == 200);
             Assert.NotNull(result);
             Assert.NotNull(result.Page);
@@ -77,7 +77,7 @@ namespace PlaywrightContrib.Tests.PageObjects.Extensions
         public async Task RunAndWaitForResponseAsync_returns_proxy_of_type()
         {
             await Page.GotoAsync("https://github.com/microsoft/playwright-dotnet");
-            var result = await Page.RunAndWaitForResponseAsync<FakePageObject>(async () => await Page.ClickAsync("a span[data-content='Actions']"), response => response.Url == "https://api.github.com/_private/browser/stats" && response.Status == 200);
+            var result = await Page.RunAndWaitForResponseAsync<FakePageObject>(async () => await Page.ClickAsync("#actions-tab"), response => response.Url == "https://api.github.com/_private/browser/stats" && response.Status == 200);
             Assert.NotNull(result);
             Assert.NotNull(result.Page);
 

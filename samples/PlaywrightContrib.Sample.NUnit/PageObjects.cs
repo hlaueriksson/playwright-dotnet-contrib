@@ -67,7 +67,7 @@ namespace PlaywrightContrib.Sample.NUnit
         [Selector("article > h1")]
         public virtual Task<IElementHandle> Heading { get; }
 
-        [Selector("a span[data-content='Actions']")]
+        [Selector("#actions-tab")]
         public virtual Task<IElementHandle> Actions { get; }
 
         public async Task<GitHubActionsPage> GotoActionsAsync()

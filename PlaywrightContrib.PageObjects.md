@@ -26,10 +26,10 @@ latestStatus.Should().Be("This workflow run completed successfully.");
 
 public class GitHubRepoPage : PageObject
 {
-    [Selector("h1 strong a")]
+    [Selector("h2 strong a")]
     public virtual Task<IElementHandle> Link { get; }
 
-    [Selector("a span[data-content='Actions']")]
+    [Selector("#actions-tab")]
     public virtual Task<IElementHandle> Actions { get; }
 
     public async Task<GitHubActionsPage> GotoActionsAsync()

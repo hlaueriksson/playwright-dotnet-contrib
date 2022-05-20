@@ -16,7 +16,7 @@
 //(await link.HrefAsync()).Should().Be("https://github.com/microsoft/playwright-dotnet");
 //(await page.HasContentAsync("Playwright for .NET is the official language port of Playwright")).Should().BeTrue();
 
-//await page.ClickAsync("a span[data-content='Actions']");
+//await page.ClickAsync("#actions-tab");
 //await page.WaitForNavigationAsync();
 //var latestStatus = await page.QuerySelectorAsync("#partial-actions-workflow-runs .Box-row div[title]");
 //latestStatus.Exists().Should().BeTrue();
@@ -25,12 +25,12 @@
 // PlaywrightContrib.FluentAssertions
 
 //await page.GotoAsync("https://github.com/microsoft/playwright-dotnet");
-//var link = await page.QuerySelectorAsync("h1 strong a");
+//var link = await page.QuerySelectorAsync("h2 strong a");
 //await link.Should().HaveContentAsync("playwright-dotnet");
 //await link.Should().HaveAttributeValueAsync("href", "/microsoft/playwright-dotnet");
 //await page.Should().HaveContentAsync("Playwright for .NET is the official language port of Playwright");
 
-//await page.ClickAsync("a span[data-content='Actions']");
+//await page.ClickAsync("#actions-tab");
 //await page.WaitForNavigationAsync();
 //var latestStatus = await page.QuerySelectorAsync("#partial-actions-workflow-runs .Box-row div[title]");
 //latestStatus.Should().Exist();
@@ -49,10 +49,10 @@
 
 //public class GitHubRepoPage : PageObject
 //{
-//    [Selector("h1 strong a")]
+//    [Selector("h2 strong a")]
 //    public virtual Task<IElementHandle> Link { get; }
 
-//    [Selector("a span[data-content='Actions']")]
+//    [Selector("#actions-tab")]
 //    public virtual Task<IElementHandle> Actions { get; }
 
 //    public async Task<GitHubActionsPage> GotoActionsAsync()

@@ -18,7 +18,7 @@ var link = await page.QuerySelectorWithContentAsync("h1 a", "playwright-dotnet")
 (await link.HrefAsync()).Should().Be("https://github.com/microsoft/playwright-dotnet");
 (await page.HasContentAsync("Playwright for .NET is the official language port of Playwright")).Should().BeTrue();
 
-await page.ClickAsync("a span[data-content='Actions']");
+await page.ClickAsync("#actions-tab");
 await page.WaitForNavigationAsync();
 var latestStatus = await page.QuerySelectorAsync("#partial-actions-workflow-runs .Box-row div[title]");
 latestStatus.Exists().Should().BeTrue();

@@ -61,7 +61,7 @@ namespace PlaywrightContrib.Sample.NUnit
 
             await page.GotoAsync("https://github.com/microsoft/playwright-dotnet");
 
-            await page.ClickAsync("a span[data-content='Actions']");
+            await page.ClickAsync("#actions-tab");
             await page.WaitForNavigationAsync();
 
             var status = await page.QuerySelectorAsync("#partial-actions-workflow-runs .Box-row div[title]");

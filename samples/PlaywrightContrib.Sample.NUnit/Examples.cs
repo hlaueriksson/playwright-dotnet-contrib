@@ -94,7 +94,7 @@ namespace PlaywrightContrib.Sample.NUnit
             await page.GotoAsync("https://github.com/microsoft/playwright-dotnet");
             await Task.WhenAll(eventTask, loadStateTask);
 
-            await page.ClickAsync("h1 > strong > a");
+            await page.ClickAsync("h2 > strong > a");
             await page.WaitForNavigationAsync(new PageWaitForNavigationOptions { Timeout = timeout });
 
             await page.WaitForFunctionAsync("() => window.location.href === 'https://github.com/microsoft/playwright-dotnet'", timeout);
@@ -131,6 +131,9 @@ namespace PlaywrightContrib.Sample.NUnit
 
             await page.SetViewportSizeAsync(1024, 1024); // fix
 
+            // accept cookies
+            await page.ClickAsync("#ez-accept-all");
+
             // input / text
             await page.TypeAsync("input[name='firstname']", "Playwright");
 
@@ -145,7 +148,7 @@ namespace PlaywrightContrib.Sample.NUnit
 
             // input / file
             var file = await page.QuerySelectorAsync("#photo");
-            await file.SetInputFilesAsync(@"c:\temp\test.png");
+            await file.SetInputFilesAsync(@"..\..\..\..\..\icon.png");
 
             // button
             await page.ClickAsync("#submit");
@@ -178,22 +181,22 @@ namespace PlaywrightContrib.Sample.NUnit
         {
             var page = await Page();
             await page.GotoAsync("https://github.com/microsoft/playwright-dotnet");
-            var element = await page.QuerySelectorAsync("h1 > strong > a");
+            var element = await page.QuerySelectorAsync("h2 > strong > a");
 
             var outerHtml = await element.EvaluateAsync<string>("e => e.outerHTML");
             var innerText = await element.EvaluateAsync<string>("e => e.innerText");
             var url = await element.EvaluateAsync<string>("e => e.getAttribute('href')");
             var hasContent = await element.EvaluateAsync<bool>("(e, value) => e.textContent.includes(value)", "playwright-dotnet");
-            Assert.AreEqual("<a data-pjax=\"#js-repo-pjax-container\" href=\"/microsoft/playwright-dotnet\">playwright-dotnet</a>", outerHtml);
+            Assert.AreEqual("<a data-pjax=\"#repo-content-pjax-container\" href=\"/microsoft/playwright-dotnet\">playwright-dotnet</a>", outerHtml);
             Assert.AreEqual("playwright-dotnet", innerText);
             Assert.AreEqual("/microsoft/playwright-dotnet", url);
             Assert.True(hasContent);
 
-            outerHtml = await page.EvalOnSelectorAsync<string>("h1 > strong > a", "e => e.outerHTML");
-            innerText = await page.EvalOnSelectorAsync<string>("h1 > strong > a", "e => e.innerText");
-            url = await page.EvalOnSelectorAsync<string>("h1 > strong > a", "e => e.getAttribute('href')");
-            hasContent = await page.EvalOnSelectorAsync<bool>("h1 > strong > a", "(e, value) => e.textContent.includes(value)", "playwright-dotnet");
-            Assert.AreEqual("<a data-pjax=\"#js-repo-pjax-container\" href=\"/microsoft/playwright-dotnet\">playwright-dotnet</a>", outerHtml);
+            outerHtml = await page.EvalOnSelectorAsync<string>("h2 > strong > a", "e => e.outerHTML");
+            innerText = await page.EvalOnSelectorAsync<string>("h2 > strong > a", "e => e.innerText");
+            url = await page.EvalOnSelectorAsync<string>("h2 > strong > a", "e => e.getAttribute('href')");
+            hasContent = await page.EvalOnSelectorAsync<bool>("h2 > strong > a", "(e, value) => e.textContent.includes(value)", "playwright-dotnet");
+            Assert.AreEqual("<a data-pjax=\"#repo-content-pjax-container\" href=\"/microsoft/playwright-dotnet\">playwright-dotnet</a>", outerHtml);
             Assert.AreEqual("playwright-dotnet", innerText);
             Assert.AreEqual("/microsoft/playwright-dotnet", url);
             Assert.True(hasContent);
@@ -202,7 +205,7 @@ namespace PlaywrightContrib.Sample.NUnit
             innerText = await page.EvaluateAsync<string>("e => e.innerText", element);
             url = await page.EvaluateAsync<string>("e => e.getAttribute('href')", element);
             hasContent = await page.EvaluateAsync<bool>($"e => e.textContent.includes({"'playwright-dotnet'"})", element);
-            Assert.AreEqual("<a data-pjax=\"#js-repo-pjax-container\" href=\"/microsoft/playwright-dotnet\">playwright-dotnet</a>", outerHtml);
+            Assert.AreEqual("<a data-pjax=\"#repo-content-pjax-container\" href=\"/microsoft/playwright-dotnet\">playwright-dotnet</a>", outerHtml);
             Assert.AreEqual("playwright-dotnet", innerText);
             Assert.AreEqual("/microsoft/playwright-dotnet", url);
             Assert.True(hasContent);
@@ -210,7 +213,7 @@ namespace PlaywrightContrib.Sample.NUnit
             outerHtml = await (await element.GetPropertyAsync("outerHTML")).JsonValueAsync<string>();
             innerText = await (await element.GetPropertyAsync("innerText")).JsonValueAsync<string>();
             url = await (await element.GetPropertyAsync("href")).JsonValueAsync<string>();
-            Assert.AreEqual("<a data-pjax=\"#js-repo-pjax-container\" href=\"/microsoft/playwright-dotnet\">playwright-dotnet</a>", outerHtml);
+            Assert.AreEqual("<a data-pjax=\"#repo-content-pjax-container\" href=\"/microsoft/playwright-dotnet\">playwright-dotnet</a>", outerHtml);
             Assert.AreEqual("playwright-dotnet", innerText);
             Assert.AreEqual("https://github.com/microsoft/playwright-dotnet", url);
         }
