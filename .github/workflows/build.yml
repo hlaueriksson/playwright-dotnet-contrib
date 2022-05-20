@@ -16,22 +16,12 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.x
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 3.1.x
+        dotnet-version: 6.0.x
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
     - name: Setup Playwright
-      run: |
-        dotnet tool install -g Microsoft.Playwright.CLI
-        npx playwright install-deps chromium
-    # note this step is needed because the latest chromium is not being installed with the above commands
-    - name: Ensure latest Chromium
-      run: |
-        npm i -D playwright
+      run: pwsh ./tests/PlaywrightContrib.Tests/bin/Debug/net6.0/playwright.ps1 install
     - name: Test
       run: dotnet test ./tests/PlaywrightContrib.Tests --no-build --verbosity normal
