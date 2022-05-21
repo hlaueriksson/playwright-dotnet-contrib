@@ -28,7 +28,7 @@ namespace PlaywrightContrib.PageObjects.DynamicProxy
 #pragma warning restore CA2008 // Do not create tasks without passing a TaskScheduler
         }
 
-        private async Task InterceptAsync(IInvocation invocation)
+        private static async Task InterceptAsync(IInvocation invocation)
         {
             invocation.ReturnValue = await invocation.GetReturnValueAsync().ConfigureAwait(false);
         }

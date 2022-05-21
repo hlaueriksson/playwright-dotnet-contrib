@@ -16,7 +16,9 @@ namespace PlaywrightContrib.FluentAssertions.Internal
 
         internal static T Result<T>(this Task<T> task)
         {
+#pragma warning disable VSTHRD003 // Avoid awaiting foreign Tasks
             return AsyncExtensions.RunSync(() => task);
+#pragma warning restore VSTHRD003 // Avoid awaiting foreign Tasks
         }
 
         private static TResult RunSync<TResult>(Func<Task<TResult>> task)
