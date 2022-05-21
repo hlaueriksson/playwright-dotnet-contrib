@@ -32,9 +32,9 @@ It provides a convenient way to write readable and reliable browser tests in C#
 
 Playwright Contributions consists of a few libraries that helps you write browser automation tests:
 
-* `PlaywrightContrib.Extensions`
-* `PlaywrightContrib.FluentAssertions`
-* `PlaywrightContrib.PageObjects`
+- `PlaywrightContrib.Extensions`
+- `PlaywrightContrib.FluentAssertions`
+- `PlaywrightContrib.PageObjects`
 
 These libraries contains _extension methods_ to the Playwright API and they are test framework agnostic.
 
@@ -46,52 +46,52 @@ These libraries contains _extension methods_ to the Playwright API and they are 
 
 Attribute:
 
-* `GetAttributeOrDefaultAsync`
+- `GetAttributeOrDefaultAsync`
 
 Evaluation:
 
-* `HasContentAsync`
-* `HasTitleAsync`
+- `HasContentAsync`
+- `HasTitleAsync`
 
 Query:
 
-* `QuerySelectorAllWithContentAsync`
-* `QuerySelectorWithContentAsync`
+- `QuerySelectorAllWithContentAsync`
+- `QuerySelectorWithContentAsync`
 
 ### Extensions for `IElementHandle`<!-- omit in toc -->
 
 Attribute:
 
-* `ClassListAsync`
-* `ClassNameAsync`
-* `GetAttributeOrDefaultAsync`
-* `HrefAsync`
-* `IdAsync`
-* `NameAsync`
-* `SrcAsync`
-* `ValueAsync`
+- `ClassListAsync`
+- `ClassNameAsync`
+- `GetAttributeOrDefaultAsync`
+- `HrefAsync`
+- `IdAsync`
+- `NameAsync`
+- `SrcAsync`
+- `ValueAsync`
 
 Content:
 
-* `OuterHTMLAsync`
+- `OuterHTMLAsync`
 
 Evaluation:
 
-* `Exists`
-* `HasAttributeAsync`
-* `HasAttributeValueAsync`
-* `HasClassAsync`
-* `HasContentAsync`
-* `HasFocusAsync`
-* `HasValueAsync`
-* `IsReadOnlyAsync`
-* `IsRequiredAsync`
-* `IsSelectedAsync`
+- `Exists`
+- `HasAttributeAsync`
+- `HasAttributeValueAsync`
+- `HasClassAsync`
+- `HasContentAsync`
+- `HasFocusAsync`
+- `HasValueAsync`
+- `IsReadOnlyAsync`
+- `IsRequiredAsync`
+- `IsSelectedAsync`
 
 Query:
 
-* `QuerySelectorAllWithContentAsync`
-* `QuerySelectorWithContentAsync`
+- `QuerySelectorAllWithContentAsync`
+- `QuerySelectorWithContentAsync`
 
 ## PlaywrightContrib.FluentAssertions
 
@@ -103,81 +103,81 @@ Query:
 
 Attribute:
 
-* `HaveElementAttributeAsync`
-* `HaveElementAttributeValueAsync`
-* `NotHaveElementAttributeAsync`
-* `NotHaveElementAttributeValueAsync`
+- `HaveElementAttributeAsync`
+- `HaveElementAttributeValueAsync`
+- `NotHaveElementAttributeAsync`
+- `NotHaveElementAttributeValueAsync`
 
 Content:
 
-* `HaveContentAsync`
-* `HaveTitleAsync`
-* `NotHaveContentAsync`
-* `NotHaveTitleAsync`
+- `HaveContentAsync`
+- `HaveTitleAsync`
+- `NotHaveContentAsync`
+- `NotHaveTitleAsync`
 
 Element:
 
-* `HaveElementAsync`
-* `HaveElementCountAsync`
-* `HaveElementWithContentAsync`
-* `HaveElementWithContentCountAsync`
+- `HaveElementAsync`
+- `HaveElementCountAsync`
+- `HaveElementWithContentAsync`
+- `HaveElementWithContentCountAsync`
 
 State:
 
-* `HaveCheckedElementAsync`
-* `HaveDisabledElementAsync`
-* `HaveEditableElementAsync`
-* `HaveEnabledElementAsync`
-* `HaveHiddenElementAsync`
-* `HaveVisibleElementAsync`
-* `NotHaveCheckedElementAsync`
-* `NotHaveEditableElementAsync`
+- `HaveCheckedElementAsync`
+- `HaveDisabledElementAsync`
+- `HaveEditableElementAsync`
+- `HaveEnabledElementAsync`
+- `HaveHiddenElementAsync`
+- `HaveVisibleElementAsync`
+- `NotHaveCheckedElementAsync`
+- `NotHaveEditableElementAsync`
 
 ### Assertions for `IElementHandle.Should()`<!-- omit in toc -->
 
 Attribute:
 
-* `HaveAttributeAsync`
-* `HaveAttributeValueAsync`
-* `HaveClassAsync`
-* `HaveValueAsync`
-* `NotHaveAttributeAsync`
-* `NotHaveAttributeValueAsync`
-* `NotHaveClassAsync`
-* `NotHaveValueAsync`
+- `HaveAttributeAsync`
+- `HaveAttributeValueAsync`
+- `HaveClassAsync`
+- `HaveValueAsync`
+- `NotHaveAttributeAsync`
+- `NotHaveAttributeValueAsync`
+- `NotHaveClassAsync`
+- `NotHaveValueAsync`
 
 Content:
 
-* `HaveContentAsync`
-* `NotHaveContentAsync`
+- `HaveContentAsync`
+- `NotHaveContentAsync`
 
 Element:
 
-* `HaveElementAsync`
-* `HaveElementCountAsync`
-* `HaveElementWithContentAsync`
-* `HaveElementWithContentCountAsync`
+- `HaveElementAsync`
+- `HaveElementCountAsync`
+- `HaveElementWithContentAsync`
+- `HaveElementWithContentCountAsync`
 
 State:
 
-* `BeCheckedAsync`
-* `BeDisabledAsync`
-* `BeEditableAsync`
-* `BeEnabledAsync`
-* `BeHiddenAsync`
-* `BeReadOnlyAsync`
-* `BeRequiredAsync`
-* `BeSelectedAsync`
-* `BeVisibleAsync`
-* `Exist`
-* `HaveFocusAsync`
-* `NotBeCheckedAsync`
-* `NotBeEditableAsync`
-* `NotBeReadOnlyAsync`
-* `NotBeRequiredAsync`
-* `NotBeSelectedAsync`
-* `NotExist`
-* `NotHaveFocusAsync`
+- `BeCheckedAsync`
+- `BeDisabledAsync`
+- `BeEditableAsync`
+- `BeEnabledAsync`
+- `BeHiddenAsync`
+- `BeReadOnlyAsync`
+- `BeRequiredAsync`
+- `BeSelectedAsync`
+- `BeVisibleAsync`
+- `Exist`
+- `HaveFocusAsync`
+- `NotBeCheckedAsync`
+- `NotBeEditableAsync`
+- `NotBeReadOnlyAsync`
+- `NotBeRequiredAsync`
+- `NotBeSelectedAsync`
+- `NotExist`
+- `NotHaveFocusAsync`
 
 ## PlaywrightContrib.PageObjects
 
@@ -237,17 +237,17 @@ public class GitHubHeader : ElementObject
 
 Properties decorated with a `[Selector]` attribute must be a:
 
-* public
-* virtual
-* asynchronous
-* getter
+- public
+- virtual
+- asynchronous
+- getter
 
 that returns one of:
 
-* `Task<IElementHandle>`
-* `Task<IReadOnlyList<IElementHandle>>`
-* `Task<ElementObject>`
-* `Task<IReadOnlyList<ElementObject>>`
+- `Task<IElementHandle>`
+- `Task<IReadOnlyList<IElementHandle>>`
+- `Task<ElementObject>`
+- `Task<IReadOnlyList<ElementObject>>`
 
 Example:
 
@@ -269,27 +269,27 @@ public virtual Task<IReadOnlyList<BarElementObject>> SelectorForElementObjectLis
 
 Where `T` is a `PageObject`:
 
-* `GoToAsync<T>`
-* `RunAndWaitForNavigationAsync<T>`
-* `RunAndWaitForResponseAsync<T>`
-* `To<T>`
-* `WaitForNavigationAsync<T>`
-* `WaitForResponseAsync<T>`
+- `GoToAsync<T>`
+- `RunAndWaitForNavigationAsync<T>`
+- `RunAndWaitForResponseAsync<T>`
+- `To<T>`
+- `WaitForNavigationAsync<T>`
+- `WaitForResponseAsync<T>`
 
 Where `T` is an `ElementObject`:
 
-* `QuerySelectorAllAsync<T>`
-* `QuerySelectorAsync<T>`
-* `WaitForSelectorAsync<T>`
+- `QuerySelectorAllAsync<T>`
+- `QuerySelectorAsync<T>`
+- `WaitForSelectorAsync<T>`
 
 ### Extensions for `IElementHandle`<!-- omit in toc -->
 
 Where `T` is an `ElementObject`:
 
-* `To<T>`
-* `QuerySelectorAllAsync<T>`
-* `QuerySelectorAsync<T>`
-* `WaitForSelectorAsync<T>`
+- `To<T>`
+- `QuerySelectorAllAsync<T>`
+- `QuerySelectorAsync<T>`
+- `WaitForSelectorAsync<T>`
 
 ## Samples
 

@@ -1,4 +1,4 @@
-### PlaywrightContrib.Extensions 🎭🧪
+# PlaywrightContrib.Extensions 🎭🧪
 
 [![build](https://github.com/hlaueriksson/playwright-dotnet-contrib/actions/workflows/build.yml/badge.svg)](https://github.com/hlaueriksson/playwright-dotnet-contrib/actions/workflows/build.yml) [![CodeFactor](https://codefactor.io/repository/github/hlaueriksson/playwright-dotnet-contrib/badge)](https://codefactor.io/repository/github/hlaueriksson/playwright-dotnet-contrib)
 
@@ -25,57 +25,57 @@ latestStatus.Exists().Should().BeTrue();
 (await latestStatus.HasAttributeValueAsync("title", "This workflow run completed successfully.")).Should().BeTrue();
 ```
 
-### Extensions for `IPage` 📄
+## Extensions for `IPage` 📄
 
 Attribute:
 
-* `GetAttributeOrDefaultAsync`
+- `GetAttributeOrDefaultAsync`
 
 Evaluation:
 
-* `HasContentAsync`
-* `HasTitleAsync`
+- `HasContentAsync`
+- `HasTitleAsync`
 
 Query:
 
-* `QuerySelectorAllWithContentAsync`
-* `QuerySelectorWithContentAsync`
+- `QuerySelectorAllWithContentAsync`
+- `QuerySelectorWithContentAsync`
 
-### Extensions for `IElementHandle` 📑
+## Extensions for `IElementHandle` 📑
 
 Attribute:
 
-* `ClassListAsync`
-* `ClassNameAsync`
-* `GetAttributeOrDefaultAsync`
-* `HrefAsync`
-* `IdAsync`
-* `NameAsync`
-* `SrcAsync`
-* `ValueAsync`
+- `ClassListAsync`
+- `ClassNameAsync`
+- `GetAttributeOrDefaultAsync`
+- `HrefAsync`
+- `IdAsync`
+- `NameAsync`
+- `SrcAsync`
+- `ValueAsync`
 
 Content:
 
-* `OuterHTMLAsync`
+- `OuterHTMLAsync`
 
 Evaluation:
 
-* `Exists`
-* `HasAttributeAsync`
-* `HasAttributeValueAsync`
-* `HasClassAsync`
-* `HasContentAsync`
-* `HasFocusAsync`
-* `HasValueAsync`
-* `IsReadOnlyAsync`
-* `IsRequiredAsync`
-* `IsSelectedAsync`
+- `Exists`
+- `HasAttributeAsync`
+- `HasAttributeValueAsync`
+- `HasClassAsync`
+- `HasContentAsync`
+- `HasFocusAsync`
+- `HasValueAsync`
+- `IsReadOnlyAsync`
+- `IsRequiredAsync`
+- `IsSelectedAsync`
 
 Query:
 
-* `QuerySelectorAllWithContentAsync`
-* `QuerySelectorWithContentAsync`
+- `QuerySelectorAllWithContentAsync`
+- `QuerySelectorWithContentAsync`
 
-### Would you like to know more? 🤔
+## Would you like to know more? 🤔
 
 Further documentation is available at [https://github.com/hlaueriksson/playwright-dotnet-contrib](https://github.com/hlaueriksson/playwright-dotnet-contrib)

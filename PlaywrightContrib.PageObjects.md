@@ -1,4 +1,4 @@
-### PlaywrightContrib.PageObjects 🎭🧪
+# PlaywrightContrib.PageObjects 🎭🧪
 
 [![build](https://github.com/hlaueriksson/playwright-dotnet-contrib/actions/workflows/build.yml/badge.svg)](https://github.com/hlaueriksson/playwright-dotnet-contrib/actions/workflows/build.yml) [![CodeFactor](https://codefactor.io/repository/github/hlaueriksson/playwright-dotnet-contrib/badge)](https://codefactor.io/repository/github/hlaueriksson/playwright-dotnet-contrib)
 
@@ -49,32 +49,32 @@ public class GitHubActionsPage : PageObject
 }
 ```
 
-### Extensions for `IPage` 📄
+## Extensions for `IPage` 📄
 
 Where `T` is a `PageObject`:
 
-* `GoToAsync<T>`
-* `RunAndWaitForNavigationAsync<T>`
-* `RunAndWaitForResponseAsync<T>`
-* `To<T>`
-* `WaitForNavigationAsync<T>`
-* `WaitForResponseAsync<T>`
+- `GoToAsync<T>`
+- `RunAndWaitForNavigationAsync<T>`
+- `RunAndWaitForResponseAsync<T>`
+- `To<T>`
+- `WaitForNavigationAsync<T>`
+- `WaitForResponseAsync<T>`
 
 Where `T` is an `ElementObject`:
 
-* `QuerySelectorAllAsync<T>`
-* `QuerySelectorAsync<T>`
-* `WaitForSelectorAsync<T>`
+- `QuerySelectorAllAsync<T>`
+- `QuerySelectorAsync<T>`
+- `WaitForSelectorAsync<T>`
 
-### Extensions for `IElementHandle` 📑
+## Extensions for `IElementHandle` 📑
 
 Where `T` is an `ElementObject`:
 
-* `To<T>`
-* `QuerySelectorAllAsync<T>`
-* `QuerySelectorAsync<T>`
-* `WaitForSelectorAsync<T>`
+- `To<T>`
+- `QuerySelectorAllAsync<T>`
+- `QuerySelectorAsync<T>`
+- `WaitForSelectorAsync<T>`
 
-### Would you like to know more? 🤔
+## Would you like to know more? 🤔
 
 Further documentation is available at [https://github.com/hlaueriksson/playwright-dotnet-contrib](https://github.com/hlaueriksson/playwright-dotnet-contrib)
