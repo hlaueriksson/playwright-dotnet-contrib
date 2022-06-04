@@ -42,7 +42,7 @@ namespace PlaywrightContrib.Tests.Extensions
         public async Task HrefAsync_should_return_the_href_of_the_element()
         {
             await Page.GotoAsync("https://github.com/microsoft/playwright-dotnet");
-            var a = await Page.QuerySelectorAsync("h2 strong a");
+            var a = await Page.QuerySelectorAsync("#repository-container-header strong a");
             Assert.AreEqual("https://github.com/microsoft/playwright-dotnet", await a.HrefAsync());
 
             var body = await Page.QuerySelectorAsync("body");

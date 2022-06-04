@@ -25,7 +25,7 @@
 // PlaywrightContrib.FluentAssertions
 
 //await page.GotoAsync("https://github.com/microsoft/playwright-dotnet");
-//var link = await page.QuerySelectorAsync("h2 strong a");
+//var link = await page.QuerySelectorAsync("#repository-container-header strong a");
 //await link.Should().HaveContentAsync("playwright-dotnet");
 //await link.Should().HaveAttributeValueAsync("href", "/microsoft/playwright-dotnet");
 //await page.Should().HaveContentAsync("Playwright for .NET is the official language port of Playwright");
@@ -49,7 +49,7 @@
 
 //public class GitHubRepoPage : PageObject
 //{
-//    [Selector("h2 strong a")]
+//    [Selector("#repository-container-header strong a")]
 //    public virtual Task<IElementHandle> Link { get; }
 
 //    [Selector("#actions-tab")]

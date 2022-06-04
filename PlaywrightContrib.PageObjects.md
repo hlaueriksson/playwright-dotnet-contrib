@@ -26,7 +26,7 @@ latestStatus.Should().Be("This workflow run completed successfully.");
 
 public class GitHubRepoPage : PageObject
 {
-    [Selector("h2 strong a")]
+    [Selector("#repository-container-header strong a")]
     public virtual Task<IElementHandle> Link { get; }
 
     [Selector("#actions-tab")]

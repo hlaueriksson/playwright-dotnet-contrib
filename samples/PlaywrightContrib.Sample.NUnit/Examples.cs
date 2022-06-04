@@ -94,7 +94,7 @@ namespace PlaywrightContrib.Sample.NUnit
             await page.GotoAsync("https://github.com/microsoft/playwright-dotnet");
             await Task.WhenAll(eventTask, loadStateTask);
 
-            await page.ClickAsync("h2 > strong > a");
+            await page.ClickAsync("#repository-container-header strong a");
             await page.WaitForNavigationAsync(new PageWaitForNavigationOptions { Timeout = timeout });
 
             await page.WaitForFunctionAsync("() => window.location.href === 'https://github.com/microsoft/playwright-dotnet'", timeout);
@@ -181,7 +181,7 @@ namespace PlaywrightContrib.Sample.NUnit
         {
             var page = await Page();
             await page.GotoAsync("https://github.com/microsoft/playwright-dotnet");
-            var element = await page.QuerySelectorAsync("h2 > strong > a");
+            var element = await page.QuerySelectorAsync("#repository-container-header strong a");
 
             var outerHtml = await element.EvaluateAsync<string>("e => e.outerHTML");
             var innerText = await element.EvaluateAsync<string>("e => e.innerText");
@@ -192,10 +192,10 @@ namespace PlaywrightContrib.Sample.NUnit
             Assert.AreEqual("/microsoft/playwright-dotnet", url);
             Assert.True(hasContent);
 
-            outerHtml = await page.EvalOnSelectorAsync<string>("h2 > strong > a", "e => e.outerHTML");
-            innerText = await page.EvalOnSelectorAsync<string>("h2 > strong > a", "e => e.innerText");
-            url = await page.EvalOnSelectorAsync<string>("h2 > strong > a", "e => e.getAttribute('href')");
-            hasContent = await page.EvalOnSelectorAsync<bool>("h2 > strong > a", "(e, value) => e.textContent.includes(value)", "playwright-dotnet");
+            outerHtml = await page.EvalOnSelectorAsync<string>("#repository-container-header strong a", "e => e.outerHTML");
+            innerText = await page.EvalOnSelectorAsync<string>("#repository-container-header strong a", "e => e.innerText");
+            url = await page.EvalOnSelectorAsync<string>("#repository-container-header strong a", "e => e.getAttribute('href')");
+            hasContent = await page.EvalOnSelectorAsync<bool>("#repository-container-header strong a", "(e, value) => e.textContent.includes(value)", "playwright-dotnet");
             Assert.AreEqual("<a data-pjax=\"#repo-content-pjax-container\" href=\"/microsoft/playwright-dotnet\">playwright-dotnet</a>", outerHtml);
             Assert.AreEqual("playwright-dotnet", innerText);
             Assert.AreEqual("/microsoft/playwright-dotnet", url);
