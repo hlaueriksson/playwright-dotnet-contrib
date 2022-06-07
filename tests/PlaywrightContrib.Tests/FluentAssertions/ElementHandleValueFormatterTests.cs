@@ -36,7 +36,9 @@ namespace PlaywrightContrib.Tests.FluentAssertions
         public async Task Format_IElementHandle()
         {
             var element = await Page.QuerySelectorAsync("html");
-            Assert.AreEqual("IElementHandle: <html><head></head><body></body></html>", Subject.Format(element, new FormattingContext(), null));
+            var formattedGraph = new FormattedObjectGraph(1);
+            Subject.Format(element, formattedGraph, new FormattingContext(), null);
+            Assert.AreEqual("IElementHandle: <html><head></head><body></body></html>", formattedGraph.ToString());
         }
 
         [Test]

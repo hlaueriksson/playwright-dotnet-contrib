@@ -1,4 +1,3 @@
-using System;
 using FluentAssertions.Formatting;
 using Microsoft.Playwright;
 using PlaywrightContrib.Extensions;
@@ -24,21 +23,27 @@ namespace PlaywrightContrib.FluentAssertions
         /// <summary>
         /// Returns a human-readable representation of <paramref name="value"/>.
         /// </summary>
-        /// <param name="value">The value for which to format.</param>
-        /// <param name="context">Contains additional information about the formatting task.</param>
+        /// <param name="value">The value to format into a human-readable representation.</param>
+        /// <param name="formattedGraph">An object to write the textual representation to.</param>
+        /// <param name="context">Contains additional information that the implementation should take into account.</param>
         /// <param name="formatChild">Allows the formatter to recursively format any child objects.</param>
-        /// <returns>A human-readable representation of <paramref name="value"/>.</returns>
-        public string Format(object value, FormattingContext context, FormatChild formatChild)
+        public void Format(object value, FormattedObjectGraph formattedGraph, FormattingContext context, FormatChild formatChild)
         {
-#pragma warning disable CA1062 // Validate arguments of public methods
-            var newline = context.UseLineBreaks ? Environment.NewLine : string.Empty;
-            var padding = new string('\t', context.Depth);
-
             var element = (IElementHandle)value;
 #pragma warning disable VSTHRD002 // Avoid problematic synchronous waits
             var html = element.OuterHTMLAsync().Result();
 #pragma warning restore VSTHRD002 // Avoid problematic synchronous waits
-            return $"{newline}{padding}IElementHandle: {html}";
+            var result = $"IElementHandle: {html}";
+
+#pragma warning disable CA1062 // Validate arguments of public methods
+            if (context.UseLineBreaks)
+            {
+                formattedGraph.AddLine(result);
+            }
+            else
+            {
+                formattedGraph.AddFragment(result);
+            }
 #pragma warning restore CA1062 // Validate arguments of public methods
         }
     }
