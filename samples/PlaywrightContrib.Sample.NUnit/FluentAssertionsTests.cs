@@ -1,29 +1,12 @@
 using System.Threading.Tasks;
-using Microsoft.Playwright;
+using Microsoft.Playwright.NUnit;
 using NUnit.Framework;
 using PlaywrightContrib.FluentAssertions;
 
 namespace PlaywrightContrib.Sample.NUnit
 {
-    public class FluentAssertionsTests
+    public class FluentAssertionsTests : PageTest
     {
-        IBrowser Browser { get; set; }
-        IPage Page { get; set; }
-
-        [SetUp]
-        public async Task SetUp()
-        {
-            var playwright = await Playwright.CreateAsync();
-            Browser = await playwright.Chromium.LaunchAsync();
-            Page = await Browser.NewPageAsync();
-        }
-
-        [TearDown]
-        public async Task TearDown()
-        {
-            await Browser.CloseAsync();
-        }
-
         [Test]
         public async Task Attributes()
         {

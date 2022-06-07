@@ -9,7 +9,7 @@
 //var browser = await playwright.Chromium.LaunchAsync();
 //var page = await browser.NewPageAsync();
 
-// PlaywrightContrib.Extensions
+//// PlaywrightContrib.Extensions
 
 //await page.GotoAsync("https://github.com/microsoft/playwright-dotnet");
 //var link = await page.QuerySelectorWithContentAsync("h1 a", "playwright-dotnet");
@@ -22,7 +22,7 @@
 //latestStatus.Exists().Should().BeTrue();
 //(await latestStatus.HasAttributeValueAsync("title", "This workflow run completed successfully.")).Should().BeTrue();
 
-// PlaywrightContrib.FluentAssertions
+//// PlaywrightContrib.FluentAssertions
 
 //await page.GotoAsync("https://github.com/microsoft/playwright-dotnet");
 //var link = await page.QuerySelectorAsync("#repository-container-header strong a");
@@ -36,7 +36,7 @@
 //latestStatus.Should().Exist();
 //await latestStatus.Should().HaveAttributeValueAsync("title", "This workflow run completed successfully.");
 
-// PlaywrightContrib.PageObjects
+//// PlaywrightContrib.PageObjects
 
 //var repoPage = await page.GotoAsync<GitHubRepoPage>("https://github.com/microsoft/playwright-dotnet");
 //var link = await repoPage.Link;
