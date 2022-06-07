@@ -450,7 +450,7 @@ namespace PlaywrightContrib.Tests.FluentAssertions
   <div id='baz'>Baz</div>
 </html>");
             var element = await Page.QuerySelectorAsync("html");
-            
+
             await element.Should().HaveElementAsync("div");
 
             var ex = Assert.ThrowsAsync<AssertionException>(async () => await element.Should().HaveElementAsync(".missing"));
