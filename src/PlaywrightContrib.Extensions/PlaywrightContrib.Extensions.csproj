@@ -28,7 +28,7 @@
   <Import Project="../../Analyzers.props" />
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Playwright" Version="1.12.1" />
+    <PackageReference Include="Microsoft.Playwright" Version="1.22.0" />
   </ItemGroup>
 
 </Project>
