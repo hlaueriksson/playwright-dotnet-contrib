@@ -7,7 +7,6 @@ using PlaywrightContrib.FluentAssertions;
 
 namespace PlaywrightContrib.Tests.FluentAssertions
 {
-    [Parallelizable(ParallelScope.Self)]
     public class PageAssertionsTests : PageTest
     {
         [SetUp]
@@ -20,7 +19,7 @@ namespace PlaywrightContrib.Tests.FluentAssertions
 
         // Content
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task Should_HaveContentAsync_throws_if_page_does_not_have_the_content()
         {
             await Page.Should().HaveContentAsync("10.");
@@ -31,7 +30,7 @@ namespace PlaywrightContrib.Tests.FluentAssertions
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IPage)null).Should().HaveContentAsync(""));
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task Should_NotHaveContentAsync_throws_if_element_has_the_content()
         {
             await Page.Should().NotHaveContentAsync("20.");
@@ -44,7 +43,7 @@ namespace PlaywrightContrib.Tests.FluentAssertions
 
         // Title
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task Should_HaveTitleAsync_throws_if_element_does_not_have_the_title()
         {
             await Page.SetContentAsync("<html><head><title>100</title></head></html>");
@@ -57,7 +56,7 @@ namespace PlaywrightContrib.Tests.FluentAssertions
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IPage)null).Should().HaveTitleAsync(""));
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task Should_NotHaveTitleAsync_throws_if_element_has_the_content()
         {
             await Page.SetContentAsync("<html><head><title>100</title></head></html>");
@@ -72,7 +71,7 @@ namespace PlaywrightContrib.Tests.FluentAssertions
 
         // Visible
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task Should_HaveVisibleElementAsync_throws_if_element_is_hidden()
         {
             await Page.SetContentAsync("<html><body><div id='foo'>Foo</div><div id='bar' style='display:none'>Bar</div></body></html>");
@@ -87,7 +86,7 @@ namespace PlaywrightContrib.Tests.FluentAssertions
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IPage)null).Should().HaveVisibleElementAsync(""));
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task Should_HaveHiddenElementAsync_throws_if_element_is_visible()
         {
             await Page.SetContentAsync("<html><body><div id='foo'>Foo</div><div id='bar' style='display:none'>Bar</div></body></html>");
@@ -104,7 +103,7 @@ namespace PlaywrightContrib.Tests.FluentAssertions
 
         // Checked
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task Should_HaveCheckedElementAsync_throws_if_element_is_not_checked()
         {
             await Page.SetContentAsync("<html><body><input type='checkbox' id='foo' checked><input type='checkbox' id='bar'></body></html>");
@@ -119,7 +118,7 @@ namespace PlaywrightContrib.Tests.FluentAssertions
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IPage)null).Should().HaveCheckedElementAsync(""));
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task Should_NotHaveCheckedElementAsync_throws_if_element_is_checked()
         {
             await Page.SetContentAsync("<html><body><input type='checkbox' id='foo' checked><input type='checkbox' id='bar'></body></html>");
@@ -136,7 +135,7 @@ namespace PlaywrightContrib.Tests.FluentAssertions
 
         // Disabled
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task Should_HaveDisabledElementAsync_throws_if_element_is_enabled()
         {
             await Page.SetContentAsync("<html><body><input id='foo' disabled><input id='bar'></body></html>");
@@ -151,7 +150,7 @@ namespace PlaywrightContrib.Tests.FluentAssertions
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IPage)null).Should().HaveDisabledElementAsync(""));
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task Should_HaveEnabledElementAsync_throws_if_element_is_disabled()
         {
             await Page.SetContentAsync("<html><body><input id='foo' disabled><input id='bar'></body></html>");
@@ -168,7 +167,7 @@ namespace PlaywrightContrib.Tests.FluentAssertions
 
         // Editable
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task Should_HaveEditableElementAsync_throws_if_element_is_not_required()
         {
             // https://playwright.dev/docs/actionability#editable
@@ -184,7 +183,7 @@ namespace PlaywrightContrib.Tests.FluentAssertions
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IPage)null).Should().HaveEditableElementAsync(""));
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task Should_NotHaveEditableElementAsync_throws_if_element_is_required()
         {
             await Page.SetContentAsync("<html><body><input id='foo'><input id='bar' disabled readonly></body></html>");
@@ -201,7 +200,7 @@ namespace PlaywrightContrib.Tests.FluentAssertions
 
         // Attribute
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task Should_HaveElementAttributeAsync_throws_if_element_does_not_have_the_attribute()
         {
             await Page.SetContentAsync("<html><body><div class='class' data-foo='bar' /></body></html>");
@@ -216,7 +215,7 @@ namespace PlaywrightContrib.Tests.FluentAssertions
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IPage)null).Should().HaveElementAttributeAsync("", ""));
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task Should_NotHaveElementAttributeAsync_throws_if_element_has_the_attribute()
         {
             await Page.SetContentAsync("<html><body><div class='class' data-foo='bar' /></body></html>");
@@ -231,7 +230,7 @@ namespace PlaywrightContrib.Tests.FluentAssertions
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IPage)null).Should().NotHaveElementAttributeAsync("", ""));
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task Should_HaveElementAttributeValueAsync_throws_if_element_does_not_have_the_attribute_value()
         {
             await Page.SetContentAsync("<html><body><div class='class' data-foo='bar' /></body></html>");
@@ -249,7 +248,7 @@ namespace PlaywrightContrib.Tests.FluentAssertions
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IPage)null).Should().HaveElementAttributeValueAsync("", "", ""));
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task Should_NotHaveElementAttributeValueAsync_throws_if_element_has_the_attribute_value()
         {
             await Page.SetContentAsync("<html><body><div class='class' data-foo='bar' /></body></html>");
@@ -268,7 +267,7 @@ namespace PlaywrightContrib.Tests.FluentAssertions
 
         // Element
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task Should_HaveElementAsync_throws_if_page_does_not_have_the_element()
         {
             await Page.SetContentAsync(@"
@@ -286,7 +285,7 @@ namespace PlaywrightContrib.Tests.FluentAssertions
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IPage)null).Should().HaveElementAsync(""));
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task Should_HaveElementCountAsync_throws_if_page_does_not_have_the_element()
         {
             await Page.SetContentAsync(@"
@@ -307,7 +306,7 @@ namespace PlaywrightContrib.Tests.FluentAssertions
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IPage)null).Should().HaveElementCountAsync(0, ""));
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task Should_HaveElementWithContentAsync_throws_if_page_does_not_have_the_element()
         {
             await Page.SetContentAsync(@"
@@ -332,7 +331,7 @@ namespace PlaywrightContrib.Tests.FluentAssertions
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IPage)null).Should().HaveElementWithContentAsync("", ""));
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task Should_HaveElementWithContentCountAsync_throws_if_page_does_not_have_the_element()
         {
             await Page.SetContentAsync(@"

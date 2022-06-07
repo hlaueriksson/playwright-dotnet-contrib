@@ -7,10 +7,9 @@ using PlaywrightContrib.Extensions;
 
 namespace PlaywrightContrib.Tests.Extensions
 {
-    [Parallelizable(ParallelScope.Self)]
     public class ElementHandleAttributeExtensionsTests : PageTest
     {
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task IdAsync_should_return_the_id_of_the_element()
         {
             await Page.SetContentAsync("<html><body><input id='foo' value='input' /><button id='bar' value='button' /></body></html>");
@@ -24,7 +23,7 @@ namespace PlaywrightContrib.Tests.Extensions
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).IdAsync());
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task NameAsync_should_return_the_name_of_the_element()
         {
             await Page.SetContentAsync("<html><body><input name='foo' value='input' /><button name='bar' value='button' /></body></html>");
@@ -38,7 +37,7 @@ namespace PlaywrightContrib.Tests.Extensions
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).NameAsync());
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task HrefAsync_should_return_the_href_of_the_element()
         {
             await Page.GotoAsync("https://github.com/microsoft/playwright-dotnet");
@@ -51,7 +50,7 @@ namespace PlaywrightContrib.Tests.Extensions
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).HrefAsync());
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task SrcAsync_should_return_the_src_of_the_element()
         {
             await Page.SetContentAsync("<html><body><img src='image.png' /><iframe src='file.html'></iframe></body></html>");
@@ -65,7 +64,7 @@ namespace PlaywrightContrib.Tests.Extensions
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).SrcAsync());
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task ValueAsync_should_return_the_value_of_the_element()
         {
             await Page.SetContentAsync("<html><body><input value='input' /><button value='button' /></body></html>");
@@ -79,7 +78,7 @@ namespace PlaywrightContrib.Tests.Extensions
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).ValueAsync());
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task GetAttributeOrDefaultAsync_should_return_the_attribute_value_of_the_element()
         {
             await Page.SetContentAsync("<html><body><div class='class' data-foo='bar' /></body></html>");

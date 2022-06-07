@@ -7,7 +7,6 @@ using PlaywrightContrib.PageObjects.DynamicProxy;
 
 namespace PlaywrightContrib.Tests.PageObjects.DynamicProxy
 {
-    [Parallelizable(ParallelScope.Self)]
     public class SelectorInterceptorTests : PageTest
     {
         private SelectorInterceptor _subject;
@@ -28,7 +27,7 @@ namespace PlaywrightContrib.Tests.PageObjects.DynamicProxy
 
         // PageObject
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task Intercept_sets_the_ReturnValue_to_Task_of_ElementHandle_for_property_on_PageObject_marked_with_SelectorAttribute()
         {
             var methodInfo = _pageObject.GetType().GetProperty(nameof(FakePageObject.SelectorForElementHandle)).GetMethod;
@@ -41,7 +40,7 @@ namespace PlaywrightContrib.Tests.PageObjects.DynamicProxy
             Assert.IsInstanceOf<IElementHandle>(result);
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task Intercept_sets_the_ReturnValue_to_Task_of_ElementHandle_list_for_property_on_PageObject_marked_with_SelectorAttribute()
         {
             var methodInfo = _pageObject.GetType().GetProperty(nameof(FakePageObject.SelectorForElementHandleList)).GetMethod;
@@ -54,7 +53,7 @@ namespace PlaywrightContrib.Tests.PageObjects.DynamicProxy
             Assert.IsInstanceOf<IReadOnlyList<IElementHandle>>(result);
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task Intercept_sets_the_ReturnValue_to_Task_of_ElementObject_for_property_on_PageObject_marked_with_SelectorAttribute()
         {
             var methodInfo = _pageObject.GetType().GetProperty(nameof(FakePageObject.SelectorForElementObject)).GetMethod;
@@ -67,7 +66,7 @@ namespace PlaywrightContrib.Tests.PageObjects.DynamicProxy
             Assert.IsInstanceOf<FakeElementObject>(result);
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task Intercept_sets_the_ReturnValue_to_Task_of_ElementObject_list_for_property_on_PageObject_marked_with_SelectorAttribute()
         {
             var methodInfo = _pageObject.GetType().GetProperty(nameof(FakePageObject.SelectorForElementObjectList)).GetMethod;
@@ -80,7 +79,7 @@ namespace PlaywrightContrib.Tests.PageObjects.DynamicProxy
             Assert.IsInstanceOf<IReadOnlyList<FakeElementObject>>(result);
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public void Intercept_sets_the_ReturnValue_to_null_for_invalid_property_on_PageObject_marked_with_SelectorAttribute()
         {
             var methodInfo = _pageObject.GetType().GetProperty(nameof(FakePageObject.SelectorForWrongReturnType)).GetMethod;
@@ -111,7 +110,7 @@ namespace PlaywrightContrib.Tests.PageObjects.DynamicProxy
 
         // ElementObject
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task Intercept_sets_the_ReturnValue_to_Task_of_ElementHandle_for_property_on_ElementObject_marked_with_SelectorAttribute()
         {
             var methodInfo = _elementObject.GetType().GetProperty(nameof(FakeElementObject.SelectorForElementHandle)).GetMethod;
@@ -124,7 +123,7 @@ namespace PlaywrightContrib.Tests.PageObjects.DynamicProxy
             Assert.IsInstanceOf<IElementHandle>(result);
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task Intercept_sets_the_ReturnValue_to_Task_of_ElementHandle_list_for_property_on_ElementObject_marked_with_SelectorAttribute()
         {
             var methodInfo = _elementObject.GetType().GetProperty(nameof(FakeElementObject.SelectorForElementHandleList)).GetMethod;
@@ -137,7 +136,7 @@ namespace PlaywrightContrib.Tests.PageObjects.DynamicProxy
             Assert.IsInstanceOf<IReadOnlyList<IElementHandle>>(result);
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task Intercept_sets_the_ReturnValue_to_Task_of_ElementObject_for_property_on_ElementObject_marked_with_SelectorAttribute()
         {
             var methodInfo = _elementObject.GetType().GetProperty(nameof(FakeElementObject.SelectorForElementObject)).GetMethod;
@@ -150,7 +149,7 @@ namespace PlaywrightContrib.Tests.PageObjects.DynamicProxy
             Assert.IsInstanceOf<FakeElementObject>(result);
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task Intercept_sets_the_ReturnValue_to_Task_of_ElementObject_list_for_property_on_ElementObject_marked_with_SelectorAttribute()
         {
             var methodInfo = _elementObject.GetType().GetProperty(nameof(FakeElementObject.SelectorForElementObjectList)).GetMethod;
@@ -163,7 +162,7 @@ namespace PlaywrightContrib.Tests.PageObjects.DynamicProxy
             Assert.IsInstanceOf<IReadOnlyList<FakeElementObject>>(result);
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public void Intercept_sets_the_ReturnValue_to_null_for_invalid_property_on_ElementObject_marked_with_SelectorAttribute()
         {
             var methodInfo = _elementObject.GetType().GetProperty(nameof(FakeElementObject.SelectorForWrongReturnType)).GetMethod;
@@ -194,7 +193,7 @@ namespace PlaywrightContrib.Tests.PageObjects.DynamicProxy
 
         // Unknown
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public void Intercept_sets_the_ReturnValue_to_null_for_property_on_unknown_object_marked_with_SelectorAttribute()
         {
             var objectWithNoBaseClass = new FakeObjectWithNoBaseClass();

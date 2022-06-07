@@ -6,7 +6,6 @@ using PlaywrightContrib.FluentAssertions;
 
 namespace PlaywrightContrib.Tests.FluentAssertions
 {
-    [Parallelizable(ParallelScope.Self)]
     public class ElementHandleValueFormatterTests : PageTest
     {
         private ElementHandleValueFormatter Subject { get; set; }
@@ -26,21 +25,21 @@ namespace PlaywrightContrib.Tests.FluentAssertions
             Formatter.RemoveFormatter(Subject);
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task CanHandle_IElementHandle()
         {
             var element = await Page.QuerySelectorAsync("html");
             Assert.IsTrue(Subject.CanHandle(element));
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task Format_IElementHandle()
         {
             var element = await Page.QuerySelectorAsync("html");
             Assert.AreEqual("IElementHandle: <html><head></head><body></body></html>", Subject.Format(element, new FormattingContext(), null));
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task AssertionException_Message()
         {
             var element = await Page.QuerySelectorAsync("html");

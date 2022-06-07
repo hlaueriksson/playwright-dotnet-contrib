@@ -8,7 +8,6 @@ using PlaywrightContrib.PageObjects.DynamicProxy;
 
 namespace PlaywrightContrib.Tests.PageObjects.DynamicProxy
 {
-    [Parallelizable(ParallelScope.Self)]
     public class InvocationExtensionsTests : PageTest
     {
         [SetUp]
@@ -16,7 +15,7 @@ namespace PlaywrightContrib.Tests.PageObjects.DynamicProxy
 
         // GetReturnValueAsync
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task GetReturnValueAsync_returns_value_from_PageObject()
         {
             var pageObject = new FakePageObject();
@@ -29,7 +28,7 @@ namespace PlaywrightContrib.Tests.PageObjects.DynamicProxy
             Assert.NotNull(result);
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task GetReturnValueAsync_returns_value_from_ElementObject()
         {
             var elementHandle = await Page.QuerySelectorAsync("html");
@@ -43,7 +42,7 @@ namespace PlaywrightContrib.Tests.PageObjects.DynamicProxy
             Assert.NotNull(result);
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task GetReturnValueAsync_returns_null_for_member_without_SelectorAttribute()
         {
             var methodInfo = typeof(string).GetMethod(nameof(string.GetTypeCode));
@@ -54,7 +53,7 @@ namespace PlaywrightContrib.Tests.PageObjects.DynamicProxy
             Assert.Null(result);
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task GetReturnValueAsync_returns_null_for_non_PageObject_or_ElementObject()
         {
             var objectWithNoBaseClass = new FakeObjectWithNoBaseClass();
@@ -68,7 +67,7 @@ namespace PlaywrightContrib.Tests.PageObjects.DynamicProxy
 
         // PageObject
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task GetReturnValueAsync_returns_ElementHandle_for_property_on_PageObject_marked_with_SelectorAttribute()
         {
             var pageObject = new FakePageObject();
@@ -82,7 +81,7 @@ namespace PlaywrightContrib.Tests.PageObjects.DynamicProxy
             Assert.IsInstanceOf<IElementHandle>(result);
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task GetReturnValueAsync_returns_ElementHandle_list_for_property_on_PageObject_marked_with_SelectorAttribute()
         {
             var pageObject = new FakePageObject();
@@ -96,7 +95,7 @@ namespace PlaywrightContrib.Tests.PageObjects.DynamicProxy
             Assert.IsInstanceOf<IReadOnlyList<IElementHandle>>(result);
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task GetReturnValueAsync_returns_ElementObject_for_property_on_PageObject_marked_with_SelectorAttribute()
         {
             var pageObject = new FakePageObject();
@@ -110,7 +109,7 @@ namespace PlaywrightContrib.Tests.PageObjects.DynamicProxy
             Assert.IsInstanceOf<FakeElementObject>(result);
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task GetReturnValueAsync_returns_ElementObject_list_for_property_on_PageObject_marked_with_SelectorAttribute()
         {
             var pageObject = new FakePageObject();
@@ -124,7 +123,7 @@ namespace PlaywrightContrib.Tests.PageObjects.DynamicProxy
             Assert.IsInstanceOf<IReadOnlyList<FakeElementObject>>(result);
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task GetReturnValueAsync_returns_null_for_property_on_PageObject_marked_with_SelectorAttribute_when_Page_is_null()
         {
             var pageObject = new FakePageObject();
@@ -136,7 +135,7 @@ namespace PlaywrightContrib.Tests.PageObjects.DynamicProxy
             Assert.Null(result);
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task GetReturnValueAsync_returns_null_for_invalid_property_on_PageObject_marked_with_SelectorAttribute()
         {
             var pageObject = new FakePageObject();
@@ -171,7 +170,7 @@ namespace PlaywrightContrib.Tests.PageObjects.DynamicProxy
 
         // ElementObject
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task GetReturnValueAsync_returns_ElementHandle_for_property_on_ElementObject_marked_with_SelectorAttribute()
         {
             var elementHandle = await Page.QuerySelectorAsync("html");
@@ -186,7 +185,7 @@ namespace PlaywrightContrib.Tests.PageObjects.DynamicProxy
             Assert.IsInstanceOf<IElementHandle>(result);
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task GetReturnValueAsync_returns_ElementHandle_list_for_property_on_ElementObject_marked_with_SelectorAttribute()
         {
             var elementHandle = await Page.QuerySelectorAsync("html");
@@ -201,7 +200,7 @@ namespace PlaywrightContrib.Tests.PageObjects.DynamicProxy
             Assert.IsInstanceOf<IReadOnlyList<IElementHandle>>(result);
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task GetReturnValueAsync_returns_ElementObject_for_property_on_ElementObject_marked_with_SelectorAttribute()
         {
             var elementHandle = await Page.QuerySelectorAsync("html");
@@ -216,7 +215,7 @@ namespace PlaywrightContrib.Tests.PageObjects.DynamicProxy
             Assert.IsInstanceOf<FakeElementObject>(result);
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task GetReturnValueAsync_returns_ElementObject_list_for_property_on_ElementObject_marked_with_SelectorAttribute()
         {
             var elementHandle = await Page.QuerySelectorAsync("html");
@@ -231,7 +230,7 @@ namespace PlaywrightContrib.Tests.PageObjects.DynamicProxy
             Assert.IsInstanceOf<IReadOnlyList<FakeElementObject>>(result);
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task GetReturnValueAsync_returns_null_for_property_on_ElementObject_marked_with_SelectorAttribute_when_Element_is_null()
         {
             var elementObject = new FakeElementObject();
@@ -243,7 +242,7 @@ namespace PlaywrightContrib.Tests.PageObjects.DynamicProxy
             Assert.Null(result);
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task GetReturnValueAsync_returns_null_for_invalid_property_on_ElementObject_marked_with_SelectorAttribute()
         {
             var elementHandle = await Page.QuerySelectorAsync("html");
