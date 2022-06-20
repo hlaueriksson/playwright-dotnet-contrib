@@ -16,8 +16,10 @@ namespace PlaywrightContrib.Sample.NUnit
 
         public async Task<GitHubSearchPage> SearchAsync(string text)
         {
-            await (await Header).SearchAsync(text);
-            return Page.To<GitHubSearchPage>();
+            return await Page.RunAndWaitForNavigationAsync<GitHubSearchPage>(async () =>
+            {
+                await (await Header).SearchAsync(text);
+            });
         }
     }
 
