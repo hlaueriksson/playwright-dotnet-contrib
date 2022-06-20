@@ -23,30 +23,99 @@ await link.Should().HaveAttributeValueAsync("href", "/microsoft/playwright-dotne
 var actionsPage = await repoPage.GotoActionsAsync();
 var latestStatus = await actionsPage.GetLatestWorkflowRunStatusAsync();
 latestStatus.Should().Be("This workflow run completed successfully.");
+```
 
-public class GitHubRepoPage : PageObject
+## Deprecation ⚠️
+
+This package is legacy and is no longer maintained:
+
+- Is is based on the `IElementHandle` interface and was first built with version `1.12.1` of `Microsoft.Playwright`
+- The use of [`ElementHandle`](https://playwright.dev/dotnet/docs/api/class-elementhandle) is discouraged, use [`Locator`](https://playwright.dev/dotnet/docs/api/class-locator) objects and web-first assertions instead
+- The Locator API was introduced in version [`1.14`](https://playwright.dev/dotnet/docs/release-notes#version-114) of `Microsoft.Playwright`
+- [Locator vs ElementHandle](https://playwright.dev/dotnet/docs/locators#locator-vs-elementhandle) describes the difference between the old and new way to access elements
+- You can use the vanilla API to achieve the same thing without using this package:
+  - [Page Object Models](https://playwright.dev/dotnet/docs/pom)
+
+## Page Objects
+
+A page object wraps an [`IPage`](https://playwright.dev/dotnet/docs/api/class-page) and should encapsulate the way tests interact with a web page.
+
+Create page objects by inheriting `PageObject` and declare properties decorated with `[Selector]` attributes.
+
+```csharp
+public class GitHubStartPage : PageObject
 {
-    [Selector("#repository-container-header strong a")]
-    public virtual Task<IElementHandle> Link { get; }
+    [Selector("h1")]
+    public virtual Task<IElementHandle> Heading { get; }
 
-    [Selector("#actions-tab")]
-    public virtual Task<IElementHandle> Actions { get; }
+    [Selector("header")]
+    public virtual Task<GitHubHeader> Header { get; }
 
-    public async Task<GitHubActionsPage> GotoActionsAsync()
+    public async Task<GitHubSearchPage> SearchAsync(string text)
     {
-        await (await Actions).ClickAsync();
-        return await Page.WaitForNavigationAsync<GitHubActionsPage>();
+        await (await Header).SearchAsync(text);
+        return Page.To<GitHubSearchPage>();
     }
 }
+```
 
-public class GitHubActionsPage : PageObject
+## Element Objects
+
+An element object wraps an [`IElementHandle`](https://playwright.dev/dotnet/docs/api/class-elementhandle) and should encapsulate the way tests interact with an element of a web page.
+
+Create element objects by inheriting `ElementObject` and declare properties decorated with `[Selector]` attributes.
+
+```csharp
+public class GitHubHeader : ElementObject
 {
-    public async Task<string> GetLatestWorkflowRunStatusAsync()
+    [Selector("input.header-search-input")]
+    public virtual Task<IElementHandle> SearchInput { get; }
+
+    [Selector(".octicon-three-bars")]
+    public virtual Task<IElementHandle> ThreeBars { get; }
+
+    public async Task SearchAsync(string text)
     {
-        var status = await Page.QuerySelectorAsync("#partial-actions-workflow-runs .Box-row div[title]");
-        return await status.GetAttributeAsync("title");
+        var input = await SearchInput;
+        if (await input.IsHiddenAsync()) await (await ThreeBars).ClickAsync();
+        await input.TypeAsync(text);
+        await input.PressAsync("Enter");
     }
 }
+```
+
+## Selector Attributes
+
+`[Selector]` attributes can be applied to properties on a `PageObject` or `ElementObject`.
+
+Properties decorated with a `[Selector]` attribute must be a:
+
+- public
+- virtual
+- asynchronous
+- getter
+
+that returns one of:
+
+- `Task<IElementHandle>`
+- `Task<IReadOnlyList<IElementHandle>>`
+- `Task<ElementObject>`
+- `Task<IReadOnlyList<ElementObject>>`
+
+Example:
+
+```csharp
+[Selector("#foo")]
+public virtual Task<IElementHandle> SelectorForElementHandle { get; }
+
+[Selector(".bar")]
+public virtual Task<IReadOnlyList<IElementHandle>> SelectorForElementHandleList { get; }
+
+[Selector("#foo")]
+public virtual Task<FooElementObject> SelectorForElementObject { get; }
+
+[Selector(".bar")]
+public virtual Task<IReadOnlyList<BarElementObject>> SelectorForElementObjectList { get; }
 ```
 
 ## Extensions for `IPage` 📄
