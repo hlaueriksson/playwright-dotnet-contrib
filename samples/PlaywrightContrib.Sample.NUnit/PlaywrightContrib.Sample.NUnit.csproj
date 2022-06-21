@@ -12,12 +12,9 @@
     <PackageReference Include="Microsoft.Playwright.NUnit" Version="1.22.0" />
     <PackageReference Include="NUnit" Version="3.13.3" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\PlaywrightContrib.Extensions\PlaywrightContrib.Extensions.csproj" />
-    <ProjectReference Include="..\..\src\PlaywrightContrib.FluentAssertions\PlaywrightContrib.FluentAssertions.csproj" />
-    <ProjectReference Include="..\..\src\PlaywrightContrib.PageObjects\PlaywrightContrib.PageObjects.csproj" />
+    <PackageReference Include="PlaywrightContrib.Extensions" Version="2.0.0" />
+    <PackageReference Include="PlaywrightContrib.FluentAssertions" Version="2.0.0" />
+    <PackageReference Include="PlaywrightContrib.PageObjects" Version="2.0.0" />
   </ItemGroup>
 
 </Project>
