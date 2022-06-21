@@ -23,6 +23,30 @@ await link.Should().HaveAttributeValueAsync("href", "/microsoft/playwright-dotne
 var actionsPage = await repoPage.GotoActionsAsync();
 var latestStatus = await actionsPage.GetLatestWorkflowRunStatusAsync();
 latestStatus.Should().Be("This workflow run completed successfully.");
+
+public class GitHubRepoPage : PageObject
+{
+    [Selector("#repository-container-header strong a")]
+    public virtual Task<IElementHandle> Link { get; }
+
+    [Selector("#actions-tab")]
+    public virtual Task<IElementHandle> Actions { get; }
+
+    public async Task<GitHubActionsPage> GotoActionsAsync()
+    {
+        await (await Actions).ClickAsync();
+        return await Page.WaitForNavigationAsync<GitHubActionsPage>();
+    }
+}
+
+public class GitHubActionsPage : PageObject
+{
+    public async Task<string> GetLatestWorkflowRunStatusAsync()
+    {
+        var status = await Page.QuerySelectorAsync("#partial-actions-workflow-runs .Box-row div[title]");
+        return await status.GetAttributeAsync("title");
+    }
+}
 ```
 
 ## Deprecation ⚠️

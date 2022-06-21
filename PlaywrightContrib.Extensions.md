@@ -14,7 +14,7 @@ var browser = await playwright.Chromium.LaunchAsync();
 var page = await browser.NewPageAsync();
 
 await page.GotoAsync("https://github.com/microsoft/playwright-dotnet");
-var link = await page.QuerySelectorWithContentAsync("h1 a", "playwright-dotnet");
+var link = await page.QuerySelectorWithContentAsync("a", "playwright-dotnet");
 (await link.HrefAsync()).Should().Be("https://github.com/microsoft/playwright-dotnet");
 (await page.HasContentAsync("Playwright for .NET is the official language port of Playwright")).Should().BeTrue();
 
