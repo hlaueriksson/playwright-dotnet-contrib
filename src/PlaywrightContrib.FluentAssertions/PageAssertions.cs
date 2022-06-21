@@ -16,8 +16,11 @@ namespace PlaywrightContrib.FluentAssertions
         /// <summary>
         /// Initializes a new instance of the <see cref="PageAssertions"/> class.
         /// </summary>
-        /// <param name="subject">The <see cref="IPage"/> to assert.</param>
-        public PageAssertions(IPage subject) => Subject = subject;
+        /// <param name="instance">The <see cref="IPage"/> to assert.</param>
+        public PageAssertions(IPage instance)
+            : base(instance)
+        {
+        }
 
         /// <summary>
         /// Returns the type of the subject the assertion applies on.

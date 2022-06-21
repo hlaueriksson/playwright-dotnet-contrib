@@ -7,7 +7,6 @@ using PlaywrightContrib.PageObjects;
 
 namespace PlaywrightContrib.Tests.PageObjects.Extensions
 {
-    [Parallelizable(ParallelScope.Self)]
     public class PageExtensionsTests : PageTest
     {
         [SetUp]
@@ -15,7 +14,7 @@ namespace PlaywrightContrib.Tests.PageObjects.Extensions
 
         // PageObject
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public void To_returns_proxy_of_type()
         {
             var result = Page.To<FakePageObject>();
@@ -25,7 +24,7 @@ namespace PlaywrightContrib.Tests.PageObjects.Extensions
             Assert.Null(result);
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task GotoAsync_returns_proxy_of_type()
         {
             var result = await Page.GotoAsync<FakePageObject>("about:blank");
@@ -38,7 +37,7 @@ namespace PlaywrightContrib.Tests.PageObjects.Extensions
             Assert.ThrowsAsync<TimeoutException>(async () => await Page.GotoAsync<FakePageObject>("https://github.com/microsoft/playwright-dotnet", new PageGotoOptions { Timeout = 1 }));
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task WaitForNavigationAsync_returns_proxy_of_type()
         {
             await Page.GotoAsync("https://github.com/microsoft/playwright-dotnet");
@@ -50,7 +49,7 @@ namespace PlaywrightContrib.Tests.PageObjects.Extensions
             Assert.ThrowsAsync<TimeoutException>(async () => await Page.WaitForNavigationAsync<FakePageObject>(new PageWaitForNavigationOptions { Timeout = 1 }));
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task RunAndWaitForNavigationAsync_returns_proxy_of_type()
         {
             await Page.GotoAsync("https://github.com/microsoft/playwright-dotnet");
@@ -61,7 +60,7 @@ namespace PlaywrightContrib.Tests.PageObjects.Extensions
             Assert.ThrowsAsync<TimeoutException>(async () => await Page.RunAndWaitForNavigationAsync<FakePageObject>(async () => await Page.ClickAsync("#repository-container-header strong a"), new PageRunAndWaitForNavigationOptions { Timeout = 1 }));
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task WaitForResponseAsync_returns_proxy_of_type()
         {
             await Page.GotoAsync("https://github.com/microsoft/playwright-dotnet");
@@ -73,7 +72,7 @@ namespace PlaywrightContrib.Tests.PageObjects.Extensions
             Assert.ThrowsAsync<TimeoutException>(async () => await Page.WaitForResponseAsync<FakePageObject>(response => response.Url == "https://missing.com", new PageWaitForResponseOptions { Timeout = 1 }));
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task RunAndWaitForResponseAsync_returns_proxy_of_type()
         {
             await Page.GotoAsync("https://github.com/microsoft/playwright-dotnet");
@@ -86,7 +85,7 @@ namespace PlaywrightContrib.Tests.PageObjects.Extensions
 
         // ElementObject
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task QuerySelectorAllAsync_returns_proxies_of_type()
         {
             var result = await Page.QuerySelectorAllAsync<FakeElementObject>("div");
@@ -97,7 +96,7 @@ namespace PlaywrightContrib.Tests.PageObjects.Extensions
             Assert.IsEmpty(result);
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task QuerySelectorAsync_returns_proxy_of_type()
         {
             var result = await Page.QuerySelectorAsync<FakeElementObject>(".tweet");
@@ -108,7 +107,7 @@ namespace PlaywrightContrib.Tests.PageObjects.Extensions
             Assert.Null(result);
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task WaitForSelectorAsync_returns_proxy_of_type()
         {
             var result = await Page.WaitForSelectorAsync<FakeElementObject>(".tweet");

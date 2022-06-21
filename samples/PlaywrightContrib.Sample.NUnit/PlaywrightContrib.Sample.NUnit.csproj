@@ -8,12 +8,16 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.2.0" />
-    <PackageReference Include="Microsoft.Playwright" Version="1.12.1" />
+    <PackageReference Include="Microsoft.Playwright" Version="1.22.0" />
+    <PackageReference Include="Microsoft.Playwright.NUnit" Version="1.22.0" />
     <PackageReference Include="NUnit" Version="3.13.3" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />
-    <PackageReference Include="PlaywrightContrib.Extensions" Version="1.0.0" />
-    <PackageReference Include="PlaywrightContrib.FluentAssertions" Version="1.0.0" />
-    <PackageReference Include="PlaywrightContrib.PageObjects" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\PlaywrightContrib.Extensions\PlaywrightContrib.Extensions.csproj" />
+    <ProjectReference Include="..\..\src\PlaywrightContrib.FluentAssertions\PlaywrightContrib.FluentAssertions.csproj" />
+    <ProjectReference Include="..\..\src\PlaywrightContrib.PageObjects\PlaywrightContrib.PageObjects.csproj" />
   </ItemGroup>
 
 </Project>

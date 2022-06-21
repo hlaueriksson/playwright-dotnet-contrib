@@ -148,7 +148,7 @@ namespace PlaywrightContrib.PageObjects
         /// <param name="page">A <see cref="IPage"/>.</param>
         /// <param name="selector">A selector to query for.</param>
         /// <returns>Task which resolves to the <see cref="ElementObject"/>.</returns>
-        /// <seealso cref="IPage.QuerySelectorAsync(string)"/>
+        /// <seealso cref="IPage.QuerySelectorAsync(string, PageQuerySelectorOptions)"/>
         public static async Task<T?> QuerySelectorAsync<T>(this IPage page, string selector)
             where T : ElementObject
         {

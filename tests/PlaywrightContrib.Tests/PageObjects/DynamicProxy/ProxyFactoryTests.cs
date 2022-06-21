@@ -9,7 +9,6 @@ using PlaywrightContrib.PageObjects.DynamicProxy;
 
 namespace PlaywrightContrib.Tests.PageObjects.DynamicProxy
 {
-    [Parallelizable(ParallelScope.Self)]
     public class ProxyFactoryTests : PageTest
     {
         [SetUp]
@@ -18,7 +17,7 @@ namespace PlaywrightContrib.Tests.PageObjects.DynamicProxy
             await Page.SetContentAsync(Fake.Html);
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public void PageObject_returns_proxy_of_type()
         {
             var result = ProxyFactory.PageObject<FakePageObject>(Page, null);
@@ -29,7 +28,7 @@ namespace PlaywrightContrib.Tests.PageObjects.DynamicProxy
             Assert.Null(result);
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task ElementObject_returns_proxy_of_type()
         {
             var elementHandle = await Page.QuerySelectorAsync(".tweet");
@@ -41,7 +40,7 @@ namespace PlaywrightContrib.Tests.PageObjects.DynamicProxy
             Assert.Null(result);
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task ElementObject_returns_proxy_of_given_type()
         {
             var elementHandle = await Page.QuerySelectorAsync(".tweet");
@@ -53,7 +52,7 @@ namespace PlaywrightContrib.Tests.PageObjects.DynamicProxy
             Assert.Null(result);
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task ElementObjectList_returns_proxy_of_given_type()
         {
             var elementHandles = await Page.QuerySelectorAllAsync("div");

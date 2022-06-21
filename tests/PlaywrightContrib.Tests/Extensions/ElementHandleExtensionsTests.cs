@@ -8,13 +8,12 @@ using PlaywrightContrib.Extensions;
 
 namespace PlaywrightContrib.Tests.Extensions
 {
-    [Parallelizable(ParallelScope.Self)]
     public class ElementHandleExtensionsTests : PageTest
     {
         [SetUp]
         public async Task SetUp() => await Page.SetContentAsync("<html><body><div class='tweet'><div class='like'>100</div><div class='retweets'>10</div></div></body></html>");
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task QuerySelectorWithContentAsync_should_return_the_first_element_that_match_the_selector_and_has_the_content()
         {
             await Page.SetContentAsync(@"
@@ -41,7 +40,7 @@ namespace PlaywrightContrib.Tests.Extensions
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).QuerySelectorWithContentAsync("div", "Foo"));
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task QuerySelectorAllWithContentAsync_should_return_all_elements_that_match_the_selector_and_has_the_content()
         {
             await Page.SetContentAsync(@"
@@ -68,7 +67,7 @@ namespace PlaywrightContrib.Tests.Extensions
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).QuerySelectorAllWithContentAsync("div", "Foo"));
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task Exists_should_return_true_for_existing_element()
         {
             var tweet = await Page.QuerySelectorAsync(".tweet");
@@ -77,7 +76,7 @@ namespace PlaywrightContrib.Tests.Extensions
             Assert.False(((IElementHandle)null).Exists());
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task HasAttributeAsync_should_return_true_if_element_has_the_attribute()
         {
             await Page.SetContentAsync("<html><body><div class='class' data-foo='bar' /></body></html>");
@@ -92,7 +91,7 @@ namespace PlaywrightContrib.Tests.Extensions
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).HasAttributeAsync(""));
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task HasAttributeValueAsync_should_return_true_if_element_has_the_attribute_value()
         {
             await Page.SetContentAsync("<html><body><div class='class' data-foo='bar' /></body></html>");
@@ -109,7 +108,7 @@ namespace PlaywrightContrib.Tests.Extensions
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).HasAttributeValueAsync("", ""));
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task HasValueAsync_should_return_the_value_of_the_element()
         {
             await Page.SetContentAsync("<html><body><input value='input' /><button value='button' /></body></html>");
@@ -126,7 +125,7 @@ namespace PlaywrightContrib.Tests.Extensions
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).HasValueAsync(""));
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task HasClassAsync_should_return_true_if_the_element_has_the_class()
         {
             await Page.SetContentAsync("<html><body><div class='foo bar' /></body></html>");
@@ -140,7 +139,7 @@ namespace PlaywrightContrib.Tests.Extensions
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).HasClassAsync(""));
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task HasContentAsync_should_return_true_if_element_has_the_content()
         {
             await Page.SetContentAsync(@"
@@ -162,7 +161,7 @@ namespace PlaywrightContrib.Tests.Extensions
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).HasContentAsync(""));
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task HasFocusAsync_should_return_true_if_the_element_has_focus()
         {
             await Page.SetContentAsync("<html><body><input id='foo' autofocus><input id='bar'><input id='baz'></body></html>");
@@ -180,7 +179,7 @@ namespace PlaywrightContrib.Tests.Extensions
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).HasFocusAsync());
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task IsReadOnlyAsync_should_return_true_if_the_element_is_readonly()
         {
             await Page.SetContentAsync("<html><body><input id='foo' readonly><input id='bar'><input id='baz'></body></html>");
@@ -198,7 +197,7 @@ namespace PlaywrightContrib.Tests.Extensions
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).IsReadOnlyAsync());
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task IsRequiredAsync_should_return_true_if_the_element_is_required()
         {
             await Page.SetContentAsync("<html><body><input id='foo' required><input id='bar'><input id='baz'></body></html>");
@@ -216,7 +215,7 @@ namespace PlaywrightContrib.Tests.Extensions
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).IsRequiredAsync());
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task IsSelectedAsync_should_return_true_if_the_element_is_selected()
         {
             await Page.SetContentAsync("<html><body><select><option id='foo'>Foo</option><option id='bar'>Bar</option><option id='baz'>Baz</option></select></body></html>");
@@ -234,7 +233,7 @@ namespace PlaywrightContrib.Tests.Extensions
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).IsSelectedAsync());
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task ClassNameAsync_should_return_the_class_of_the_element()
         {
             await Page.SetContentAsync("<html><body><div class='foo bar' /></body></html>");
@@ -248,7 +247,7 @@ namespace PlaywrightContrib.Tests.Extensions
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).ClassNameAsync());
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task ClassListAsync_should_return_an_array_of_classes_of_the_element()
         {
             await Page.SetContentAsync("<html><body><div class='foo bar' /></body></html>");
@@ -262,7 +261,7 @@ namespace PlaywrightContrib.Tests.Extensions
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IElementHandle)null).ClassListAsync());
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task OuterHtmlAsync_should_return_the_outer_html_of_the_element()
         {
             var like = await Page.QuerySelectorAsync(".like");

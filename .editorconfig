@@ -172,6 +172,7 @@ end_of_line = lf
 end_of_line = crlf
 
 [*.cs]
+dotnet_diagnostic.CS0618.severity = none # Obsolete
 dotnet_diagnostic.CA1014.severity = none
 dotnet_diagnostic.CA1054.severity = none
 dotnet_diagnostic.SA1101.severity = none

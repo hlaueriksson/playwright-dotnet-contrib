@@ -26,7 +26,7 @@ namespace PlaywrightContrib.Tests.PageObjects.DynamicProxy
             var methodInfo = typeof(FakePageObject).GetProperty(nameof(FakePageObject.SelectorForElementHandle)).GetMethod;
             Assert.True(methodInfo.IsGetterPropertyWithAttribute<SelectorAttribute>());
         }
-        
+
         [Test]
         public void IsGetterPropertyWithAttribute_returns_false_for_getter_property_not_marked_with_given_attribute()
         {
@@ -83,7 +83,7 @@ namespace PlaywrightContrib.Tests.PageObjects.DynamicProxy
             var methodInfo = typeof(FakePageObject).GetProperty(nameof(FakePageObject.SelectorForElementHandle)).GetMethod;
             Assert.True(methodInfo.IsReturningAsyncResult());
         }
-        
+
         [Test]
         public void IsReturningAsyncResult_returns_false_for_methods_that_does_not_return_Task_of_T()
         {

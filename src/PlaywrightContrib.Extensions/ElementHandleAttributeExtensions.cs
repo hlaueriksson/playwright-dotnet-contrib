@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Playwright;
@@ -42,6 +43,7 @@ namespace PlaywrightContrib.Extensions
         /// <param name="elementHandle">An <see cref="IElementHandle"/>.</param>
         /// <returns>The element's <c>value</c>, or <c>null</c> if the attribute is missing.</returns>
         /// <remarks><![CDATA[Elements: <button>, <option>, <input>, <li>, <meter>, <progress>, <param>]]></remarks>
+        [Obsolete("This method has been deprecated. Use the vanilla method IElementHandle.InputValueAsync instead.")]
         public static async Task<string?> ValueAsync(this IElementHandle elementHandle) =>
             await elementHandle.GuardFromNull().GetAttributeOrDefaultAsync("value").ConfigureAwait(false);
 
@@ -60,6 +62,7 @@ namespace PlaywrightContrib.Extensions
         /// <param name="elementHandle">An <see cref="IElementHandle"/>.</param>
         /// <param name="name">The attribute name.</param>
         /// <returns>The attribute value, or a default value if no attribute is found.</returns>
+        [Obsolete("This method has been deprecated. Use the vanilla method IElementHandle.GetAttributeAsync instead.")]
         public static async Task<string?> GetAttributeOrDefaultAsync(this IElementHandle elementHandle, string name)
         {
             try

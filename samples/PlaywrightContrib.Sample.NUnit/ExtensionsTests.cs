@@ -1,30 +1,13 @@
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Playwright;
+using Microsoft.Playwright.NUnit;
 using NUnit.Framework;
 using PlaywrightContrib.Extensions;
 
 namespace PlaywrightContrib.Sample.NUnit
 {
-    public class ExtensionsTests
+    public class ExtensionsTests : PageTest
     {
-        IBrowser Browser { get; set; }
-        IPage Page { get; set; }
-
-        [SetUp]
-        public async Task SetUp()
-        {
-            var playwright = await Playwright.CreateAsync();
-            Browser = await playwright.Chromium.LaunchAsync();
-            Page = await Browser.NewPageAsync();
-        }
-
-        [TearDown]
-        public async Task TearDown()
-        {
-            await Browser.CloseAsync();
-        }
-
         [Test]
         public async Task Query()
         {

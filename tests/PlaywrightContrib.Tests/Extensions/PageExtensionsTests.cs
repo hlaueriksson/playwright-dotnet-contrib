@@ -8,7 +8,6 @@ using PlaywrightContrib.Extensions;
 
 namespace PlaywrightContrib.Tests.Extensions
 {
-    [Parallelizable(ParallelScope.Self)]
     public class PageExtensionsTests : PageTest
     {
         [SetUp]
@@ -19,7 +18,7 @@ namespace PlaywrightContrib.Tests.Extensions
   <div id='baz'>Baz</div>
 </html>");
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task QuerySelectorWithContentAsync_should_return_the_first_element_that_match_the_selector_and_has_the_content()
         {
             var foo = await Page.QuerySelectorWithContentAsync("div", "Foo");
@@ -37,7 +36,7 @@ namespace PlaywrightContrib.Tests.Extensions
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IPage)null).QuerySelectorWithContentAsync("", ""));
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task QuerySelectorAllWithContentAsync_should_return_all_elements_that_match_the_selector_and_has_the_content()
         {
             var divs = await Page.QuerySelectorAllWithContentAsync("div", "Foo");
@@ -55,7 +54,7 @@ namespace PlaywrightContrib.Tests.Extensions
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IPage)null).QuerySelectorAllWithContentAsync("", ""));
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task HasContentAsync_should_return_true_if_page_has_the_content()
         {
             Assert.True(await Page.HasContentAsync("Ba."));
@@ -66,7 +65,7 @@ namespace PlaywrightContrib.Tests.Extensions
             Assert.ThrowsAsync<ArgumentNullException>(async () => await ((IPage)null).HasContentAsync(""));
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task HasTitleAsync_should_return_true_if_page_has_the_title()
         {
             await Page.SetContentAsync(@"

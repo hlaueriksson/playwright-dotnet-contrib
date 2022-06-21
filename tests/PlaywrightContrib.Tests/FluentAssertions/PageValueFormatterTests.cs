@@ -6,7 +6,6 @@ using PlaywrightContrib.FluentAssertions;
 
 namespace PlaywrightContrib.Tests.FluentAssertions
 {
-    [Parallelizable(ParallelScope.Self)]
     public class PageValueFormatterTests : PageTest
     {
         private PageValueFormatter Subject { get; set; }
@@ -30,16 +29,20 @@ namespace PlaywrightContrib.Tests.FluentAssertions
             Assert.IsTrue(Subject.CanHandle(Page));
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public async Task Format_IPage()
         {
-            Assert.AreEqual("IPage: about:blank", Subject.Format(Page, new FormattingContext(), null));
+            var formattedGraph = new FormattedObjectGraph(1);
+            Subject.Format(Page, formattedGraph, new FormattingContext(), null);
+            Assert.AreEqual("IPage: about:blank", formattedGraph.ToString());
 
             await Page.GotoAsync("https://www.google.com/");
-            Assert.AreEqual("IPage: https://www.google.com/", Subject.Format(Page, new FormattingContext(), null));
+            formattedGraph = new FormattedObjectGraph(1);
+            Subject.Format(Page, formattedGraph, new FormattingContext(), null);
+            Assert.AreEqual("IPage: https://www.google.com/", formattedGraph.ToString());
         }
 
-        [Test, Timeout(TestConstants.DefaultTestTimeout)]
+        [Test]
         public void AssertionException_Message()
         {
             var ex = Assert.Throws<AssertionException>(() => Page.Should().BeNull());

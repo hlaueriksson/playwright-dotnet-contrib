@@ -16,8 +16,11 @@ namespace PlaywrightContrib.FluentAssertions
         /// <summary>
         /// Initializes a new instance of the <see cref="ElementHandleAssertions"/> class.
         /// </summary>
-        /// <param name="subject">The <see cref="IElementHandle"/> to assert.</param>
-        public ElementHandleAssertions(IElementHandle subject) => Subject = subject;
+        /// <param name="instance">The <see cref="IElementHandle"/> to assert.</param>
+        public ElementHandleAssertions(IElementHandle instance)
+            : base(instance)
+        {
+        }
 
         /// <summary>
         /// Returns the type of the subject the assertion applies on.
