@@ -2,10 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>1.0.0</Version>
-    <PackageReleaseNotes>Initial release 🎉</PackageReleaseNotes>
+    <Version>2.0.0</Version>
+    <PackageReleaseNotes>
+- Drop target framework net5.0 🎯
+- Bump Microsoft.Playwright to 1.22.0 ⬆
+- Bump FluentAssertions to 6.7.0 ⬆
+    </PackageReleaseNotes>
     <Authors>Henrik Lau Eriksson</Authors>
     <Description>Contributions to Playwright for .NET 🎭🧪
+
+⚠️ This package is legacy and is no longer maintained
 
 ✔️ PlaywrightContrib.FluentAssertions is a library for writing tests with FluentAssertions against the Playwright API
 ✔️ It provides a convenient way to write readable and robust browser tests in .NET

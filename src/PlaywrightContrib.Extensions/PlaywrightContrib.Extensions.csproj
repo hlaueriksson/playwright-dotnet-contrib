@@ -2,10 +2,22 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>1.0.0</Version>
-    <PackageReleaseNotes>Initial release 🎉</PackageReleaseNotes>
+    <Version>2.0.0</Version>
+    <PackageReleaseNotes>
+- Drop target framework net5.0 🎯
+- Bump Microsoft.Playwright to 1.22.0 ⬆
+
+Obsolete extensions for IPage:
+- GetAttributeOrDefaultAsync
+
+Obsolete extensions for IElementHandle:
+- ValueAsync
+- GetAttributeOrDefaultAsync
+    </PackageReleaseNotes>
     <Authors>Henrik Lau Eriksson</Authors>
     <Description>Contributions to Playwright for .NET 🎭🧪
+
+⚠️ This package is legacy and is no longer maintained
 
 ✔️ PlaywrightContrib.Extensions is a library with extension methods for writing tests with the Playwright API
 ✔️ It provides a convenient way to write readable and robust browser tests in .NET
