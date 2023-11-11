@@ -17,10 +17,10 @@
 //(await page.HasContentAsync("Playwright for .NET is the official language port of Playwright")).Should().BeTrue();
 
 //await page.ClickAsync("#actions-tab");
-//await page.WaitForNavigationAsync();
-//var latestStatus = await page.QuerySelectorAsync("#partial-actions-workflow-runs .Box-row div[title]");
+//await page.WaitForSelectorAsync("#partial-actions-workflow-runs");
+//var latestStatus = await page.QuerySelectorAsync(".checks-list-item-icon svg");
 //latestStatus.Exists().Should().BeTrue();
-//(await latestStatus.HasAttributeValueAsync("title", "This workflow run completed successfully.")).Should().BeTrue();
+//(await latestStatus.HasAttributeValueAsync("aria-label", "completed successfully")).Should().BeTrue();
 
 //// PlaywrightContrib.FluentAssertions
 
@@ -31,10 +31,10 @@
 //await page.Should().HaveContentAsync("Playwright for .NET is the official language port of Playwright");
 
 //await page.ClickAsync("#actions-tab");
-//await page.WaitForNavigationAsync();
-//var latestStatus = await page.QuerySelectorAsync("#partial-actions-workflow-runs .Box-row div[title]");
+//await page.WaitForSelectorAsync("#partial-actions-workflow-runs");
+//var latestStatus = await page.QuerySelectorAsync(".checks-list-item-icon svg");
 //latestStatus.Should().Exist();
-//await latestStatus.Should().HaveAttributeValueAsync("title", "This workflow run completed successfully.");
+//await latestStatus.Should().HaveAttributeValueAsync("aria-label", "completed successfully");
 
 //// PlaywrightContrib.PageObjects
 
@@ -45,7 +45,7 @@
 
 //var actionsPage = await repoPage.GotoActionsAsync();
 //var latestStatus = await actionsPage.GetLatestWorkflowRunStatusAsync();
-//latestStatus.Should().Be("This workflow run completed successfully.");
+//latestStatus.Should().Be("completed successfully");
 
 //public class GitHubRepoPage : PageObject
 //{
@@ -58,7 +58,8 @@
 //    public async Task<GitHubActionsPage> GotoActionsAsync()
 //    {
 //        await (await Actions).ClickAsync();
-//        return await Page.WaitForNavigationAsync<GitHubActionsPage>();
+//        await Page.WaitForSelectorAsync("#partial-actions-workflow-runs");
+//        return Page.To<GitHubActionsPage>();
 //    }
 //}
 
@@ -66,7 +67,7 @@
 //{
 //    public async Task<string> GetLatestWorkflowRunStatusAsync()
 //    {
-//        var status = await Page.QuerySelectorAsync("#partial-actions-workflow-runs .Box-row div[title]");
-//        return await status.GetAttributeAsync("title");
+//        var status = await Page.QuerySelectorAsync(".checks-list-item-icon svg");
+//        return await status.GetAttributeAsync("aria-label");
 //    }
 //}

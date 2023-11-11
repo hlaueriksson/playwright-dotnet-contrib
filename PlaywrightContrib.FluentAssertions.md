@@ -19,10 +19,10 @@ await link.Should().HaveAttributeValueAsync("href", "/microsoft/playwright-dotne
 await page.Should().HaveContentAsync("Playwright for .NET is the official language port of Playwright");
 
 await page.ClickAsync("#actions-tab");
-await page.WaitForNavigationAsync();
-var latestStatus = await page.QuerySelectorAsync("#partial-actions-workflow-runs .Box-row div[title]");
+await page.WaitForSelectorAsync("#partial-actions-workflow-runs");
+var latestStatus = await page.QuerySelectorAsync(".checks-list-item-icon svg");
 latestStatus.Should().Exist();
-await latestStatus.Should().HaveAttributeValueAsync("title", "This workflow run completed successfully.");
+await latestStatus.Should().HaveAttributeValueAsync("aria-label", "completed successfully");
 ```
 
 ## Deprecation ⚠️

@@ -22,7 +22,7 @@ await link.Should().HaveAttributeValueAsync("href", "/microsoft/playwright-dotne
 
 var actionsPage = await repoPage.GotoActionsAsync();
 var latestStatus = await actionsPage.GetLatestWorkflowRunStatusAsync();
-latestStatus.Should().Be("This workflow run completed successfully.");
+latestStatus.Should().Be("completed successfully");
 
 public class GitHubRepoPage : PageObject
 {
@@ -35,7 +35,8 @@ public class GitHubRepoPage : PageObject
     public async Task<GitHubActionsPage> GotoActionsAsync()
     {
         await (await Actions).ClickAsync();
-        return await Page.WaitForNavigationAsync<GitHubActionsPage>();
+        await Page.WaitForSelectorAsync("#partial-actions-workflow-runs");
+        return Page.To<GitHubActionsPage>();
     }
 }
 
@@ -43,8 +44,8 @@ public class GitHubActionsPage : PageObject
 {
     public async Task<string> GetLatestWorkflowRunStatusAsync()
     {
-        var status = await Page.QuerySelectorAsync("#partial-actions-workflow-runs .Box-row div[title]");
-        return await status.GetAttributeAsync("title");
+        var status = await Page.QuerySelectorAsync(".checks-list-item-icon svg");
+        return await status.GetAttributeAsync("aria-label");
     }
 }
 ```
@@ -69,7 +70,7 @@ Create page objects by inheriting `PageObject` and declare properties decorated 
 ```csharp
 public class GitHubStartPage : PageObject
 {
-    [Selector("h1")]
+    [Selector("main h1")]
     public virtual Task<IElementHandle> Heading { get; }
 
     [Selector("header")]
@@ -78,6 +79,8 @@ public class GitHubStartPage : PageObject
     public async Task<GitHubSearchPage> SearchAsync(string text)
     {
         await (await Header).SearchAsync(text);
+        await Page.WaitForSelectorAsync("[data-testid=\"results-list\"]");
+
         return Page.To<GitHubSearchPage>();
     }
 }
@@ -92,16 +95,19 @@ Create element objects by inheriting `ElementObject` and declare properties deco
 ```csharp
 public class GitHubHeader : ElementObject
 {
-    [Selector("input.header-search-input")]
+    [Selector("#query-builder-test")]
     public virtual Task<IElementHandle> SearchInput { get; }
 
-    [Selector(".octicon-three-bars")]
-    public virtual Task<IElementHandle> ThreeBars { get; }
+    [Selector("[data-target=\"qbsearch-input.inputButtonText\"]")]
+    public virtual Task<IElementHandle> SearchButton { get; }
 
     public async Task SearchAsync(string text)
     {
         var input = await SearchInput;
-        if (await input.IsHiddenAsync()) await (await ThreeBars).ClickAsync();
+        if (await input.IsHiddenAsync())
+        {
+            await (await SearchButton).ClickAsync();
+        }
         await input.TypeAsync(text);
         await input.PressAsync("Enter");
     }
