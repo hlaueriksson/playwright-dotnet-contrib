@@ -30,7 +30,7 @@ namespace PlaywrightVanilla.Sample.NUnit
 
             var actionsPage = await repoPage.GotoActionsAsync();
             var status = await actionsPage.GetLatestWorkflowRunStatusAsync();
-            Assert.AreEqual("This workflow run completed successfully.", status);
+            Assert.AreEqual("completed successfully", status);
         }
 
         [Test]

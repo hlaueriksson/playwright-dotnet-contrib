@@ -14,26 +14,31 @@ namespace PlaywrightContrib.Sample.NUnit
         public async Task Should_be_first_search_result_on_GitHub()
         {
             await Page.GotoAsync("https://github.com/");
-            var h1 = await Page.QuerySelectorAsync("h1");
-            await h1.Should().HaveContentAsync("Where the world builds software");
+            var heading = await Page.QuerySelectorAsync("main h1");
+            await heading.Should().HaveContentAsync("Let’s build from here");
 
-            var input = await Page.QuerySelectorAsync("input.header-search-input");
-            if (await input.IsHiddenAsync()) await Page.ClickAsync(".octicon-three-bars");
-            await Page.TypeAsync("input.header-search-input", "playwright dotnet");
+            var input = await Page.QuerySelectorAsync("#query-builder-test");
+            if (await input.IsHiddenAsync())
+            {
+                //await Page.ClickAsync("[aria-label=\"Toggle navigation\"][data-view-component=\"true\"]");
+                await Page.ClickAsync("[data-target=\"qbsearch-input.inputButtonText\"]");
+            }
+            await Page.TypeAsync("#query-builder-test", "playwright dotnet");
             await Page.Keyboard.PressAsync("Enter");
-            await Page.WaitForNavigationAsync();
+            await Page.WaitForSelectorAsync("[data-testid=\"results-list\"]");
 
-            var repositories = await Page.QuerySelectorAllAsync(".repo-list-item");
+            var repositories = await Page.QuerySelectorAllAsync("[data-testid=\"results-list\"] > div");
             repositories.Should().NotBeEmpty();
             var repository = repositories.First();
             await repository.Should().HaveContentAsync("microsoft/playwright-dotnet");
-            var text = await repository.QuerySelectorAsync("p");
+            var text = await repository.QuerySelectorAsync("h3 + div");
             await text.Should().HaveContentAsync(".NET version of the Playwright testing and automation library.");
             var link = await repository.QuerySelectorAsync("a");
             await link.ClickAsync();
+            await Page.WaitForSelectorAsync("article > h1");
 
-            h1 = await Page.QuerySelectorAsync("article > h1");
-            await h1.Should().HaveContentAsync("Playwright for .NET");
+            heading = await Page.QuerySelectorAsync("article > h1");
+            await heading.Should().HaveContentAsync("Playwright for .NET");
             Page.Url.Should().Be("https://github.com/microsoft/playwright-dotnet");
         }
 
@@ -43,10 +48,10 @@ namespace PlaywrightContrib.Sample.NUnit
             await Page.GotoAsync("https://github.com/microsoft/playwright-dotnet");
 
             await Page.ClickAsync("#actions-tab");
-            await Page.WaitForNavigationAsync();
+            await Page.WaitForSelectorAsync("#partial-actions-workflow-runs");
 
-            var status = await Page.QuerySelectorAsync("#partial-actions-workflow-runs .Box-row div[title]");
-            await status.Should().HaveAttributeValueAsync("title", "This workflow run completed successfully.");
+            var status = await Page.QuerySelectorAsync(".checks-list-item-icon svg");
+            await status.Should().HaveAttributeValueAsync("aria-label", "completed successfully");
         }
 
         [Test]

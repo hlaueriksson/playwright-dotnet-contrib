@@ -15,7 +15,7 @@ namespace PlaywrightContrib.Sample.NUnit
         {
             var startPage = await Page.GotoAsync<GitHubStartPage>("https://github.com/");
             var heading = await startPage.Heading;
-            await heading.Should().HaveContentAsync("Where the world builds software");
+            await heading.Should().HaveContentAsync("Let’s build from here");
 
             var searchPage = await startPage.SearchAsync("playwright dotnet");
             var repositories = await searchPage.RepoListItems;
@@ -39,7 +39,7 @@ namespace PlaywrightContrib.Sample.NUnit
 
             var actionsPage = await repoPage.GotoActionsAsync();
             var status = await actionsPage.GetLatestWorkflowRunStatusAsync();
-            status.Should().Be("This workflow run completed successfully.");
+            status.Should().Be("completed successfully");
         }
 
         [Test]

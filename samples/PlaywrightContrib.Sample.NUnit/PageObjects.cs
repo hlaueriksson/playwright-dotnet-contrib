@@ -8,7 +8,7 @@ namespace PlaywrightContrib.Sample.NUnit
 {
     public class GitHubStartPage : PageObject
     {
-        [Selector("h1")]
+        [Selector("main h1")]
         public virtual Task<IElementHandle> Heading { get; }
 
         [Selector("header")]
@@ -16,25 +16,32 @@ namespace PlaywrightContrib.Sample.NUnit
 
         public async Task<GitHubSearchPage> SearchAsync(string text)
         {
-            return await Page.RunAndWaitForNavigationAsync<GitHubSearchPage>(async () =>
-            {
-                await (await Header).SearchAsync(text);
-            });
+            await (await Header).SearchAsync(text);
+            await Page.WaitForSelectorAsync("[data-testid=\"results-list\"]");
+
+            return Page.To<GitHubSearchPage>();
         }
     }
 
     public class GitHubHeader : ElementObject
     {
-        [Selector("input.header-search-input")]
+        [Selector("#query-builder-test")]
         public virtual Task<IElementHandle> SearchInput { get; }
 
-        [Selector(".octicon-three-bars")]
-        public virtual Task<IElementHandle> ThreeBars { get; }
+        [Selector("[aria-label=\"Toggle navigation\"][data-view-component=\"true\"]")]
+        public virtual Task<IElementHandle> NavigationButton { get; }
+
+        [Selector("[data-target=\"qbsearch-input.inputButtonText\"]")]
+        public virtual Task<IElementHandle> SearchButton { get; }
 
         public async Task SearchAsync(string text)
         {
             var input = await SearchInput;
-            if (await input.IsHiddenAsync()) await (await ThreeBars).ClickAsync();
+            if (await input.IsHiddenAsync())
+            {
+                //await (await NavigationButton).ClickAsync();
+                await (await SearchButton).ClickAsync();
+            }
             await input.TypeAsync(text);
             await input.PressAsync("Enter");
         }
@@ -42,16 +49,16 @@ namespace PlaywrightContrib.Sample.NUnit
 
     public class GitHubSearchPage : PageObject
     {
-        [Selector(".repo-list-item")]
+        [Selector("[data-testid=\"results-list\"] > div")]
         public virtual Task<IReadOnlyList<GitHubRepoListItem>> RepoListItems { get; }
 
         public async Task<GitHubRepoPage> GotoAsync(GitHubRepoListItem repo)
         {
-            return await Page.RunAndWaitForNavigationAsync<GitHubRepoPage>(async () =>
-            {
-                var link = await repo.Link;
-                await link.ClickAsync();
-            });
+            var link = await repo.Link;
+            await link.ClickAsync();
+            await Page.WaitForSelectorAsync("article > h1");
+
+            return Page.To<GitHubRepoPage>();
         }
     }
 
@@ -60,7 +67,7 @@ namespace PlaywrightContrib.Sample.NUnit
         [Selector("a")]
         public virtual Task<IElementHandle> Link { get; }
 
-        [Selector("p")]
+        [Selector("h3 + div")]
         public virtual Task<IElementHandle> Text { get; }
     }
 
@@ -75,7 +82,8 @@ namespace PlaywrightContrib.Sample.NUnit
         public async Task<GitHubActionsPage> GotoActionsAsync()
         {
             await (await Actions).ClickAsync();
-            return await Page.WaitForNavigationAsync<GitHubActionsPage>();
+            await Page.WaitForSelectorAsync("#partial-actions-workflow-runs");
+            return Page.To<GitHubActionsPage>();
         }
 
         public async Task<string> GetLatestReleaseVersionAsync()
@@ -89,8 +97,8 @@ namespace PlaywrightContrib.Sample.NUnit
     {
         public async Task<string> GetLatestWorkflowRunStatusAsync()
         {
-            var status = await Page.QuerySelectorAsync("#partial-actions-workflow-runs .Box-row div[title]");
-            return await status.GetAttributeAsync("title");
+            var status = await Page.QuerySelectorAsync(".checks-list-item-icon svg");
+            return await status.GetAttributeAsync("aria-label");
         }
     }
 }

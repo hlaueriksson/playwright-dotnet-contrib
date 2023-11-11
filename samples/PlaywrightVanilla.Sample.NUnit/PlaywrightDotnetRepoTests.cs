@@ -10,18 +10,22 @@ namespace PlaywrightVanilla.Sample.NUnit
         public async Task Should_be_first_search_result_on_GitHub()
         {
             await Page.GotoAsync("https://github.com/");
-            await Expect(Page.Locator("h1")).ToHaveTextAsync("Where the world builds software");
+            await Expect(Page.Locator("main h1")).ToHaveTextAsync("Let’s build from here");
 
-            var input = Page.Locator("[placeholder='Search GitHub']");
-            if (await input.IsHiddenAsync()) await Page.Locator("[aria-label='Toggle navigation']").First.ClickAsync();
+            var input = Page.Locator("#query-builder-test");
+            if (await input.IsHiddenAsync())
+            {
+                //await Page.ClickAsync("[aria-label=\"Toggle navigation\"][data-view-component=\"true\"]");
+                await Page.ClickAsync("[data-target=\"qbsearch-input.inputButtonText\"]");
+            }
             await input.FillAsync("playwright dotnet");
             await Page.Keyboard.PressAsync("Enter");
-            await Page.WaitForNavigationAsync();
+            await Page.WaitForSelectorAsync("[data-testid=\"results-list\"]");
 
-            var repositories = Page.Locator(".repo-list-item");
+            var repositories = Page.Locator("[data-testid=\"results-list\"] > div");
             Assert.True(await repositories.CountAsync() > 0);
             var repository = repositories.First;
-            await Expect(repository.Locator("p")).ToHaveTextAsync(".NET version of the Playwright testing and automation library.");
+            await Expect(repository.Locator("h3 + div")).ToHaveTextAsync(".NET version of the Playwright testing and automation library.");
             var link = repository.Locator("a").First;
             await Expect(link).ToHaveTextAsync("microsoft/playwright-dotnet");
             await link.ClickAsync();
@@ -36,9 +40,10 @@ namespace PlaywrightVanilla.Sample.NUnit
             await Page.GotoAsync("https://github.com/microsoft/playwright-dotnet");
 
             await Page.ClickAsync("#actions-tab");
+            await Page.WaitForSelectorAsync("#partial-actions-workflow-runs");
 
-            var status = Page.Locator("#partial-actions-workflow-runs .Box-row div[title]").First;
-            await Expect(status).ToHaveAttributeAsync("title", "This workflow run completed successfully.");
+            var status = Page.Locator(".checks-list-item-icon svg").First;
+            await Expect(status).ToHaveAttributeAsync("aria-label", "completed successfully");
         }
 
         [Test]
