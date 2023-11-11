@@ -41,8 +41,9 @@ namespace PlaywrightContrib.Tests.PageObjects.Extensions
         public async Task WaitForNavigationAsync_returns_proxy_of_type()
         {
             await Page.GotoAsync("https://github.com/microsoft/playwright-dotnet");
+            var task = Page.WaitForNavigationAsync<FakePageObject>();
             await Page.ClickAsync("#repository-container-header strong a");
-            var result = await Page.WaitForNavigationAsync<FakePageObject>();
+            var result = await task;
             Assert.NotNull(result);
             Assert.NotNull(result.Page);
 
@@ -57,15 +58,16 @@ namespace PlaywrightContrib.Tests.PageObjects.Extensions
             Assert.NotNull(result);
             Assert.NotNull(result.Page);
 
-            Assert.ThrowsAsync<TimeoutException>(async () => await Page.RunAndWaitForNavigationAsync<FakePageObject>(async () => await Page.ClickAsync("#repository-container-header strong a"), new PageRunAndWaitForNavigationOptions { Timeout = 1 }));
+            Assert.ThrowsAsync<TimeoutException>(async () => await Page.RunAndWaitForNavigationAsync<FakePageObject>(async () => await Task.Delay(10), new PageRunAndWaitForNavigationOptions { Timeout = 1 }));
         }
 
         [Test]
         public async Task WaitForResponseAsync_returns_proxy_of_type()
         {
             await Page.GotoAsync("https://github.com/microsoft/playwright-dotnet");
+            var task = Page.WaitForResponseAsync<FakePageObject>(response => response.Url == "https://api.github.com/_private/browser/stats" && response.Status == 200);
             await Page.ClickAsync("#actions-tab");
-            var result = await Page.WaitForResponseAsync<FakePageObject>(response => response.Url == "https://api.github.com/_private/browser/stats" && response.Status == 200);
+            var result = await task;
             Assert.NotNull(result);
             Assert.NotNull(result.Page);
 
@@ -80,7 +82,7 @@ namespace PlaywrightContrib.Tests.PageObjects.Extensions
             Assert.NotNull(result);
             Assert.NotNull(result.Page);
 
-            Assert.ThrowsAsync<TimeoutException>(async () => await Page.RunAndWaitForResponseAsync<FakePageObject>(async () => await Task.Delay(1), response => response.Url == "https://missing.com", new PageRunAndWaitForResponseOptions { Timeout = 1 }));
+            Assert.ThrowsAsync<TimeoutException>(async () => await Page.RunAndWaitForResponseAsync<FakePageObject>(async () => await Task.Delay(10), response => response.Url == "https://missing.com", new PageRunAndWaitForResponseOptions { Timeout = 1 }));
         }
 
         // ElementObject
