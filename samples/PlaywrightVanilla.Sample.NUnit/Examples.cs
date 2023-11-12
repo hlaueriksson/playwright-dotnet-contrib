@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Microsoft.Playwright;
 using NUnit.Framework;
@@ -10,10 +11,19 @@ namespace PlaywrightVanilla.Sample.NUnit
         async Task<IBrowser> Browser()
         {
             var playwright = await Playwright.CreateAsync();
-            var browser = await playwright.Chromium.LaunchAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
+            {
+                Headless = true,
+            });
 
             // IBrowserType
             _ = new[] { playwright.Chromium, playwright.Firefox, playwright.Webkit };
+
+            // OSPlatform
+            _ = new[] { OSPlatform.FreeBSD, OSPlatform.Linux, OSPlatform.OSX, OSPlatform.Windows };
+
+            // Architecture
+            _ = new[] { Architecture.X86, Architecture.X64, Architecture.Arm, Architecture.Arm64, Architecture.Wasm, Architecture.S390x };
 
             return browser;
         }
@@ -30,8 +40,7 @@ namespace PlaywrightVanilla.Sample.NUnit
         public async Task using_Browser()
         {
             using var playwright = await Playwright.CreateAsync();
-            await using var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
-
+            await using var browser = await playwright.Chromium.LaunchAsync();
             // ...
         }
 
@@ -154,7 +163,6 @@ namespace PlaywrightVanilla.Sample.NUnit
             await page.InnerTextAsync("h1 >> text=Playwright for .NET");
             await page.InputValueAsync("#query-builder-test");
             await page.TextContentAsync("h1 >> text=Playwright for .NET");
-            //await page.SelectOptionAsync(); // Use ILocator.SelectOptionAsync instead.
             await page.TitleAsync();
 
             await page.PdfAsync();
@@ -176,7 +184,6 @@ namespace PlaywrightVanilla.Sample.NUnit
             await locator.InnerTextAsync();
             /*
             await locator.InputValueAsync();
-            await locator.SelectOptionAsync("");
             */
             await locator.TextContentAsync();
         }
@@ -200,7 +207,7 @@ namespace PlaywrightVanilla.Sample.NUnit
             await page.CheckAsync("#profession-1");
 
             // select / option
-            await page.SelectOptionAsync("#continents", "Europe");
+            await page.SelectOptionAsync("#continents", "Europe"); // Use ILocator.SelectOptionAsync instead.
 
             // input / file
             await page.SetInputFilesAsync("#photo", @"..\..\..\..\..\icon.png");
@@ -222,6 +229,33 @@ namespace PlaywrightVanilla.Sample.NUnit
             */
             //await page.TypeAsync(); // Obsolete
             await page.UncheckAsync("#profession-1");
+
+            // Locator
+            var locator = page.Locator("main");
+            /*
+            await locator.CheckAsync();
+            await locator.ClearAsync();
+            */
+            await locator.ClickAsync();
+            await locator.DblClickAsync();
+            /*
+            await locator.DragToAsync();
+            await locator.FillAsync("");
+            */
+            await locator.FocusAsync();
+            await locator.HoverAsync();
+            await locator.PressAsync("Control");
+            await locator.PressSequentiallyAsync("Control+C");
+            /*
+            await locator.SelectOptionAsync("");
+            await locator.SetCheckedAsync(true);
+            await locator.SetInputFilesAsync("");
+            await locator.TapAsync();
+            */
+            //await locator.TypeAsync(); // Obsolete
+            /*
+            await locator.UncheckAsync();
+            */
         }
 
         [Test]
