@@ -80,24 +80,56 @@ namespace PlaywrightVanilla.Sample.NUnit
             var page = await Page();
             var timeout = (int)TimeSpan.FromSeconds(3).TotalMilliseconds;
 
-            var requestTask = page.WaitForRequestAsync("https://github.com/microsoft/playwright-dotnet", new() { Timeout = timeout });
-            var responseTask = page.WaitForResponseAsync("https://github.com/microsoft/playwright-dotnet", new() { Timeout = timeout });
-            var loadStateTask = page.WaitForLoadStateAsync(LoadState.NetworkIdle, new() { Timeout = timeout });
+            var tasks = new Task[]
+            {
+                /*
+                page.WaitForConsoleMessageAsync(new() { Timeout = timeout }),
+                page.WaitForDownloadAsync(new() { Timeout = timeout }),
+                page.WaitForFileChooserAsync(new() { Timeout = timeout }),
+                */
+                page.WaitForFunctionAsync("() => window.location.href === 'https://github.com/microsoft/playwright-dotnet'", null, new() { Timeout = timeout }),
+                page.WaitForLoadStateAsync(LoadState.Load, new() { Timeout = timeout }),
+                //page.WaitForNavigationAsync(), // Obsolete
+                /*
+                page.WaitForPopupAsync(new() { Timeout = timeout }),
+                */
+                page.WaitForRequestAsync("https://github.com/microsoft/playwright-dotnet", new() { Timeout = timeout }),
+                page.WaitForRequestFinishedAsync(new() { Timeout = timeout }),
+                page.WaitForResponseAsync("https://github.com/microsoft/playwright-dotnet", new() { Timeout = timeout }),
+                //page.WaitForSelectorAsync(), // Using ILocator objects and web-first assertions makes the code wait-for-selector-free.
+                page.WaitForTimeoutAsync(timeout),
+                page.WaitForURLAsync("https://github.com/microsoft/playwright-dotnet", new() { Timeout = timeout }),
+                /*
+                page.WaitForWebSocketAsync(new() { Timeout = timeout }),
+                page.WaitForWorkerAsync(new() { Timeout = timeout }),
+                */
+            };
             await page.GotoAsync("https://github.com/microsoft/playwright-dotnet");
-            await Task.WhenAll(requestTask, responseTask, loadStateTask);
+            await Task.WhenAll(tasks);
 
-            await page.ClickAsync("a >> text=playwright-dotnet");
-            await page.WaitForNavigationAsync(new() { WaitUntil = WaitUntilState.NetworkIdle, Timeout = timeout });
-            await page.WaitForFunctionAsync("() => window.location.href === 'https://github.com/microsoft/playwright-dotnet'", timeout);
-            await page.WaitForSelectorAsync("h1 >> text=Playwright for .NET", new() { State = WaitForSelectorState.Visible, Timeout = timeout });
-            await page.WaitForURLAsync("https://github.com/microsoft/playwright-dotnet", new() { Timeout = timeout });
+            tasks = new Task[]
+            {
+                /*
+                page.RunAndWaitForConsoleMessageAsync(async () => await Task.Delay(1), new() { Timeout = timeout }),
+                page.RunAndWaitForDownloadAsync(async() => await Task.Delay(1), new() { Timeout = timeout }),
+                page.RunAndWaitForFileChooserAsync(async() => await Task.Delay(1), new() { Timeout = timeout }),
+                */
+                //page.RunAndWaitForNavigationAsync(), // Obsolete
+                /*
+                page.RunAndWaitForPopupAsync(async() => await Task.Delay(1), new() { Timeout = timeout }),
+                */
+                page.RunAndWaitForRequestAsync(async() => await Task.Delay(1), "https://github.com/microsoft/playwright-dotnet", new() { Timeout = timeout }),
+                page.RunAndWaitForRequestFinishedAsync(async() => await Task.Delay(1), new() { Timeout = timeout }),
+                page.RunAndWaitForResponseAsync(async() => await Task.Delay(1), "https://github.com/microsoft/playwright-dotnet", new() { Timeout = timeout }),
+                /*
+                page.RunAndWaitForWebSocketAsync(async() => await Task.Delay(1), new() { Timeout = timeout }),
+                page.RunAndWaitForWorkerAsync(async() => await Task.Delay(1), new() { Timeout = timeout }),
+                */
+            };
+            await page.GotoAsync("https://github.com/microsoft/playwright-dotnet");
+            await Task.WhenAll(tasks);
 
             await page.Locator("h1 >> text=Playwright for .NET").WaitForAsync(new() { Timeout = timeout });
-
-            await page.RunAndWaitForNavigationAsync(async () =>
-            {
-                await page.ClickAsync("a >> text=playwright-dotnet");
-            }, new() { Timeout = timeout });
 
             // LoadState
             _ = new[] { LoadState.Load, LoadState.DOMContentLoaded, LoadState.NetworkIdle };
@@ -116,13 +148,37 @@ namespace PlaywrightVanilla.Sample.NUnit
             await page.GotoAsync("https://github.com/microsoft/playwright-dotnet");
 
             _ = page.Url;
-            await page.TitleAsync();
             await page.ContentAsync();
-            await page.TextContentAsync("h1 >> text=Playwright for .NET");
-            await page.InnerTextAsync("h1 >> text=Playwright for .NET");
-            await page.InnerHTMLAsync("h1 >> text=Playwright for .NET");
             await page.GetAttributeAsync("a >> text=playwright-dotnet", "href");
-            await page.InputValueAsync("[data-test-selector=nav-search-input]");
+            await page.InnerHTMLAsync("h1 >> text=Playwright for .NET");
+            await page.InnerTextAsync("h1 >> text=Playwright for .NET");
+            await page.InputValueAsync("#query-builder-test");
+            await page.TextContentAsync("h1 >> text=Playwright for .NET");
+            //await page.SelectOptionAsync(); // Use ILocator.SelectOptionAsync instead.
+            await page.TitleAsync();
+
+            await page.PdfAsync();
+            await page.ScreenshotAsync();
+        }
+
+        [Test]
+        public async Task values_from_Locator()
+        {
+            var page = await Page();
+            await page.GotoAsync("https://github.com/microsoft/playwright-dotnet");
+            var locator = page.Locator("h1 >> text=Playwright for .NET");
+
+            await locator.AllInnerTextsAsync();
+            await locator.AllTextContentsAsync();
+            await locator.CountAsync();
+            await locator.GetAttributeAsync("href");
+            await locator.InnerHTMLAsync();
+            await locator.InnerTextAsync();
+            /*
+            await locator.InputValueAsync();
+            await locator.SelectOptionAsync("");
+            */
+            await locator.TextContentAsync();
         }
 
         [Test]
@@ -151,6 +207,21 @@ namespace PlaywrightVanilla.Sample.NUnit
 
             // button
             await page.ClickAsync("#submit");
+
+            // other
+            await page.DblClickAsync("#main");
+            /*
+            await page.DragAndDropAsync("", "");
+            */
+            await page.FocusAsync("#submit");
+            await page.HoverAsync("#main");
+            await page.PressAsync("#main", "Control+C");
+            await page.SetCheckedAsync("#profession-1", true);
+            /*
+            await page.TapAsync("#main");
+            */
+            //await page.TypeAsync(); // Obsolete
+            await page.UncheckAsync("#profession-1");
         }
 
         [Test]
@@ -161,38 +232,49 @@ namespace PlaywrightVanilla.Sample.NUnit
 
             var outerHtml = await page.EvalOnSelectorAsync<string>("a >> text=playwright-dotnet", "e => e.outerHTML");
             var hasContent = await page.EvalOnSelectorAsync<bool>("a >> text=playwright-dotnet", "(e, value) => e.textContent.includes(value)", "playwright-dotnet");
-            Assert.AreEqual("<a data-pjax=\"#repo-content-pjax-container\" href=\"/microsoft/playwright-dotnet\">playwright-dotnet</a>", outerHtml);
+            Assert.AreEqual("<a data-pjax=\"#repo-content-pjax-container\" data-turbo-frame=\"repo-content-turbo-frame\" href=\"/microsoft/playwright-dotnet\">playwright-dotnet</a>", outerHtml);
             Assert.True(hasContent);
+
+            // other
+            await page.EvalOnSelectorAllAsync("a >> text=playwright-dotnet", "e => e.outerHTML");
+            await page.EvaluateAsync("document.body");
+            await page.EvaluateHandleAsync("document.body");
 
             var locator = page.Locator("a >> text=playwright-dotnet");
 
             outerHtml = await locator.EvaluateAsync<string>("e => e.outerHTML");
             hasContent = await locator.EvaluateAsync<bool>("(e, value) => e.textContent.includes(value)", "playwright-dotnet");
-            Assert.AreEqual("<a data-pjax=\"#repo-content-pjax-container\" href=\"/microsoft/playwright-dotnet\">playwright-dotnet</a>", outerHtml);
+            Assert.AreEqual("<a data-pjax=\"#repo-content-pjax-container\" data-turbo-frame=\"repo-content-turbo-frame\" href=\"/microsoft/playwright-dotnet\">playwright-dotnet</a>", outerHtml);
             Assert.True(hasContent);
+
+            // other
+            await locator.EvaluateAllAsync<string>("e => e.outerHTML");
+            await locator.EvaluateHandleAsync("e => e.outerHTML");
         }
 
         [Test]
         public async Task is_()
         {
             var page = await Page();
+
             await page.GotoAsync("https://github.com/microsoft/playwright-dotnet");
+            Assert.False(page.IsClosed);
+            Assert.False(await page.IsCheckedAsync("#include_email"));
+            Assert.False(await page.IsDisabledAsync("#query-builder-test"));
+            Assert.True(await page.IsEditableAsync("#query-builder-test"));
+            Assert.True(await page.IsEnabledAsync("#query-builder-test"));
+            Assert.True(await page.IsHiddenAsync("#query-builder-test"));
+            Assert.False(await page.IsVisibleAsync("#query-builder-test"));
 
-            Assert.ThrowsAsync<PlaywrightException>(async () => await page.IsCheckedAsync("[data-test-selector=nav-search-input]")); // Not a checkbox or radio button
-            Assert.False(await page.IsDisabledAsync("[data-test-selector=nav-search-input]"));
-            Assert.True(await page.IsEditableAsync("[data-test-selector=nav-search-input]"));
-            Assert.True(await page.IsEnabledAsync("[data-test-selector=nav-search-input]"));
-            Assert.False(await page.IsHiddenAsync("[data-test-selector=nav-search-input]"));
-            Assert.True(await page.IsVisibleAsync("[data-test-selector=nav-search-input]"));
+            var locator = page.Locator("#include_email");
+            Assert.False(await locator.IsCheckedAsync());
 
-            var locator = page.Locator("[data-test-selector=nav-search-input]");
-
-            Assert.ThrowsAsync<PlaywrightException>(async () => await locator.IsCheckedAsync()); // Not a checkbox or radio button
+            locator = page.Locator("#query-builder-test");
             Assert.False(await locator.IsDisabledAsync());
             Assert.True(await locator.IsEditableAsync());
             Assert.True(await locator.IsEnabledAsync());
-            Assert.False(await locator.IsHiddenAsync());
-            Assert.True(await locator.IsVisibleAsync());
+            Assert.True(await locator.IsHiddenAsync());
+            Assert.False(await locator.IsVisibleAsync());
         }
     }
 }
