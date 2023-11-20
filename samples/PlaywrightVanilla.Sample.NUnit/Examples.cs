@@ -8,7 +8,7 @@ namespace PlaywrightVanilla.Sample.NUnit
 {
     public class Examples
     {
-        async Task<IBrowser> Browser()
+        static async Task<IBrowser> Browser()
         {
             var playwright = await Playwright.CreateAsync();
             var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
@@ -44,7 +44,7 @@ namespace PlaywrightVanilla.Sample.NUnit
             // ...
         }
 
-        async Task<IPage> Page()
+        static async Task<IPage> Page()
         {
             var browser = await Browser();
             var page = await browser.NewPageAsync();
